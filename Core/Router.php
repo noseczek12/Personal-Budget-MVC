@@ -69,7 +69,8 @@ public function dispatch($url)
         if ($this->match($url)) {
             $controller = $this->params['controller'];
             $controller = $this->convertToStudlyCaps($controller);
-			$controller = "App\Controllers\\$controller";
+			//$controller = "App\Controllers\\$controller";
+			$controller = $this->getNamespace() . $controller;
 
             if (class_exists($controller)) {
                 $controller_object = new $controller($this->params);
@@ -117,5 +118,17 @@ public function dispatch($url)
         }
 		
         return $url;
+    }
+	
+	//funkcja zwracająca amespace dla kontrolera klasy
+	protected function getNamespace()
+    {
+        $namespace = 'App\Controllers\\';
+
+        if (array_key_exists('namespace', $this->params)) {
+            $namespace .= $this->params['namespace'] . '\\';
+        }
+
+        return $namespace;
     }
 }
