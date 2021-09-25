@@ -4,12 +4,20 @@
 
 // echo 'Requested URL = "' . $_SERVER['QUERY_STRING'] . ' " ';
 
-require '../App/Controllers/Posts.php';
+//require '../App/Controllers/Posts.php';
+
+//Autoloader - automatyczne ładowanie ścieżek dostępu poszczgólnych elem frameworka
+spl_autoload_register(function ($class){
+	$root = dirname(__DIR__);   //uzyskujemy ścieżkę katalogu nadrzędnego
+	$file = $root . '/' . str_replace('\\', '/', $class) . '.php';
+	if (is_readable($file)){
+		require $root . '/' . str_replace('\\', '/', $class) . '.php';
+	}
+});
 
 /*Routing */
-require '../Core/Router.php';
-
-$router = new Router();
+//require '../Core/Router.php';
+$router = new Core\Router();
 
 // Dodawanie ścieżek
 $router->add('', ['controller' => 'Home', 'action' => 'index']);

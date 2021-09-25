@@ -1,5 +1,6 @@
 <?php
 
+namespace App\Controllers;
 /* Posts Controller */
 class Posts
 {
