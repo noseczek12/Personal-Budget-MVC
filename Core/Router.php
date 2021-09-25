@@ -10,8 +10,17 @@ class Router
 	protected $params = [];
 
     /* funkcja dodająca nowe ścieżki*/
-    public function add($route, $params)
+    public function add($route, $params = [])
     {
+        // Przekształcamy ścieżkę na wyrażenie regularne: usuwamy slashe /
+        $route = preg_replace('/\//', '\\/', $route);
+
+        // Przekształcamy zmienne, np {controller}
+        $route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
+
+        // Dodajemy początek i koniec wyrażenia regularnego
+        $route = '/^' . $route . '$/i';
+
         $this->routes[$route] = $params;
     }
 
@@ -24,20 +33,18 @@ class Router
 	/*Przypasowanie ścieżki do innych ścieżek w tablicy , ustawienie właściwości jeśli ścieżka jest odnaleziona*/
     public function match($url)
      {
-        // Przypasowanie do URL zapisanego jako wyrażenie regularne (controller/action)
-        $reg_exp = "/^(?P<controller>[a-z-]+)\/(?P<action>[a-z-]+)$/";
+		foreach ($this->routes as $route => $params) {
+            if (preg_match($route, $url, $matches)) {
 
-        if (preg_match($reg_exp, $url, $matches)) {
-            $params = [];
-
-            foreach ($matches as $key => $match) {
-                if (is_string($key)) {
-                    $params[$key] = $match;
+                foreach ($matches as $key => $match) {
+                    if (is_string($key)) {
+                        $params[$key] = $match;
+                    }
                 }
-            }
 
-            $this->params = $params;
-            return true;
+                $this->params = $params;
+                return true;
+            }
         }
 
         return false;
