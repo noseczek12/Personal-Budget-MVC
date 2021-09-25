@@ -17,6 +17,9 @@ class Router
 
         // Przekształcamy zmienne, np {controller}
         $route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
+		
+		//Przekształcamy zmienne z własnymi wyrażeniami regularnymi, np {id:\d+}
+		$route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
 
         // Dodajemy początek i koniec wyrażenia regularnego
         $route = '/^' . $route . '$/i';
