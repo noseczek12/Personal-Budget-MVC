@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 /* Home controller */
-class Home
+class Home extends \Core\Controller
 {
 
 //funkcja wyświetlająca stronę index
