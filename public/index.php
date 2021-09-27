@@ -6,6 +6,9 @@
 
 //require '../App/Controllers/Posts.php';
 
+//Twig
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
 //Autoloader - automatyczne ładowanie ścieżek dostępu poszczgólnych elem frameworka
 spl_autoload_register(function ($class){
 	$root = dirname(__DIR__);   //uzyskujemy ścieżkę katalogu nadrzędnego
