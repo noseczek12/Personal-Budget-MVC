@@ -2,30 +2,19 @@
 
 namespace App\Controllers\Admin;
 
-/**
- * User admin controller
- *
- * PHP version 5.4
- */
+/* User admin controller */
+
 class Users extends \Core\Controller
 {
 
-    /**
-     * Before filter
-     *
-     * @return void
-     */
+    // Filtr przed
     protected function before()
     {
         // Make sure an admin user is logged in for example
         // return false;
     }
 
-    /**
-     * Show the index page
-     *
-     * @return void
-     */
+    //funkcja pokauzująca stronę index
     public function indexAction()
     {
         echo 'User admin index';

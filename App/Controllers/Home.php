@@ -1,23 +1,24 @@
 <?php
 
 namespace App\Controllers;
+use \Core\View;
 
 /* Home controller */
 class Home extends \Core\Controller
 {
 	 protected function before()
     {
-        echo "(before) ";
+        //echo "(before) ";
     }
 
 //funkcja wyświetlająca stronę index
     public function indexAction()
     {
-        echo 'Hello from the index action in the Home controller!';
+        View::render('Home/index.php');
     }
 	
 	protected function after()
     {
-        echo " (after)";
+        //echo " (after)";
     }
 }
