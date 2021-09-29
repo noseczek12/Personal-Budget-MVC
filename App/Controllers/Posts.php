@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 use \Core\View;
+use App\Models\Post;
+
 /* Posts Controller */
 class Posts extends \Core\Controller
 {
@@ -9,7 +11,11 @@ class Posts extends \Core\Controller
     // funkcja wyświetlająca stronę index 
     public function indexAction()
     {
-       View::renderTemplate('Posts/index.html');
+		$posts = Post::getAll();
+		
+       View::renderTemplate('Posts/index.html', [
+					'posts' => $posts
+		]);
     }
 
      // funkcja wyświetlająca stronę add-new 
