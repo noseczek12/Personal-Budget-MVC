@@ -5,6 +5,10 @@
 //Twig
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+//wychwytywanie błędów i wyjątków
+set_error_handler('Core\Error::errorHandler');
+set_exception_handler('Core\Error::exceptionHandler');
+
 /*Routing */
 //require '../Core/Router.php';
 $router = new Core\Router();

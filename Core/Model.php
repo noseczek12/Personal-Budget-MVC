@@ -15,13 +15,13 @@ abstract class Model
     static $db = null;
     if ($db === null) {
         
-        try {
           $dsn = 'mysql:host=' . Config::DB_HOST . ';dbname=' . Config::DB_NAME . ';charset=utf8';
-           $db = new PDO($dsn, Config::DB_USER, Config::DB_PASSWORD);
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
+          $db = new PDO($dsn, Config::DB_USER, Config::DB_PASSWORD);
+       
+	   //wyrzuć wyjątek jeśli wystąpi błąd
+	   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
+	
     return $db;
 	}   
 }
