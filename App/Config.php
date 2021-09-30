@@ -15,5 +15,5 @@ class Config
 	//hasło bazy danych
     const DB_PASSWORD = '';
 	// pokazywanie lub ukrywanie wiadomości o błędach
-	const SHOW_ERRORS = true;
+	const SHOW_ERRORS = false;
 }
