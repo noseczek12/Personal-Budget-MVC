@@ -14,10 +14,7 @@ class Home extends \Core\Controller
 //funkcja wyświetlająca stronę index
     public function indexAction()
     {
-        View::renderTemplate('Home/index.html', [
-            'name'    => 'Dave',
-            'colours' => ['red', 'green', 'blue']
-        ]);
+        View::renderTemplate('Home/index.html');
     }
 	
 	protected function after()

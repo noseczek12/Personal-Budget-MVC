@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App;
 
@@ -15,5 +15,5 @@ class Config
 	//hasło bazy danych
     const DB_PASSWORD = 'secret';
 	// pokazywanie lub ukrywanie wiadomości o błędach
-	const SHOW_ERRORS = false;
+	const SHOW_ERRORS = true;
 }
