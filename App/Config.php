@@ -14,4 +14,6 @@ class Config
     const DB_USER = 'root';
 	//hasło bazy danych
     const DB_PASSWORD = '';
+	// pokazywanie lub ukrywanie wiadomości o błędach
+	const SHOW_ERRORS = true;
 }
