@@ -1,11 +1,12 @@
-﻿<?php
+<?php
 
 namespace App;
 
-/* Application configuration*/
-
+// Application configuration
+ 
 class Config
 {
+
     // nazwa hosta bazy danych
     const DB_HOST = 'localhost';
 	//nazwa bazy danych
