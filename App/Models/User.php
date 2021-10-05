@@ -54,6 +54,9 @@ class User extends \Core\Model
        if (filter_var($this->email, FILTER_VALIDATE_EMAIL) === false) {
            $this->errors[] = 'Invalid email';
        }
+	   if ($this->emailExists($this->email)) {
+            $this->errors[] = 'email already taken';
+        }
 
        // Password
        if ($this->password != $this->password_confirmation) {
@@ -72,4 +75,18 @@ class User extends \Core\Model
            $this->errors[] = 'Password needs at least one number';
        }
 	}
+	
+	//funkcja sprawdzająca czy istnieje już konto z podanym mailem
+	protected function emailExists($email)
+    {
+        $sql = 'SELECT * FROM users WHERE email = :email';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+
+        $stmt->execute();
+
+        return $stmt->fetch() !== false;
+    }
 }
