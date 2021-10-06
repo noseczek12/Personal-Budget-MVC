@@ -54,7 +54,7 @@ class User extends \Core\Model
        if (filter_var($this->email, FILTER_VALIDATE_EMAIL) === false) {
            $this->errors[] = 'Invalid email';
        }
-	   if ($this->emailExists($this->email)) {
+	   if (static::emailExists($this->email)) {
             $this->errors[] = 'email already taken';
         }
 
@@ -77,7 +77,7 @@ class User extends \Core\Model
 	}
 	
 	//funkcja sprawdzająca czy istnieje już konto z podanym mailem
-	protected function emailExists($email)
+	public static function emailExists($email)
     {
         $sql = 'SELECT * FROM users WHERE email = :email';
 
