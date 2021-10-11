@@ -2,6 +2,8 @@
 
 namespace App;
 
+use \App\Models\User;
+
 //uwierzytelnianie
 
 class Auth
@@ -30,11 +32,6 @@ class Auth
 			// i ostatecznie, zniszcz sesję
 			session_destroy();
 		}
-		
-	public static function isLoggedIn()
-	{
-		return isset($_SESSION['user_id']);
-	}
 	
 	public static function rememberRequestedPage()
 	{
@@ -44,5 +41,12 @@ class Auth
 	public static function getReturnToPage()
 	{
 		 return $_SESSION['return_to'] ?? '/';
+	}
+	
+	public static function getUser()
+	{
+			if (isset($_SESSION['user_id'])){
+					return User::findByID($_SESSION['user_id']);
+			}
 	}
 }
