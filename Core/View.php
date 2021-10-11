@@ -29,7 +29,7 @@ class View
         if ($twig === null) {
             $loader = new \Twig\Loader\FilesystemLoader('../App/Views');
             $twig = new \Twig\Environment($loader);
-			$twig->addGlobal('session' , $_SESSION);
+			$twig->addGlobal('is_logged_in', \App\Auth::isLoggedIn());
         }
 
         echo $twig->render($template, $args);

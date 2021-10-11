@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Core\View;
 use \App\Models\User;
+use \App\Auth;
 
 //Login controller
 
@@ -21,10 +22,7 @@ class Login extends \Core\Controller
 			$user = User::authenticate($_POST['email'] , $_POST['password']);
 			
 			if($user){
-					session_regenerate_id(true);
-					
-					$_SESSION['user_id'] = $user->id;
-					
+					Auth::login($user);
 					$this->redirect('/');
 			}else {
 					View::renderTemplate('Login/new.html' , ['email' => $_POST['email'],]);
@@ -34,20 +32,7 @@ class Login extends \Core\Controller
 	// funkcja wylogowania
 	public function destroyAction()
 	{
-			// wyłącz wszystkie zmienne sesyjne
-			$_SESSION = array();
-
-			// zniszcz sesję cookie
-			if (ini_get("session.use_cookies")) {
-				$params = session_get_cookie_params();
-				setcookie(session_name(), '', time() - 42000,
-					$params["path"], $params["domain"],
-					$params["secure"], $params["httponly"]
-				);
-			}
-
-			// i ostatecznie, zniszcz sesję
-			session_destroy();
+			Auth::logout();
 			
 			$this->redirect('/');
 	}
