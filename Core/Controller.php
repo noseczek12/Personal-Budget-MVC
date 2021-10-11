@@ -44,4 +44,12 @@ abstract class Controller
 					header('Location: http://' . $_SERVER['HTTP_HOST'] . '/', true, 303);
 					exit;
 		}
+		
+		public function requireLogin()
+		{
+				if(! Auth::isLoggedIn()){
+					Auth::rememberRequestedPage();
+					$this->redirect('/login');
+				}
+		}	
 }
