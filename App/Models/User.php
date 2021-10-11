@@ -10,7 +10,7 @@ class User extends \Core\Model
 {
 	public $errors = [];
 	//konstruktor klasy
-	public function __construct($data)
+	public function __construct($data = [])
 	{
 			foreach ($data as $key => $value){
 				$this->$key = $value;
@@ -75,14 +75,34 @@ class User extends \Core\Model
 	//funkcja sprawdzająca czy istnieje już konto z podanym mailem
 	public static function emailExists($email)
     {
-        $sql = 'SELECT * FROM users WHERE email = :email';
+			return static::findByEmail($email) !== false;
+    }
+	
+	//sprawdzanie użytkownika po mailu
+	public static function findByEmail($email)
+	{
+		$sql = 'SELECT * FROM users WHERE email = :email';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+		$stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
 
         $stmt->execute();
 
-        return $stmt->fetch() !== false;
-    }
+        return $stmt->fetch();
+	}
+	
+	//weryfikacja logowania, czy email i hasło się zgadają
+	public static function authenticate($email,$password)
+	{
+			$user = static::findByEmail($email);
+			
+			if($user){
+					if(password_verify($password, $user->password_hash)){
+							return $user;
+					}
+			}
+			return false;
+	}
 }
