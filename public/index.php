@@ -2,6 +2,7 @@
 
 /* Front controller */
 
+ini_set('session.cookie_lifetime', '864000' );
 //Twig
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 

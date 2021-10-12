@@ -17,4 +17,6 @@ class Config
     const DB_PASSWORD = 'secret';
 	// pokazywanie lub ukrywanie wiadomości o błędach
 	const SHOW_ERRORS = true;
+	//tajny klucz do hashowania
+	const SECRET_KEY = 'Sl49kwPkTzC38R9EdMZqfUDKtxjl5HO7';
 }
