@@ -10,11 +10,22 @@ class Flash
 	 public static function addMessage($message)
 	 {
 		 //utworzenie tablicy w sesji, jeśli nie istnieje
-			if(! isset($_SESSION['flash_notifications'])) {
-					$_SESSION['flash_notifications'] = [];
-			}
+		if (! isset($_SESSION['flash_notifications'])) {
+            $_SESSION['flash_notifications'] = [];
+        }
 			
 			//dodaj wiadomość do tablicy
 			$_SESSION['flash_notifications'][] = $message;
 	 }
+	 
+	 //otrzymywanie wiadomości
+	 public static function getMessages()
+	 {
+        if (isset($_SESSION['flash_notifications'])) {
+            $messages = $_SESSION['flash_notifications'];
+            unset($_SESSION['flash_notifications']);
+
+            return $messages;
+        }
+    }
 }
