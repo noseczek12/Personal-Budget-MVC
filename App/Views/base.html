@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+	<link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
     <nav>
@@ -10,8 +11,8 @@
     </nav>
 	</br>
 	{% for message in flash_messages %}
-			<div>
-					{{message}}
+			<div class="alert alert-{{ message.type }}">
+					{{message.body}}
 			</div>
 	{% endfor %}
     {% block body %}

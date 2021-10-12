@@ -6,8 +6,12 @@ namespace App;
 
 class Flash
 {
+	const SUCCESS = 'success';
+	const INFO = 'info';
+	const WARNING = 'warning';
+	
 	 //dodawanie wadomości
-	 public static function addMessage($message)
+	 public static function addMessage($message, $type = 'success')
 	 {
 		 //utworzenie tablicy w sesji, jeśli nie istnieje
 		if (! isset($_SESSION['flash_notifications'])) {
@@ -15,7 +19,10 @@ class Flash
         }
 			
 			//dodaj wiadomość do tablicy
-			$_SESSION['flash_notifications'][] = $message;
+			$_SESSION['flash_notifications'][] = [
+					'body' =>$message,
+					'type' =>$type
+			];
 	 }
 	 
 	 //otrzymywanie wiadomości
