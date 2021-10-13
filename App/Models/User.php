@@ -142,4 +142,14 @@ class User extends \Core\Model
 
         return $stmt->execute();
 	}
+	
+	//wyślij instrukcje resetu hasła dla konkretnego użytkownika
+	public static function sendPasswordReset($email)
+	{
+			$user = static::findByEmail($email);
+			if($user){
+				//start password reset process here
+				
+			}
+	}
 }

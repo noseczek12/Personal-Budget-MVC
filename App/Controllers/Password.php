@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use \Core\View;
+use \App\Models\User;
 
 //Password controller
 
@@ -12,5 +13,11 @@ class Password extends \Core\Controller
 		public function forgotAction()
 		{
 				View::renderTemplate('Password/forgot.html');
+		}
+		//wyślij link z resetem hasła na podany mail
+		public function requestResetAction()
+		{
+				User::sendPasswordReset($_POST['email']);
+				View::renderTemplate('Password/reset_requested.html');
 		}
 }
