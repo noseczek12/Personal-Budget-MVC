@@ -4,6 +4,8 @@ namespace App\Models;
 
 use PDO;
 use \App\Token;
+use \App\Mail;
+use \Core\View;
 
 // User model//
 
@@ -150,7 +152,7 @@ class User extends \Core\Model
 			if($user){
 						if($user->startPasswordReset()) {
 							
-							//send email here
+							$user->sendPasswordResetEmail();
 							
 						}
 			}
@@ -161,6 +163,7 @@ class User extends \Core\Model
 	{
 		$token = new Token();
         $hashed_token = $token->getHash();
+		$this->password_reset_token = $token->getValue();
 
         $expiry_timestamp = time() + 60 * 60 * 2;  // 2 hours from now
 
@@ -177,5 +180,15 @@ class User extends \Core\Model
         $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
 
         return $stmt->execute();	
+	}
+	
+	//funcja wysyłająca instrukcje do resetu hasła
+	protected function sendPasswordResetEmail()
+	{
+				$url = 'http://' . $_SERVER['HTTP_HOST'] . '/password/reset/' . $this->password_reset_token;
+				$text = View::getTemplate('Password/reset_email.html', ['url' => $url]);
+				
+				Mail::send($this->email, 'Password reset', $text);
+				
 	}
 }

@@ -24,6 +24,12 @@ class View
 	//renderowanie widoku z użyciem Twiga
 	public static function renderTemplate($template, $args = [])
     {
+       echo static::getTemplate($template, $args);
+    }
+	
+	//renderowanie widoku z użyciem Twiga
+	public static function getTemplate($template, $args = [])
+    {
         static $twig = null;
 
         if ($twig === null) {
@@ -33,6 +39,6 @@ class View
 			$twig->addGlobal('flash_messages', \App\Flash::getMessages());
         }
 
-        echo $twig->render($template, $args);
+        return $twig->render($template, $args);
     }
 }
