@@ -20,4 +20,11 @@ class Password extends \Core\Controller
 				User::sendPasswordReset($_POST['email']);
 				View::renderTemplate('Password/reset_requested.html');
 		}
+		
+		//wykonaj reset hasła
+		public function resetAction()
+		{
+				$token = $this->route_params['token'];
+				echo $token;
+		}
 }
