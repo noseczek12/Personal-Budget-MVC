@@ -191,4 +191,35 @@ class User extends \Core\Model
 				Mail::send($this->email, 'Password reset', $text);
 				
 	}
+	
+	//funkcja znajdująca użytkownika po tokenie resetu hasła
+	public static function findByPasswordReset($token)
+	{
+		$token = new Token($token);
+        $hashed_token = $token->getHash();
+
+        $sql = 'SELECT * FROM users
+                WHERE password_reset_hash = :token_hash';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':token_hash', $hashed_token, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+
+        $user = $stmt->fetch();
+
+        if ($user) {
+
+            // Check password reset token hasn't expired
+            if (strtotime($user->password_reset_expiry) > time()) {
+
+                return $user;
+
+            }
+        }
+    }
 }
