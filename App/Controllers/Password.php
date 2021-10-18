@@ -28,6 +28,10 @@ class Password extends \Core\Controller
 
 				$user = User::findByPasswordReset($token);
 
-				var_dump($user);      
+				if($user){
+						View::renderTemplate('Password/reset.html');
+				} else {
+						echo "Password reset token invalid";
+				}
 		}
 }
