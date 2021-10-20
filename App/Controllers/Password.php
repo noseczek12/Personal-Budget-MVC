@@ -38,7 +38,14 @@ class Password extends \Core\Controller
 					$token = $_POST['token'];
 					$user = $this->getUserOrExit($token);
 					
-					echo "Reset user's password here";
+					if ($user->resetPassword($_POST['password'])){
+							View::renderTemplate('Password/reset_success.html');
+					}else{
+							View::renderTemplate('Password/reset.html', [
+								'token' => $token,
+								'user' => $user
+								]);
+					}
 		}
 		
 		//funkcja znajdująca użytkownika powiązanego z tokenem

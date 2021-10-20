@@ -57,7 +57,7 @@ class User extends \Core\Model
        if (filter_var($this->email, FILTER_VALIDATE_EMAIL) === false) {
            $this->errors[] = 'Invalid email';
        }
-	   if (static::emailExists($this->email)) {
+	   if (static::emailExists($this->email, $this->id ?? null)) {
             $this->errors[] = 'email already taken';
         }
 
@@ -76,9 +76,16 @@ class User extends \Core\Model
 	}
 	
 	//funkcja sprawdzająca czy istnieje już konto z podanym mailem
-	public static function emailExists($email)
+	public static function emailExists($email, $ignore_id =null)
     {
-			return static::findByEmail($email) !== false;
+			$user = static::findByEmail($email);
+			
+			if($user){
+					if($user->id != $ignore_id){
+						return true;
+					}
+			}
+			return false;
     }
 	
 	//sprawdzanie użytkownika po mailu
@@ -222,4 +229,31 @@ class User extends \Core\Model
             }
         }
     }
+	
+	//resetowanie hasła
+	public function resetPassword($password)
+	{
+				$this->password = $password;
+				$this->validate();
+				if (empty($this->errors)) {
+
+            $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
+
+            $sql = 'UPDATE users
+                    SET password_hash = :password_hash,
+                        password_reset_hash = NULL,
+                        password_reset_expiry = NULL
+                    WHERE id = :id';
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+            $stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
+
+            return $stmt->execute();
+        }
+
+        return false;
+	}
 }
