@@ -1,3 +1,4 @@
+.gitignore
 **/vendor
 **/logs
 /App/Config.php
