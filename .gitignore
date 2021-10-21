@@ -1,4 +1,3 @@
 **/vendor
 **/logs
-composer.json
-composer.lock
+/App/Config.php
