@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 //Authenticated base controller
 
-abstract class Authenticated extends \Core\Controllers
+abstract class Authenticated extends \Core\Controller
 {
 		protected function before()
 		{
