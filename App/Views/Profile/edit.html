@@ -58,7 +58,7 @@
         </ul>
     {% endif %}
 	
-	<form method = "post" id="formProfile">
+	<form method = "post" id="formProfile" action="/profile/update">
 			<div>
 					<label for="inputName">Name</label>
 					<input id="inputName" name="name" placeholder="Name" value="{{ user.name }}" required/>
