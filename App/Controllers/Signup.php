@@ -27,8 +27,22 @@ class Signup extends \Core\Controller
        }
 	}
 	
+	//wyświetlenie strony przy sukcesie rejestracji
 	public function successAction()
 	{
 		View::renderTemplate('Signup/success.html');
+	}
+	
+	//aktywacja nowego konta
+	public function activateAction()
+	{
+			User::activate($this->route_params['token']);
+			$this->redirect('/signup/activated');
+	}
+	
+	//wyświetlenie strony przy sukcesie aktywacji
+	public function activatedAction()
+	{
+		View::renderTemplate('Signup/activated.html');
 	}
 }
