@@ -10,11 +10,19 @@ use \App\Flash;
 
 class Profile extends Authenticated
 {
+    //filtr przed - wywoływany przed każdą metodą
+    protected function before()
+    {
+        parent::before();
+        $this->user = Auth::getUser();
+
+    }
+
     //pokazuje profil użytkownika
     public function showAction()
     {
         View::renderTemplate('Profile/show.html', [
-            'user' => Auth::getUser()
+            'user' => $this->user
         ]);
     }
 
@@ -22,20 +30,19 @@ class Profile extends Authenticated
     public function editAction()
     {
         View::renderTemplate('Profile/edit.html', [
-            'user' => Auth::getUser()
+            'user' => $this->user
         ]);
     }
 
     //aktualizuje profil
     public function updateAction()
     {
-        $user = Auth::getUser();
-        if ($user->updateProfile($_POST)){
+        if ($this->user->updateProfile($_POST)){
             Flash::addMessage('Changes saved');
             $this->redirect('/profile/show');
         }else{
             View::renderTemplate('Profile/edit.html', [
-                'user' => $user
+                'user' => $this->user
             ]);
         }
     }
