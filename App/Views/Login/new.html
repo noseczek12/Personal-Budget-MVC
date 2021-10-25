@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+    <h1>Log in</h1>
+	
+	<form action="/login/create" method="post">
+					<div class="form-group mb-2">
+							<label for="inputEmail" class="form-label">Email address</label>
+							<input type="email" id="inputEmail" name="email" placeholder="Email address" autofocus value="{{ email }}" class="form-control"/>
+					</div>
+					<div class="form-group mb-2">
+							<label for="inputPassword" class="form-label">Password</label>
+							<input type="password" id="inputPassword" name="password" placeholder="Password" class="form-control"/>
+					</div>
+					<div class="checkbox mb-2">
+							<label>
+								<input type="checkbox" name="remember_me" {% if remember_me %} checked="checked" {% endif %}/> Remember me
+							</label>
+					</div>
+					
+					<button type="submit" class="btn btn-primary">Log in</button>
+					<a href="/password/forgot">Forgot Password ?</a>
+					
+	</form>
+
+{% endblock %}
