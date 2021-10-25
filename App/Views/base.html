@@ -9,14 +9,18 @@
 </head>
 <body>
 	<div class="container mt-2">
-			<nav>
-				<ul>
-					<li><a href="/">Home</a></li>
-					{% if current_user %}
-						<li><a href="/profile/show">Profile</a></li>				
-						<li><a href="/logout">Log out</a></li>
-					{% endif %}
-				</ul>
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<div class="container-fluid">
+					<ul class="navbar-nav">
+						<li class="navbar-item"><a href="/" class="nav-link">Home</a></li>
+					</ul>
+					<ul class="navbar-nav navbar-right">
+						{% if current_user %}
+							<li class="navbar-item"><a href="/profile/show" class="nav-link">Profile</a></li>				
+							<li class="navbar-item"><a href="/logout" class="nav-link">Log out</a></li>
+						{% endif %}
+					</ul>
+				</div>
 			</nav>
 			</br>
 			{% for message in flash_messages %}
