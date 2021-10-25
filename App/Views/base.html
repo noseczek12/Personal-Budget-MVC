@@ -8,23 +8,25 @@
 	<link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-    <nav>
-        <ul>
-			<li><a href="/">Home</a></li>
-			{% if current_user %}
-				<li><a href="/profile/show">Profile</a></li>				
-				<li><a href="/logout">Log out</a></li>
-			{% endif %}
-		</ul>
-    </nav>
-	</br>
-	{% for message in flash_messages %}
-			<div class="alert alert-{{ message.type }}">
-					{{message.body}}
-			</div>
-	{% endfor %}
-    {% block body %}
-    {% endblock %}
+	<div class="container mt-2">
+			<nav>
+				<ul>
+					<li><a href="/">Home</a></li>
+					{% if current_user %}
+						<li><a href="/profile/show">Profile</a></li>				
+						<li><a href="/logout">Log out</a></li>
+					{% endif %}
+				</ul>
+			</nav>
+			</br>
+			{% for message in flash_messages %}
+					<div class="alert alert-{{ message.type }}">
+							{{message.body}}
+					</div>
+			{% endfor %}
+			{% block body %}
+			{% endblock %}
+	</div>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
 	

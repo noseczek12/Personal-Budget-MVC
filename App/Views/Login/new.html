@@ -7,15 +7,15 @@
     <h1>Log in</h1>
 	
 	<form action="/login/create" method="post">
-					<div>
-							<label for="inputEmail">Email address</label>
-							<input type="email" id="inputEmail" name="email" placeholder="Email address" autofocus value="{{ email }}"/>
+					<div class="form-gropup mb-2">
+							<label for="inputEmail" class="form-label">Email address</label>
+							<input type="email" id="inputEmail" name="email" placeholder="Email address" autofocus value="{{ email }}" class="form-control"/>
 					</div>
-					<div>
-							<label for="inputPassword">Password</label>
-							<input type="password" id="inputPassword" name="password" placeholder="Password" />
+					<div class="form-gropup mb-2">
+							<label for="inputPassword" class="form-label">Password</label>
+							<input type="password" id="inputPassword" name="password" placeholder="Password" class="form-control"/>
 					</div>
-					<div>
+					<div class="checkbox mb-2">
 							<label>
 								<input type="checkbox" name="remember_me" {% if remember_me %} checked="checked" {% endif %}/> Remember me
 							</label>

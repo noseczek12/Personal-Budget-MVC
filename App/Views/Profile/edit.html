@@ -59,18 +59,18 @@
     {% endif %}
 	
 	<form method = "post" id="formProfile" action="/profile/update">
-			<div>
-					<label for="inputName">Name</label>
-					<input id="inputName" name="name" placeholder="Name" value="{{ user.name }}" required/>
+			<div class="form-group mb-2">
+					<label for="inputName" class="form-label">Name</label>
+					<input id="inputName" name="name" placeholder="Name" value="{{ user.name }}" required class="form-control"/>
 			</div>
-			<div>
-					<label for="inputEmail">Email</label>
-					<input id="inputEmail" name="email" placeholder="Email address" value="{{ user.email }}" required type="email"/>
+			<div class="form-group mb-2">
+					<label for="inputEmail" class="form-label">Email</label>
+					<input id="inputEmail" name="email" placeholder="Email address" value="{{ user.email }}" required type="email" class="form-control"/>
 			</div>
-			<div>
-					<label for="inputPassword">Password</label>
-					<input type="password" id="inputPassword" name="password" placeholder="Password" aria-describedby="helpBlock"/>
-					<span id="helpBlock">Leave blank to keep current password</span>
+			<div class="form-group mb-2">
+					<label for="inputPassword" class="form-label">Password</label>
+					<input type="password" id="inputPassword" name="password" placeholder="Password" aria-describedby="helpBlock" class="form-control"/>
+					<span id="helpBlock" class="text-muted">Leave blank to keep current password</span>
 			</div>
 			
 			<button type="submit">Save</button>
