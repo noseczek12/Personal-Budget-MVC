@@ -1,0 +1,29 @@
+body{
+	margin: 0;
+	background-color: #228B22;
+	color: #efefef;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 17px;
+}
+.alert{
+	margin-top: 20px;
+}
+.info{
+	bottom: 0;
+	height: 2.5 rem;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	padding: 20px;
+}
+.row{
+	margin: 20px 10px;
+	text-align: center;
+}
+footer
+{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 75px;
+}
