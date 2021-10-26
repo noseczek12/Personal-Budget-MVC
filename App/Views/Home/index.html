@@ -9,7 +9,10 @@
 	{% if current_user %}
 			Hello {{ current_user.name }}.
 	{% else %}
-			<a href="/signup/new">Sign up</a> or <a href="/login/new">Log in</a>.
+		<div class="d-flex justify-content-center p-3">
+			<a href="/login/new" class="btn btn-primary btn-lg active btn-space" role="button" aria-pressed="true">Zaloguj się</a>
+			<a href="/signup/new" class="btn btn-warning btn-lg active" role="button" aria-pressed="true">Zarejestruj się</a>
+		</div>
 	{% endif %}
 	</main>
 
