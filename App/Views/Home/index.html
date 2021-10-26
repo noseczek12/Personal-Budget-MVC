@@ -3,14 +3,14 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-	
-    <h1>Welcome</h1>
-	
+	<main>
+    <h1><center>Witaj w budżecie osobistym!</center></h1>
+	<img src="/img/index.jpg" alt="index-img" class="rounded mx-auto d-block img-fluid">
 	{% if current_user %}
 			Hello {{ current_user.name }}.
 	{% else %}
 			<a href="/signup/new">Sign up</a> or <a href="/login/new">Log in</a>.
 	{% endif %}
-	
+	</main>
 
 {% endblock %}

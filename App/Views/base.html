@@ -30,7 +30,6 @@
 				</br>
 				</nav>	
 			</header>
-			<main>
 
 			
 			{% for message in flash_messages %}
@@ -38,7 +37,6 @@
 					{{message.body}}
 				</div>
 			{% endfor %}
-			</main>
 			{% block body %}
 			{% endblock %}
 	
