@@ -1,17 +1,39 @@
-body{
+body
+{
 	margin: 0;
 	background-color: #228B22;
 	color: #efefef;
     font-family: 'Open Sans', sans-serif;
     font-size: 17px;
-	padding-bottom: 100px;
-	box-sizing: border-box;
-	position: relative;
 }
-.alert{
-	margin-top: 20px;
+
+.spis
+{
+	text-align: center;
+	list-style-position: inside;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top:20px;
 }
-.info{
+
+ol
+{
+	margin-top: 5px;
+	
+}
+
+ol > li
+{
+	text-align: left;
+	font-size: 22px;
+	text-transform: uppercase;
+	font-weight: 700;
+	padding: 5px;
+	letter-spacing: 3px;
+}
+
+.info
+{
 	bottom: 0;
 	height: 2.5 rem;
 	margin-left: auto;
@@ -19,21 +41,114 @@ body{
 	text-align: center;
 	padding: 20px;
 }
-.row{
+
+.row
+{
 	margin: 20px 10px;
 	text-align: center;
 }
-footer
+
+#title
 {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 100px;
-}
-main{
-	margin-top: 20px;
+	text-align: center;
 }
 
-.btn-space{
-	margin-right: 20px;
+.dropdown
+{
+	display: inline-block;
+}
+
+#dropdownMenuButton1
+{
+	background-color:#204ac8;
+	border:none;
+}
+
+.login-container{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.login-form-2{
+    padding: 5%;
+    background: #204ac8;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+
+.login-form-2 h3{
+    text-align: center;
+    color: #fff;
+}
+
+.login-container form{
+    padding: 10%;
+}
+
+.btnSubmit
+{
+    width: 50%;
+    border-radius: .5rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+
+.login-form-2 .btnSubmit
+{
+    font-weight: 600;
+    color: #0062cc;
+    background-color: #fff;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	transition: 0.2s;
+}
+
+.login-form-2 .btnSubmit:hover
+{
+	color: #000000;
+	background: #21f37e ;
+	box-shadow: 0 0 10px #21f37e ;
+}
+
+.login-form-2 .ForgetPwd
+{
+    color: #fff;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+.form-control
+{
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.btnAbort
+{
+    width: 50%;
+    border-radius: .5rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+
+.login-form-2 .btnAbort
+{
+    font-weight: 600;
+    color: #0062cc;
+    background-color: #fff;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	transition: 0.2s;
+}
+
+.login-form-2 .btnAbort:hover
+{
+	color: #000000;
+	background: #f3212d;
+	box-shadow: 0 0 10px #f3212d;
+}
+
+.col-form-label{
+	padding-top: 15px;
 }
