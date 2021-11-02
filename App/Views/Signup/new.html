@@ -30,9 +30,34 @@
 						});
 						//przycisk pokazujący hasło
 						$('#inputPassword').hideShowPassword({
-								show: false,
-								innerToggle: 'focus'
+							show: false,
+							innerToggle: 'focus',
+							toggle: {
+								verticalAlign: 'top',
+								offset: 3
+							},
+							states: {
+							shown: {
+							toggle: {
+								className: 'hideShowPassword-toggle-hide',
+								content: 'Ukryj',
+								attr: {
+								title: 'Ukryj hasło',
+								}
+							}
+							},
+							hidden: {
+							toggle: {
+								className: 'hideShowPassword-toggle-show',
+								content: 'Pokaż',
+								attr: {
+								title: 'Pokaż hasło',
+								}
+							}
+							}
+						}	
 						});
+
 		});
 		</script>
 {% endblock %}

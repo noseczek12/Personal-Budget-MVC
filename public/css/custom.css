@@ -119,8 +119,8 @@ ol > li
 
 .form-control
 {
-	margin-bottom: 20px;
-	margin-top: 20px;
+	margin-bottom: 10px;
+	margin-top: 10px;
 }
 
 .btnAbort
@@ -147,4 +147,8 @@ ol > li
 	color: #000000;
 	background: #f3212d;
 	box-shadow: 0 0 10px #f3212d;
+}
+
+.col-form-label{
+	padding-top: 15px;
 }
