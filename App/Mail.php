@@ -5,6 +5,8 @@ namespace App;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+use \App\Flash;
+use \App\Auth;
 
 //mail
 
@@ -41,9 +43,9 @@ class Mail
 				$mail->Body    = $text;
 
 				$mail->send();
-				echo 'Message has been sent';
+				Flash::addMessage('Wiadomość została wysłana.');
 			} catch (Exception $e) {
-				echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+				Flash::addMessage("Mailer Error: {$mail->ErrorInfo}" , Flash::WARNING);
 			}
 	}
 }

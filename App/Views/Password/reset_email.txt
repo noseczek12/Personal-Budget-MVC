@@ -1,5 +1,5 @@
-Password reset
+Resetowanie hasła
 
-Please click the following link to reset your password:
+Proszę nacisnąć następujący link w celu zresetowania hasła:
 
 {{ url }}

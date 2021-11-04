@@ -4,11 +4,11 @@
 
 {% block body %}
 	<main>
-    <h1><center>Witaj w budżecie osobistym!</center></h1>
-	<img src="/img/index.jpg" alt="index-img" class="rounded mx-auto d-block img-fluid">
 	{% if current_user %}
 			Hello {{ current_user.name }}.
 	{% else %}
+		<h1>Witaj w budżecie osobistym!</h1>
+		<img src="/img/index.jpg" alt="index-img" class="rounded mx-auto d-block img-fluid">
 		<div class="d-flex justify-content-center p-3">
 			<a href="/login/new" class="btn btn-primary btn-lg active btn-space" role="button" aria-pressed="true">Zaloguj się</a>
 			<a href="/signup/new" class="btn btn-warning btn-lg active" role="button" aria-pressed="true">Zarejestruj się</a>

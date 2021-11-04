@@ -1,29 +1,71 @@
 {% extends "base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Zaloguj się{% endblock %}
 
 {% block body %}
 
-    <h1>Log in</h1>
+	<div class="row justify-content-center">
+		<div class="col-xs-12 col-sm-7 col-lg-5 login-form-2">
 	
-	<form action="/login/create" method="post">
-					<div class="form-group mb-2">
-							<label for="inputEmail" class="form-label">Email address</label>
-							<input type="email" id="inputEmail" name="email" placeholder="Email address" autofocus value="{{ email }}" class="form-control"/>
-					</div>
-					<div class="form-group mb-2">
-							<label for="inputPassword" class="form-label">Password</label>
-							<input type="password" id="inputPassword" name="password" placeholder="Password" class="form-control"/>
-					</div>
-					<div class="checkbox mb-2">
-							<label>
-								<input type="checkbox" name="remember_me" {% if remember_me %} checked="checked" {% endif %}/> Remember me
-							</label>
-					</div>
-					
-					<button type="submit" class="btn btn-primary">Log in</button>
-					<a href="/password/forgot">Forgot Password ?</a>
-					
-	</form>
+		<h3>Zaloguj się</h3>
+	
+		<form method="post" action="/login/create">
+			<div class="form-group row">
+				<div class="col-sm-6-center"> 
+					<input type="email" id="inputEmail" name="email" placeholder="E-mail" autofocus value="{{ email }}" class="form-control"/>
+				</div>
+				<div class="col-sm-6-center">
+					<input type="password" id="inputPassword" name="password" placeholder="Hasło" class="form-control"/>
+				</div>
+				<div class="col-sm-12">
+					<input type="submit" class="btnSubmit" value="Zaloguj się" />
+				</div>
+				<div class="col-sm-12 form-group">
+					<a href="/password/forgot" class="ForgetPwd" value="Login">Zapomniałeś hasła?</a>
+				</div>
+			</div>
+		</form>
+	
+		</div>
+	</div>
 
+{% endblock %}
+
+
+{% block footer %}
+		<script src="/js/hideShowPassword.min.js"></script>
+		<script>
+		$(document).ready(function() {
+						//przycisk pokazujący hasło
+						$('#inputPassword').hideShowPassword({
+							show: false,
+							innerToggle: 'focus',
+							toggle: {
+								verticalAlign: 'top',
+								offset: 3
+							},
+							states: {
+							shown: {
+							toggle: {
+								className: 'hideShowPassword-toggle-hide',
+								content: 'Ukryj',
+								attr: {
+								title: 'Ukryj hasło',
+								}
+							}
+							},
+							hidden: {
+							toggle: {
+								className: 'hideShowPassword-toggle-show',
+								content: 'Pokaż',
+								attr: {
+								title: 'Pokaż hasło',
+								}
+							}
+							}
+						}	
+						});
+
+		});
+		</script>	
 {% endblock %}

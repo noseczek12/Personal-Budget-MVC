@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<link rel="stylesheet" href="/css/custom.css"/>
+	<link rel="stylesheet" href="/css/custom1.css"/>
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
 </head>
 <body>
@@ -37,6 +37,7 @@
 					{{message.body}}
 				</div>
 			{% endfor %}
+			
 			{% block body %}
 			{% endblock %}
 	
@@ -45,17 +46,11 @@
 	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/localization/messages_pl.js" type="text/javascript"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	
-	{% block footer %}
 	<footer>
-		<div class="row">
-		<div class="col-sm-12">	
-			<div class="info">
-				Wszelkie prawa zastrzeżone &copy; 2021 Dziękuję za wizytę !
-			</div>
-		</div>	
+		<div class="col-sm-12 info">
+			Wszelkie prawa zastrzeżone &copy; 2021 Dziękuję za wizytę !
 		</div>
 	</footer>	
-	{% endblock %}
 	
 </body>
 </html>

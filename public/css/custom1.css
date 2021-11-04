@@ -5,6 +5,10 @@ body
 	color: #efefef;
     font-family: 'Open Sans', sans-serif;
     font-size: 17px;
+	min-height: 100vh;
+	position: relative;
+	padding-bottom: 80px;
+  	box-sizing: border-box;
 }
 
 .spis
@@ -35,7 +39,8 @@ ol > li
 .info
 {
 	bottom: 0;
-	height: 2.5 rem;
+	position: absolute;
+	height: 80px;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
@@ -151,4 +156,13 @@ ol > li
 
 .col-form-label{
 	padding-top: 15px;
+}
+
+h1{
+	padding-block: 20px;
+	text-align: center;
+}
+
+.btn-primary{
+	margin-right: 20px;
 }
