@@ -17,8 +17,13 @@
 				<div class="col-sm-6-center">
 					<input type="password" id="inputPassword" name="password" placeholder="Hasło" class="form-control"/>
 				</div>
+				<div class="col-sm-6">
+					<label>
+					<input type="checkbox" name="remember_me" {% if remember_me %} checked="checked"{% endif %} /> Zapamiętaj mnie
+					</label>
+				</div>
 				<div class="col-sm-12">
-					<input type="submit" class="btnSubmit" value="Zaloguj się" />
+					<input type="submit" class="btnSubmit" value="Zaloguj się"/>
 				</div>
 				<div class="col-sm-12 form-group">
 					<a href="/password/forgot" class="ForgetPwd" value="Login">Zapomniałeś hasła?</a>
