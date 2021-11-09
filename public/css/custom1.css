@@ -137,6 +137,15 @@ ol > li
     cursor: pointer;
 }
 
+.btnBalance
+{
+    width: 50%;
+    border-radius: .5rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+
 .login-form-2 .btnAbort
 {
     font-weight: 600;
@@ -154,6 +163,23 @@ ol > li
 	box-shadow: 0 0 10px #f3212d;
 }
 
+.login-form-2 .btnBalance
+{
+    font-weight: 600;
+    color: #0062cc;
+    background-color: #fff;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	transition: 0.2s;
+}
+
+.login-form-2 .btnBalance:hover
+{
+	color: #000000;
+	background: #e2f109;
+	box-shadow: 0 0 10px #e2f109;
+}
+
 .col-form-label{
 	padding-top: 15px;
 }
@@ -166,3 +192,10 @@ h1{
 .btn-primary{
 	margin-right: 20px;
 }
+
+.btn-group-vertical {
+	display:flex;
+	align-items: center;
+	margin: 0 auto;
+	text-align: center;
+  }

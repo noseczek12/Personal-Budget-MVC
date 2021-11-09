@@ -5,7 +5,19 @@
 {% block body %}
 	<main>
 	{% if current_user %}
-			Hello {{ current_user.name }}.
+	<div class="row justify-content-center">
+		<div class="col-xs-12 col-sm-7 col-lg-5 login-form-2">
+			
+			<h4>Cześć {{ current_user.name }}.</h4>
+			<h5>Co chciałbyś dzisiaj zrobić ?</h5>
+			<div class="col-sm-12 btn-group-vertical">
+				<a href="/profile/show" class="btnSubmit text-decoration-none" role="button" aria-pressed="true">Dodać przychód</a>
+				<a href="#" class="btnAbort text-decoration-none" role="button" aria-pressed="true">Dodać wydatek</a>
+				<a href="#" class="btnBalance text-decoration-none" role="button" aria-pressed="true">Przeglądać bilans</a>
+			</div>
+
+		</div>
+	</div>
 	{% else %}
 		<h1>Witaj w budżecie osobistym!</h1>
 		<img src="/img/index.jpg" alt="index-img" class="rounded mx-auto d-block img-fluid">

@@ -26,6 +26,6 @@ class Token
 	//zwróć zhashowany token za pomoca HMAC
 	public function getHash()
 	{
-			return hash_hmac('sha256', $this->token, \App\Config::SECRET_KEY);
+			return hash_hmac('sha256', $this->token, \App\Config_new::SECRET_KEY);
 	}
 }

@@ -2,3 +2,4 @@
 **/vendor
 **/logs
 /App/Config.php
+/App/Config_new.php

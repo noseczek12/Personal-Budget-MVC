@@ -3,7 +3,7 @@
 namespace Core;
 
 use PDO;
-use App\Config;
+use App\Config_new;
 
 /*Base model*/
 abstract class Model
@@ -15,8 +15,8 @@ abstract class Model
     static $db = null;
     if ($db === null) {
         
-          $dsn = 'mysql:host=' . Config::DB_HOST . ';dbname=' . Config::DB_NAME . ';charset=utf8';
-          $db = new PDO($dsn, Config::DB_USER, Config::DB_PASSWORD);
+          $dsn = 'mysql:host=' . Config_new::DB_HOST . ';dbname=' . Config_new::DB_NAME . ';charset=utf8';
+          $db = new PDO($dsn, Config_new::DB_USER, Config_new::DB_PASSWORD);
        
 	   //wyrzuć wyjątek jeśli wystąpi błąd
 	   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
