@@ -26,4 +26,10 @@ class AddIncome extends \Core\Controller
             ]);
        }
 	}
+
+    //wyświetlenie strony przy sukcesie dodania przychodu
+    public function successAction()
+	{
+		View::renderTemplate('Income/success.html');
+	}
 }
