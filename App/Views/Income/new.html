@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Dodaj przychód{% endblock %}
+
+{% block body %}
+
+<div class="row justify-content-center">
+    <div class="col-xs-12 col-sm-7 col-lg-5 login-form-2">
+            <h3>Dodaj Przychód</h3>
+
+            {% if income.errors is not empty %}
+            <p>Errors:</p>
+            <ul>
+            {% for error in income.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+            <form method = "post" action="/addincome/create" id="formIncome">
+                <div class="form-group row">
+                            <label for="inputAmount" class="col-sm-6  col-form-label">Kwota: </label>
+                            <div class="col-sm-6">
+                                <input type="number" required class="form-control" id="inputAmount" name="amount" step="0.01" value="{{ income.amount }}">
+                            </div>
+                            
+                            <label for="inputDate" class="col-sm-6  col-form-label" >Data przychodu: </label>
+                            <div class="col-sm-6">
+                                <input type="date" required class="form-control" id="inputDate" name="incomeDate" value="{{ income.date }}">
+                            </div>
+                            
+                            <label for="categorySelect" class="col-sm-6 col-form-label">Kategoria:</label>
+                            <select required class="col-sm-6" id="categorySelect" name="incomeCategory" value="{{ income.category }}">
+                                    <option selected>Wybierz...</option>
+                                    <option value="wynagrodzenie">Wynagrodzenie</option>
+                                    <option value="odsetki bankowe">Odsetki bankowe</option>
+                                    <option value="inne">Inne Wydatki</option>
+                            </select>
+                            
+                            <label for="inputComment" class="col-sm-6 col-md-6  col-form-label">Komentarz (opcjonalnie): </label>
+                            <div class="col-sm-6">
+                                <input class="form-control " id="inputComment" type="text" name="incomeComment" value="{{ income.comment }}">
+                            </div>
+                        
+                            <div class="col-sm-12 form-group">
+                            <input type="submit" class="btnSubmit" value="Dodaj przychód" />
+                            </div>
+                            <div class="col-sm-12 form-group">
+                                <a href="/">
+                                    <input type="button" class="btnAbort"  value="Anuluj" />
+                                </a>
+                            </div>
+                </div>
+            </form>
+    </div>	
+    </div>
+
+{% endblock %}
