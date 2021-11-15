@@ -4,6 +4,7 @@ namespace App\Models;
 
 use PDO;
 use \Core\View;
+use App\Models\User;
 
 //Income model//
 
@@ -21,7 +22,7 @@ class Income extends \Core\Model
 	//metoda zapisująca wpis z przychodem
 	public function save()
 	{
-		 $this->validate();
+		$this->validate();
 
         if (empty($this->errors)) {
 
@@ -31,11 +32,11 @@ class Income extends \Core\Model
             $db = static::getDB();
             $stmt = $db->prepare($sql);
 
-            $stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
-            $stmt->bindValue(':income_category', $income_category, PDO::PARAM_STR);
-            $stmt->bindValue(':income_amount', $income_amount, PDO::PARAM_INT);
-            $stmt->bindValue(':income_date', $income_date, PDO::PARAM_STR);
-			$stmt->bindValue(':income_comment', $income_comment, PDO::PARAM_STR);
+            $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+            $stmt->bindValue(':income_category', $this->category, PDO::PARAM_STR);
+            $stmt->bindValue(':income_amount', $this->amount, PDO::PARAM_INT);
+            $stmt->bindValue(':income_date', $this->date, PDO::PARAM_STR);
+			$stmt->bindValue(':income_comment', $this->comment, PDO::PARAM_STR);
 
             return $stmt->execute();
         }
@@ -47,17 +48,17 @@ class Income extends \Core\Model
 	public function validate()
 	{
 		// kategoria przychodu
-       if ($income_category == '') {
+       if ($this->category == '') {
            $this->errors[] = 'Należy wybrać kategorię';
        }
 
 	   // kwota przychodu
-       if ($income_amount == 0 || $income_amount < 0) {
+       if ($this->amount == 0 || $this->amount < 0) {
 		$this->errors[] = 'Kwota musi być większa od zera';
 		}
 
 		// data przychodu
-		if ($income_date == '') {
+		if ($this->date == '') {
 			$this->errors[] = 'Należy wskazać datę';
 		}
 	}

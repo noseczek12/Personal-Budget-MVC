@@ -25,11 +25,11 @@
                             
                             <label for="inputDate" class="col-sm-6  col-form-label" >Data przychodu: </label>
                             <div class="col-sm-6">
-                                <input type="date" required class="form-control" id="inputDate" name="incomeDate" value="{{ income.date }}">
+                                <input type="date" required class="form-control" id="inputDate" name="date" value="{{ income.date }}">
                             </div>
                             
                             <label for="categorySelect" class="col-sm-6 col-form-label">Kategoria:</label>
-                            <select required class="col-sm-6" id="categorySelect" name="incomeCategory" value="{{ income.category }}">
+                            <select required class="col-sm-6" id="categorySelect" name="category" value="{{ income.category }}">
                                     <option selected>Wybierz...</option>
                                     <option value="wynagrodzenie">Wynagrodzenie</option>
                                     <option value="odsetki bankowe">Odsetki bankowe</option>
@@ -38,7 +38,7 @@
                             
                             <label for="inputComment" class="col-sm-6 col-md-6  col-form-label">Komentarz (opcjonalnie): </label>
                             <div class="col-sm-6">
-                                <input class="form-control " id="inputComment" type="text" name="incomeComment" value="{{ income.comment }}">
+                                <input class="form-control " id="inputComment" type="text" name="comment" value="{{ income.comment }}">
                             </div>
                         
                             <div class="col-sm-12 form-group">

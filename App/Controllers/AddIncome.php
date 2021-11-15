@@ -19,7 +19,7 @@ class AddIncome extends \Core\Controller
 	{
 		$income = new Income($_POST);
         if ($income->save()) {
-			$this->redirect('/income/success');
+			$this->redirect('/addincome/success');
        } else {
             View::renderTemplate('Income/new.html', [
                 'income' => $income
