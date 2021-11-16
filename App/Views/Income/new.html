@@ -9,27 +9,28 @@
             <h3>Dodaj Przychód</h3>
 
             {% if income.errors is not empty %}
-            <p>Errors:</p>
-            <ul>
+            <dl style="color:red">
+                <dt>Błędy:</dt>
             {% for error in income.errors %}
-                <li>{{ error }}</li>
+                <dd>{{ error }}</dd>
             {% endfor %}
-            </ul>
+            </dl>
+
             {% endif %}
             <form method = "post" action="/addincome/create" id="formIncome">
                 <div class="form-group row">
                             <label for="inputAmount" class="col-sm-6  col-form-label">Kwota: </label>
                             <div class="col-sm-6">
-                                <input type="number" required class="form-control" id="inputAmount" name="amount" step="0.01" value="{{ income.amount }}">
+                                <input type="number"  class="form-control" id="inputAmount" name="amount" step="0.01" value="{{ income.amount }}">
                             </div>
                             
                             <label for="inputDate" class="col-sm-6  col-form-label" >Data przychodu: </label>
                             <div class="col-sm-6">
-                                <input type="date" required class="form-control" id="inputDate" name="date" value="{{ income.date }}">
+                                <input type="date"  class="form-control" id="inputDate" name="date" value="{{ income.date }}">
                             </div>
                             
                             <label for="categorySelect" class="col-sm-6 col-form-label">Kategoria:</label>
-                            <select required class="col-sm-6" id="categorySelect" name="category" value="{{ income.category }}">
+                            <select  class="col-sm-6" id="categorySelect" name="category" value="{{ income.category }}">
                                     <option selected>Wybierz...</option>
                                     <option value="wynagrodzenie">Wynagrodzenie</option>
                                     <option value="odsetki bankowe">Odsetki bankowe</option>

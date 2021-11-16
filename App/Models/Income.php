@@ -4,7 +4,6 @@ namespace App\Models;
 
 use PDO;
 use \Core\View;
-use App\Models\User;
 
 //Income model//
 
@@ -48,18 +47,18 @@ class Income extends \Core\Model
 	public function validate()
 	{
 		// kategoria przychodu
-       if ($this->category == '') {
-           $this->errors[] = 'Należy wybrać kategorię';
+       if ($this->category == 'Wybierz...') {
+           $this->errors[] = 'Należy wybrać kategorię !';
        }
 
 	   // kwota przychodu
        if ($this->amount == 0 || $this->amount < 0) {
-		$this->errors[] = 'Kwota musi być większa od zera';
+		$this->errors[] = 'Kwota musi być większa od zera !';
 		}
 
 		// data przychodu
 		if ($this->date == '') {
-			$this->errors[] = 'Należy wskazać datę';
+			$this->errors[] = 'Należy wskazać datę !';
 		}
 	}
     
