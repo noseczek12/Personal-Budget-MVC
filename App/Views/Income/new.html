@@ -56,3 +56,28 @@
     </div>
 
 {% endblock %}
+
+{% block footer %}
+		<script src="/js/app.js"></script>
+		<script>
+            $(document).ready(function() {
+                            
+                            $('#formIncome').validate({
+                                    rules: {
+                                            amount: {
+                                                required: true,
+                                                min: 0,
+                                            },
+                                            date:{
+                                                required: true,
+                                            },
+                                            category:{
+                                                required: true,
+                                            },
+                                    },
+                            });
+                            
+                        });
+            </script>	
+            
+{% endblock %}
