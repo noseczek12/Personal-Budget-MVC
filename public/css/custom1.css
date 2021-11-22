@@ -75,7 +75,7 @@ ol > li
 }
 
 .login-form-2{
-    padding: 5%;
+    padding: 3%;
     background: #204ac8;
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
 }
@@ -198,4 +198,9 @@ h1{
 	align-items: center;
 	margin: 0 auto;
 	text-align: center;
+  }
+
+  .help-block.error {
+	margin-bottom: 5px;
+	color:red;
   }
