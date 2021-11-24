@@ -1,59 +1,74 @@
 {% extends "base.html" %}
 
-{% block title %}Dodaj przychód{% endblock %}
+{% block title %}Dodaj wydatek{% endblock %}
 
 {% block body %}
 
 <div class="row justify-content-center">
     <div class="col-xs-12 col-sm-9 col-lg-5 login-form-2">
-            <h3>Dodaj Przychód</h3>
+            <h3>Dodaj Wydatek</h3>
 
-            {% if income.errors is not empty %}
+            {% if expense.errors is not empty %}
             <dl style="color:red">
                 <dt>Błędy:</dt>
-            {% for error in income.errors %}
+            {% for error in expense.errors %}
                 <dd>{{ error }}</dd>
             {% endfor %}
             </dl>
 
             {% endif %}
 
-            <form method = "post" action="/addincome/create" id="main" novalidate>
+            <form method = "post" action="/addexpense/create" id="main" novalidate>
                 <div class="form-group row">
                             <label for="amount" class="col-sm-2 control-label mt-3">Kwota: </label>
                             <div class="col-sm-10">
-                                <input type="number"  class="form-control" id="amount" name="amount" step="0.01" value="{{ income.amount }}">
+                                <input type="number"  class="form-control" id="amount" name="amount" step="0.01" value="{{ expense.amount }}">
                             </div>
                             <div class="col-sm-12 messages"></div>
                 </div>          
                 <div class="form-group row"> 
                             <label for="date" class="col-sm-2 control-label mt-3" >Data: </label>
                             <div class="col-sm-10">
-                                <input type="date"  class="form-control" id="date" name="date" value="{{ income.date }}">
+                                <input type="date"  class="form-control" id="date" name="date" value="{{ expense.date }}">
                             </div>
                             <div class="col-sm-12 messages"></div>
-                </div>  
+                </div>
                 <div class="form-group row"> 
-                  <label for="category" class="col-sm-3 control-label mt-2">Sposób płatności:</label>
-                          <div class="col-sm-9">
-                          <select id="payment" class="form-control" name="payment" value="{{ income.payment }}">
-                                  <option value="">Wybierz...</option>
-                                  <option value="gotówka">Gotówka</option>
-                                  <option value="debet">Karta debetowa</option>
-                                  <option value="kredyt">Karta kredytowa</option>
-                          </select>
-                          </div>   
-                          <div class="col-sm-12 messages"></div>   
-                </div> 
+                    <label for="category" class="col-sm-3 control-label mt-2">Sposób płatności:</label>
+                            <div class="col-sm-9">
+                            <select id="payment" class="form-control" name="payment" value="{{ expense.payment }}">
+                                    <option value="">Wybierz...</option>
+                                    <option value="gotówka">Gotówka</option>
+									<option value="debet">Karta debetowa</option>
+									<option value="kredyt">Karta kredytowa</option>
+                            </select>
+                            </div>   
+                            <div class="col-sm-12 messages"></div>   
+                </div>  
                 <div class="form-group row">       
                             <label for="category" class="col-sm-3 control-label mt-3">Kategoria:</label>
                             <div class="col-sm-9">
-                            <select id="category" class="form-control" name="category" value="{{ income.category }}">
+                            <select id="category" class="form-control" name="category" value="{{ expense.category }}">
                                     <option value="">Wybierz...</option>
-                                    <option value="wynagrodzenie">Wynagrodzenie</option>
-                                    <option value="rodzice">Pieniądze od rodziców</option>
-                                    <option value="odsetki bankowe">Odsetki bankowe</option>
-                                    <option value="inne">Inne przychody</option>
+                                    <option value="jedzenie">Jedzenie</option>
+									<option value="mieszkanie">Czynsz</option>
+									<option value="rachunki">Rachunki</option>
+									<option value="transport">Transport</option>
+									<option value="telekomunikacja">Telekomunikacja</option>
+									<option value="apteka">Apteka</option>
+									<option value="zdrowie">Opieka Zdrowotna</option>
+									<option value="ubranie">Ubranie</option>
+									<option value="higiena">Higiena</option>
+									<option value="dzieci">Dzieci</option>
+									<option value="rozrywka">Rozrywka</option>
+									<option value="wycieczka">Wycieczka</option>
+									<option value="szkolenia">Szkolenia</option>
+									<option value="ksiazki">Książki</option>
+									<option value="oszczednosci">Oszczędności</option>
+									<option value="emerytura">Na złotą jesień, czyli emeryturę</option>
+									<option value="dlugi">Spłata długów</option>
+								    <option value="darowizna">Darowizna</option>
+									<option value="inne">Inne Wydatki</option>
                             </select>
                             </div>   
                             <div class="col-sm-12 messages"></div>   
@@ -61,11 +76,11 @@
                 <div class="form-group row">     
                             <label for="inputComment" class="col-sm-4 control-label mt-2">Komentarz (opcjonalnie): </label>
                             <div class="col-sm-8">
-                                <input class="form-control " id="inputComment" type="text" name="comment" value="{{ income.comment }}">
+                                <input class="form-control " id="inputComment" type="text" name="comment" value="{{ expense.comment }}">
                             </div>
                 </div>        
                 <div class="col-sm-12 form-group">
-                            <input type="submit" class="btnSubmit" value="Dodaj przychód" />
+                            <input type="submit" class="btnSubmit" value="Dodaj wydatek" />
                 </div>
                 <div class="col-sm-12 form-group">
                             <a href="/">
@@ -88,7 +103,7 @@
               // Podajemy warunki używane do sprawdzenia formularza.
               var constraints = {
                 amount: {
-                  // Dodanie kwoty przychodu
+                  // Dodanie kwoty wydatku
                   presence: {
                       message: "^To pole jest wymagane.",
                   },
@@ -98,19 +113,19 @@
                   }
                 },
                 date: {
-                  // Dodanie daty przychodu
+                  // Dodanie daty wydatku
                   presence: {
                       message: "^To pole jest wymagane.",
                   },
                 },
                 payment: {
-                  // Dodanie kategorii płatności przychodu
+                  // Dodanie kategorii płatności wydatku
                   presence: {
                       message: "^To pole jest wymagane.",
                   },
                 },
                 category: {
-                  // Dodanie kategorii przychodu
+                  // Dodanie kategorii wydatku
                   presence: {
                       message: "^To pole jest wymagane.",
                   },
