@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+
+{% block title %}Dodaj wydatek{% endblock %}
+
+{% block body %}
+
+<div class="row justify-content-center">
+    <div class="col-xs-12 col-sm-9 col-lg-5 login-form-2">
+            <h3>Dodaj Wydatek</h3>
+
+            {% if expense.errors is not empty %}
+            <dl style="color:red">
+                <dt>Błędy:</dt>
+            {% for error in expense.errors %}
+                <dd>{{ error }}</dd>
+            {% endfor %}
+            </dl>
+
+            {% endif %}
+
+            <form method = "post" action="/addexpense/create" id="main" novalidate>
+                <div class="form-group row">
+                            <label for="amount" class="col-sm-2 control-label mt-3">Kwota: </label>
+                            <div class="col-sm-10">
+                                <input type="number"  class="form-control" id="amount" name="amount" step="0.01" value="{{ expense.amount }}">
+                            </div>
+                            <div class="col-sm-12 messages"></div>
+                </div>          
+                <div class="form-group row"> 
+                            <label for="date" class="col-sm-2 control-label mt-3" >Data: </label>
+                            <div class="col-sm-10">
+                                <input type="date"  class="form-control" id="date" name="date" value="{{ expense.date }}">
+                            </div>
+                            <div class="col-sm-12 messages"></div>
+                </div>
+                <div class="form-group row"> 
+                    <label for="category" class="col-sm-3 control-label mt-3">Kategoria:</label>
+                            <div class="col-sm-9">
+                            <select id="payment" class="form-control" name="payment" value="{{ expense.payment }}">
+                                    <option value="">Wybierz...</option>
+                                    <option value="gotówka">Gotówka</option>
+									<option value="debet">Karta debetowa</option>
+									<option value="kredyt">Karta kredytowa</option>
+                            </select>
+                            </div>   
+                            <div class="col-sm-12 messages"></div>   
+                </div>  
+                <div class="form-group row">       
+                            <label for="category" class="col-sm-3 control-label mt-3">Kategoria:</label>
+                            <div class="col-sm-9">
+                            <select id="category" class="form-control" name="category" value="{{ expense.category }}">
+                                    <option value="">Wybierz...</option>
+                                    <option value="jedzenie">Jedzenie</option>
+									<option value="mieszkanie">Czynsz</option>
+									<option value="rachunki">Rachunki</option>
+									<option value="transport">Transport</option>
+									<option value="telekomunikacja">Telekomunikacja</option>
+									<option value="apteka">Apteka</option>
+									<option value="zdrowie">Opieka Zdrowotna</option>
+									<option value="ubranie">Ubranie</option>
+									<option value="higiena">Higiena</option>
+									<option value="dzieci">Dzieci</option>
+									<option value="rozrywka">Rozrywka</option>
+									<option value="wycieczka">Wycieczka</option>
+									<option value="szkolenia">Szkolenia</option>
+									<option value="ksiazki">Książki</option>
+									<option value="oszczednosci">Oszczędności</option>
+									<option value="emerytura">Na złotą jesień, czyli emeryturę</option>
+									<option value="dlugi">Spłata długów</option>
+								    <option value="darowizna">Darowizna</option>
+									<option value="inne">Inne Wydatki</option>
+                            </select>
+                            </div>   
+                            <div class="col-sm-12 messages"></div>   
+                </div> 
+                <div class="form-group row">     
+                            <label for="inputComment" class="col-sm-4 control-label mt-1">Komentarz (opcjonalnie): </label>
+                            <div class="col-sm-8">
+                                <input class="form-control " id="inputComment" type="text" name="comment" value="{{ expense.comment }}">
+                            </div>
+                </div>        
+                <div class="col-sm-12 form-group">
+                            <input type="submit" class="btnSubmit" value="Dodaj wydatek" />
+                </div>
+                <div class="col-sm-12 form-group">
+                            <a href="/">
+                            <input type="button" class="btnAbort"  value="Anuluj" />
+                            </a>
+                </div>
+            </form>
+    </div>	
+    </div>
+    
+{% endblock %}
+
+{% block footer %}
+		<script src="/js/app.js"></script>
+    <script type="text/javascript">
+      document.getElementById("date").valueAsDate = new Date();
+    </script>
+        <script>
+            (function() {
+              // Podajemy warunki używane do sprawdzenia formularza.
+              var constraints = {
+                amount: {
+                  // Dodanie kwoty wydatku
+                  presence: {
+                      message: "^To pole jest wymagane.",
+                  },
+                  numericality: {
+                    greaterThan: 0,
+                    message: "^Kwota musi być większa od zera."
+                  }
+                },
+                date: {
+                  // Dodanie daty wydatku
+                  presence: {
+                      message: "^To pole jest wymagane.",
+                  },
+                },
+                payment: {
+                  // Dodanie kategorii płatności wydatku
+                  presence: {
+                      message: "^To pole jest wymagane.",
+                  },
+                },
+                category: {
+                  // Dodanie kategorii wydatku
+                  presence: {
+                      message: "^To pole jest wymagane.",
+                  },
+                },
+              };
+              // Zapobieganie ewentualnemu wysłaniu formularza
+              var form = document.querySelector("form#main");
+              form.addEventListener("submit", function(ev) {
+                ev.preventDefault();
+                handleFormSubmit(form);
+              });
+        
+              // Sprawdzanie inputów w momencie ich wypełniania
+              var inputs = document.querySelectorAll("input, textarea, select")
+              for (var i = 0; i < inputs.length; ++i) {
+                inputs.item(i).addEventListener("change", function(ev) {
+                  var errors = validate(form, constraints) || {};
+                  showErrorsForInput(this, errors[this.name])
+                });
+              }
+        
+              function handleFormSubmit(form, input) {
+                //sprawdzenie zmiennych pod względem poprawności
+                var errors = validate(form, constraints);
+                // Pózniej update formularza żęby pokazać rezultaty walidacji
+                showErrors(form, errors || {});
+                if(!errors){
+                    form.submit();
+                }
+              }
+        
+              // funkcja pokazująca błędy walidacji
+              function showErrors(form, errors) {
+                _.each(form.querySelectorAll("input[name], select[name]"), function(input) {
+                  showErrorsForInput(input, errors && errors[input.name]);
+                });
+              }
+        
+              // Pokazywanie błędów dla konkretnego inputu
+              function showErrorsForInput(input, errors) {
+                var formGroup = closestParent(input.parentNode, "form-group")
+                  , messages = formGroup.querySelector(".messages");
+                resetFormGroup(formGroup);
+              
+                if (errors) {
+                  formGroup.classList.add("has-error");
+                  _.each(errors, function(error) {
+                    addError(messages, error);
+                  });
+                } else {
+                  formGroup.classList.add("has-success");
+                }
+              }
+        
+              // Rekurencyjnie znajdujemy najbliższego rodzica który posiada daną klasę
+              function closestParent(child, className) {
+                if (!child || child == document) {
+                  return null;
+                }
+                if (child.classList.contains(className)) {
+                  return child;
+                } else {
+                  return closestParent(child.parentNode, className);
+                }
+              }
+        
+              function resetFormGroup(formGroup) {
+                formGroup.classList.remove("has-error");
+                formGroup.classList.remove("has-success");
+                _.each(formGroup.querySelectorAll(".help-block.error"), function(el) {
+                  el.parentNode.removeChild(el);
+                });
+              }
+        
+              function addError(messages, error) {
+                var block = document.createElement("p");
+                block.classList.add("help-block");
+                block.classList.add("error");
+                block.innerText = error;
+                messages.appendChild(block);
+              }
+        
+            })();
+          </script>
+            
+{% endblock %}
