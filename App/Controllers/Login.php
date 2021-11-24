@@ -2,10 +2,12 @@
 
 namespace App\Controllers;
 
+use PDO;
 use \Core\View;
 use \App\Models\User;
 use \App\Auth;
 use \App\Flash;
+
 
 //Login controller
 
