@@ -73,7 +73,7 @@
     </script>
         <script>
             (function() {
-              // These are the constraints used to validate the form
+              // Podajemy warunki używane do sprawdzenia formularza.
               var constraints = {
                 amount: {
                   // Dodanie kwoty przychodu
@@ -98,14 +98,14 @@
                   },
                 },
               };
-              // zapobieganie ewentualnemu wysłaniu formularza
+              // Zapobieganie ewentualnemu wysłaniu formularza
               var form = document.querySelector("form#main");
               form.addEventListener("submit", function(ev) {
                 ev.preventDefault();
                 handleFormSubmit(form);
               });
         
-              // sprawdzanie inputów w momencie ich wypełniania
+              // Sprawdzanie inputów w momencie ich wypełniania
               var inputs = document.querySelectorAll("input, textarea, select")
               for (var i = 0; i < inputs.length; ++i) {
                 inputs.item(i).addEventListener("change", function(ev) {
@@ -117,7 +117,7 @@
               function handleFormSubmit(form, input) {
                 //sprawdzenie zmiennych pod względem poprawności
                 var errors = validate(form, constraints);
-                // pózniej update formularza żęby pokazać rezultaty walidacji
+                // Pózniej update formularza żęby pokazać rezultaty walidacji
                 showErrors(form, errors || {});
                 if(!errors){
                     form.submit();
@@ -126,37 +126,28 @@
         
               // funkcja pokazująca błędy walidacji
               function showErrors(form, errors) {
-                // We loop through all the inputs and show the errors for that input
                 _.each(form.querySelectorAll("input[name], select[name]"), function(input) {
-                  // Since the errors can be null if no errors were found we need to handle
-                  // that
                   showErrorsForInput(input, errors && errors[input.name]);
                 });
               }
         
-              // Shows the errors for a specific input
+              // Pokazywanie błędów dla konkretnego inputu
               function showErrorsForInput(input, errors) {
-                // This is the root of the input
                 var formGroup = closestParent(input.parentNode, "form-group")
-                  // Find where the error messages will be insert into
                   , messages = formGroup.querySelector(".messages");
-                // First we remove any old messages and resets the classes
                 resetFormGroup(formGroup);
-                // If we have errors
+              
                 if (errors) {
-                  // we first mark the group has having errors
                   formGroup.classList.add("has-error");
-                  // then we append all the errors
                   _.each(errors, function(error) {
                     addError(messages, error);
                   });
                 } else {
-                  // otherwise we simply mark it as success
                   formGroup.classList.add("has-success");
                 }
               }
         
-              // Recusively finds the closest parent that has the specified class
+              // Rekurencyjnie znajdujemy najbliższego rodzica który posiada daną klasę
               function closestParent(child, className) {
                 if (!child || child == document) {
                   return null;
@@ -169,17 +160,13 @@
               }
         
               function resetFormGroup(formGroup) {
-                // Remove the success and error classes
                 formGroup.classList.remove("has-error");
                 formGroup.classList.remove("has-success");
-                // and remove any old messages
                 _.each(formGroup.querySelectorAll(".help-block.error"), function(el) {
                   el.parentNode.removeChild(el);
                 });
               }
         
-              // Adds the specified error with the following markup
-              // <p class="help-block error">[message]</p>
               function addError(messages, error) {
                 var block = document.createElement("p");
                 block.classList.add("help-block");
