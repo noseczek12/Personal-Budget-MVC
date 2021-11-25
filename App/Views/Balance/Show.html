@@ -18,10 +18,10 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% for income in allIncomes %}
+				{% for item in incomes %}
 	                <tr>
-		                <td>{{ income.category }}</td>
-		                <td>{{ income.SUM(amount) }}</td>  				   				   				  		   				   				  
+		                <td>{{ incomes.income_category_assigned_to_user_id }}</td>
+		                <td>{{ incomes.sum }}</td>  	 		   				   				  		   				   				  
                     </tr>
                 {% endfor %}
 			</tbody>

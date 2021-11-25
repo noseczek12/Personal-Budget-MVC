@@ -68,7 +68,7 @@ class Income extends \Core\Model
 	{	
 		if (empty($this->errors)) {
 
-            $sql = "SELECT income_category_assigned_to_user_id, SUM(amount) FROM incomes WHERE user_id = :userId  GROUP BY income_category_assigned_to_user_id ORDER BY SUM(amount)  DESC ";
+            $sql = "SELECT income_category_assigned_to_user_id, SUM(amount) as sum FROM incomes WHERE user_id = :userId  GROUP BY income_category_assigned_to_user_id ORDER BY SUM(amount)  DESC ";
 
             $db = static::getDB();
             $stmt = $db->prepare($sql);

@@ -16,9 +16,8 @@ class Balance extends \Core\Controller
     {
         $incomes = new Income();
         $expenses = new Expense();
-        $incomes->getAllIncomes();
         View::renderTemplate('Balance/show.html', [
-            'allIncomes' => $incomes
+            'incomes'=>$incomes->getAllIncomes()
         ]);
     }
 
