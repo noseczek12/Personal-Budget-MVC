@@ -63,4 +63,21 @@ class Income extends \Core\Model
 		}
 	}
     
+	//funkcja zwracająca wszystkie przychody zalogowanego użytkownika
+	public function getAllIncomes()
+	{	
+		if (empty($this->errors)) {
+
+            $sql = "SELECT category, SUM(amount) FROM incomes WHERE user_id = :userId  GROUP BY category ORDER BY SUM(amount)  DESC ";
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+
+            return $stmt->execute();
+        }
+
+        return false;
+	}
 }
