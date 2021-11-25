@@ -68,14 +68,15 @@ class Income extends \Core\Model
 	{	
 		if (empty($this->errors)) {
 
-            $sql = "SELECT category, SUM(amount) FROM incomes WHERE user_id = :userId  GROUP BY category ORDER BY SUM(amount)  DESC ";
+            $sql = "SELECT income_category_assigned_to_user_id, SUM(amount) FROM incomes WHERE user_id = :userId  GROUP BY income_category_assigned_to_user_id ORDER BY SUM(amount)  DESC ";
 
             $db = static::getDB();
             $stmt = $db->prepare($sql);
 
-            $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+            $stmt->bindValue(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
 
-            return $stmt->execute();
+           	$stmt->execute();
+			return $stmt->fetch(PDO::FETCH_ASSOC);
         }
 
         return false;

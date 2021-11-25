@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %} Bilans {% endblock %}
+
+{% block body %}
+
+    <h1> Twój bilans </h1>
+
+    <div class="d-flex">
+        <table id="incomesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white;">
+			<caption style="color: white;"> 
+				<h3 class="bd-title text-center">Tabela przychodów</h3>
+			</caption>
+			<thead>
+				<tr>
+					<th style ="width: 50%">kategoria</th>
+					<th style ="width: 50%">Kwota</th>																				
+				</tr>
+			</thead>
+			<tbody>
+				{% for income in allIncomes %}
+	                <tr>
+		                <td>{{ income.category }}</td>
+		                <td>{{ income.SUM(amount) }}</td>  				   				   				  		   				   				  
+                    </tr>
+                {% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td class ="text-end" ><b> Razem: </b></td>
+					<td> zł</td>
+				</tr>
+			</tfoot>
+		</table>
+
+    </div>
+
+{% endblock %}
