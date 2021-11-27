@@ -64,11 +64,11 @@ class Income extends \Core\Model
 	}
     
 	//funkcja zwracająca wszystkie przychody zalogowanego użytkownika
-	public function getAllIncomes()
+	public static function getAllIncomes()
 	{	
-		if (empty($this->errors)) {
+		if (empty(Income::$this->errors)) {
 
-            $sql = "SELECT income_category_assigned_to_user_id, SUM(amount) as sum FROM incomes WHERE user_id = :userId  GROUP BY income_category_assigned_to_user_id ORDER BY SUM(amount)  DESC ";
+            $sql = "SELECT income_category_assigned_to_user_id as Category, SUM(amount) as Sum FROM incomes WHERE user_id = :userId  GROUP BY income_category_assigned_to_user_id ORDER BY SUM(amount)  DESC ";
 
             $db = static::getDB();
             $stmt = $db->prepare($sql);
@@ -76,7 +76,7 @@ class Income extends \Core\Model
             $stmt->bindValue(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
 
            	$stmt->execute();
-			return $stmt->fetch(PDO::FETCH_ASSOC);
+			return $stmt->fetchAll();
         }
 
         return false;
