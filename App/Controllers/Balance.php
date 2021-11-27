@@ -14,7 +14,8 @@ class Balance extends \Core\Controller
     //pokazuje bilans użytkownika
     public function showAction()
     {
-        View::renderTemplate('Balance/show.html', array('incomes'=> Income::getAllIncomes()));
+        View::renderTemplate('Balance/show.html', 
+        array('incomes'=> Income::getAllIncomes(), 'expenses'=> Expense::getAllExpenses()));
     }
 
 }

@@ -32,7 +32,31 @@
 				</tr>
 			</tfoot>
 		</table>
-
+		<table id="expensesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white;">
+			<caption style="color: white;"> 
+				<h3 class="bd-title text-center">Tabela wydatków</h3>
+			</caption>
+			<thead>
+				<tr>
+					<th style ="width: 50%">kategoria</th>
+					<th style ="width: 50%">Kwota</th>																				
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in expenses %}
+	                <tr>
+		                <td>{{ item.Category }}</td>
+		                <td>{{ item.Sum }}</td>  	 		   				   				  		   				   				  
+                    </tr>
+                {% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td class ="text-end" ><b> Razem: </b></td>
+					<td> zł</td>
+				</tr>
+			</tfoot>
+		</table>
     </div>
 
 {% endblock %}
