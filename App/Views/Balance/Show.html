@@ -2,6 +2,59 @@
 
 {% block title %} Bilans {% endblock %}
 
+{% block head %}
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	google.charts.load('current', {'packages' : ['corechart']});
+	google.charts.setOnLoadCallback(drawIncomesChart);
+	google.charts.setOnLoadCallback(drawExpensesChart);
+
+	function drawIncomesChart()
+	{
+			var data = google.visualization.arrayToDataTable([
+					['category', 'amount'],
+					{% for item in row %}
+						[{{ item.Category }}, {{ item.Amount }}],
+					{% endfor %}
+			]);
+			var options = {  
+				  title: 'Kwoty poszczególnych kategorii przychodów',
+				  width: 'auto',
+				  height: 'auto',
+				 };  
+			var chart = new google.visualization.PieChart(document.getElementById('piechartIncomes'));  
+			chart.draw(data, options);
+			
+			$(window).smartresize(function () {
+					chart.draw(data, options);
+			});
+	}
+
+	function drawExpensesChart()
+	{
+			var data = google.visualization.arrayToDataTable([
+					['category', 'amount'],
+					{% for item in row %}
+						[{{ item.Category }}, {{ item.Amount }}],
+					{% endfor %}
+			]);
+			var options = {  
+				  title: 'Kwoty poszczególnych kategorii wydatków',  
+				   width: 'auto',
+				  height: 'auto',
+				 };  
+			var chart = new google.visualization.PieChart(document.getElementById('piechartExpenses'));  
+			chart.draw(data, options);
+			
+			$(window).smartresize(function () {
+					chart.draw(data, options);
+			});
+	}
+</script>
+
+{% endblock %}
+
 {% block body %}
 
     <h1> Twój bilans </h1>
@@ -21,7 +74,7 @@
 				{% for item in incomes %}
 	                <tr>
 		                <td>{{ item.Category }}</td>
-		                <td>{{ item.Sum }}</td>  	 		   				   				  		   				   				  
+		                <td>{{ item.Amount }}</td>  	 		   				   				  		   				   				  
                     </tr>
                 {% endfor %}
 			</tbody>
@@ -46,7 +99,7 @@
 				{% for item in expenses %}
 	                <tr>
 		                <td>{{ item.Category }}</td>
-		                <td>{{ item.Sum }}</td>  	 		   				   				  		   				   				  
+		                <td>{{ item.Amount }}</td>  	 		   				   				  		   				   				  
                     </tr>
                 {% endfor %}
 			</tbody>
@@ -58,5 +111,9 @@
 			</tfoot>
 		</table>
     </div>
+	<div class = "d-flex flex-fill" >
+				<div id="piechartIncomes" class="p-2" style ="width: 50%; height: 500px;"></div>
+				<div id="piechartExpenses" class="p-2" style ="width: 50%; height: 500px;"></div>
+	</div>
 
 {% endblock %}
