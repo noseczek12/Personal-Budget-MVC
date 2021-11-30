@@ -11,34 +11,28 @@
 	google.charts.setOnLoadCallback(drawExpensesChart);
 
 	function drawIncomesChart()
-	{
-			var data = google.visualization.arrayToDataTable([
-					['category', 'amount'],
-					{% for item in row %}
-						[{{ item.Category }}, {{ item.Amount }}],
-					{% endfor %}
-			]);
+	{		
+			var incomesData = '{{jsonincomes}}';
+			var incomesDataObj = JSON.parse(jsonincomes);
+			var data = google.visualization.arrayToDataTable(incomesDataObj,true);
 			var options = {  
 				  title: 'Kwoty poszczególnych kategorii przychodów',
 				  width: 'auto',
 				  height: 'auto',
-				 };  
+			};  
 			var chart = new google.visualization.PieChart(document.getElementById('piechartIncomes'));  
 			chart.draw(data, options);
 			
 			$(window).smartresize(function () {
 					chart.draw(data, options);
-			});
+			})
 	}
 
 	function drawExpensesChart()
 	{
-			var data = google.visualization.arrayToDataTable([
-					['category', 'amount'],
-					{% for item in row %}
-						[{{ item.Category }}, {{ item.Amount }}],
-					{% endfor %}
-			]);
+		var data = google.visualization.getDataTable(incomesDataObj);
+			data.addColumn('string','Category');
+			data.addColumn('number','Amount');
 			var options = {  
 				  title: 'Kwoty poszczególnych kategorii wydatków',  
 				   width: 'auto',
@@ -115,5 +109,6 @@
 				<div id="piechartIncomes" class="p-2" style ="width: 50%; height: 500px;"></div>
 				<div id="piechartExpenses" class="p-2" style ="width: 50%; height: 500px;"></div>
 	</div>
+	<div id="div_chart"></div>
 
 {% endblock %}

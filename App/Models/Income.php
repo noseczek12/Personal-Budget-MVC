@@ -81,4 +81,46 @@ class Income extends \Core\Model
 
         return false;
 	}
+
+	public static function getPieChartIncomes()
+	{	
+		if (empty(Income::$this->errors)) {
+
+            $sql = "SELECT income_category_assigned_to_user_id as Category, SUM(amount) as Amount FROM incomes WHERE user_id = :userId  GROUP BY income_category_assigned_to_user_id ORDER BY SUM(amount)  DESC ";
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
+
+           	$stmt->execute();
+			   $data=array();
+			   while (($row = $stmt->fetch(PDO::FETCH_ASSOC)))
+			   {
+				   $data[] = $row;
+			   }
+			return $data;
+        }
+
+        return false;
+	}
+
+	public static function convertDataToChartForm($data)
+	{
+    $newData = array();
+    $firstLine = true;
+
+    foreach ($data as $dataRow)
+    {
+        if ($firstLine)
+        {
+            $newData[] = array_keys($dataRow);
+            $firstLine = false;
+        }
+
+        $newData[] = array_values($dataRow);
+    }
+
+    return $newData;
+	}
 }
