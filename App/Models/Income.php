@@ -123,4 +123,12 @@ class Income extends \Core\Model
 
     return $newData;
 	}
+
+	public static function calcSum($sqlArray){
+		$sum = 0.0;
+		foreach ($sqlArray as $values){
+			$sum+= floatval($values['Amount']);
+		}
+		return $sum;
+	}
 }

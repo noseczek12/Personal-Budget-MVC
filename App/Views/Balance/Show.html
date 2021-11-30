@@ -64,7 +64,8 @@
 					<th style ="width: 50%">Kwota</th>																				
 				</tr>
 			</thead>
-			<tbody>
+			{% if incomes %}
+			<tbody>	
 				{% for item in incomes %}
 	                <tr>
 		                <td>{{ item.Category }}</td>
@@ -75,9 +76,17 @@
 			<tfoot>
 				<tr>
 					<td class ="text-end" ><b> Razem: </b></td>
-					<td> zł</td>
+					<td> {{incomesSum|number_format(2)}} zł</td>
 				</tr>
 			</tfoot>
+			{% else %}
+			<tfoot>
+				<tr>
+					<td class ="text-end" ><b> Razem: </b></td>
+					<td> {{incomesSum|number_format(2)}} zł</td>
+				</tr>
+			</tfoot>
+			{% endif %}
 		</table>
 		<table id="expensesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white;">
 			<caption style="color: white;"> 
@@ -89,7 +98,8 @@
 					<th style ="width: 50%">Kwota</th>																				
 				</tr>
 			</thead>
-			<tbody>
+			{% if expenses %}
+			<tbody>	
 				{% for item in expenses %}
 	                <tr>
 		                <td>{{ item.Category }}</td>
@@ -100,9 +110,23 @@
 			<tfoot>
 				<tr>
 					<td class ="text-end" ><b> Razem: </b></td>
-					<td> zł</td>
+					<td> {{expensesSum|number_format(2)}} zł</td>
 				</tr>
 			</tfoot>
+			{% else %}
+			<tbody>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td class ="text-end" ><b> Razem: </b></td>
+					<td> {{expensesSum|number_format(2)}} zł</td>
+				</tr>
+			</tfoot>
+			{% endif %}
 		</table>
     </div>
 	<div class = "d-flex flex-fill" >
