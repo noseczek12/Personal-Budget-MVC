@@ -82,6 +82,25 @@ class Expense extends \Core\Model
         return false;
 	}
 
+	public static function convertDataToChartForm($data)
+	{
+    $newData = array();
+    $firstLine = true;
+
+    foreach ($data as $dataRow)
+    {
+        if ($firstLine)
+        {
+            $newData[] = array_keys($dataRow);
+            $firstLine = false;
+        }
+
+        $newData[] = array_values($dataRow);
+    }
+
+    return $newData;
+	}
+
 	public static function getPieChartExpenses()
 	{	
 		if (empty(Expense::$this->errors)) {

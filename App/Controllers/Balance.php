@@ -16,12 +16,12 @@ class Balance extends \Core\Controller
     {
         $incomesArray=Income::getPieChartIncomes();
         $expensesArray=Expense::getPieChartExpenses();
-        $chartArray = Income::convertDataToChartForm($incomesArray);
-        $incomesSum= Income::calcSum($incomesArray);
-        $expensesSum = Expense::calcSum($expensesArray);
+        $chartIncomesArray = Income::convertDataToChartForm($incomesArray);
+        $chartExpensesArray = Expense::convertDataToChartForm($expensesArray);
         View::renderTemplate('Balance/show.html',
         array('incomes'=> Income::getAllIncomes(), 'expenses'=> Expense::getAllExpenses(), 
-        'jsonincomes'=>json_encode($chartArray), 'incomesSum' => $incomesSum, 'expensesSum'=> $expensesSum));
+        'jsonincomes'=>json_encode($chartIncomesArray), 'jsonexpenses'=>json_encode($chartExpensesArray),
+        'incomesSum' => Income::calcSum($incomesArray), 'expensesSum'=> Expense::calcSum($expensesArray)));
     }
 
 }

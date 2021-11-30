@@ -3,46 +3,49 @@
 {% block title %} Bilans {% endblock %}
 
 {% block head %}
-
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
+	
 	google.charts.load('current', {'packages' : ['corechart']});
 	google.charts.setOnLoadCallback(drawIncomesChart);
 	google.charts.setOnLoadCallback(drawExpensesChart);
 
 	function drawIncomesChart()
 	{		
-			var incomesData = '{{jsonincomes}}';
-			var incomesDataObj = JSON.parse(jsonincomes);
-			var data = google.visualization.arrayToDataTable(incomesDataObj,true);
+		let incomesJson = {{ jsonincomes|json_encode|raw }};
+		let incomes = JSON.parse(incomesJson);
+		var data = google.visualization.arrayToDataTable($.parseJSON(incomesJson));
+		console.log(data);
 			var options = {  
 				  title: 'Kwoty poszczególnych kategorii przychodów',
 				  width: 'auto',
 				  height: 'auto',
-			};  
+			};
+		
 			var chart = new google.visualization.PieChart(document.getElementById('piechartIncomes'));  
 			chart.draw(data, options);
-			
-			$(window).smartresize(function () {
-					chart.draw(data, options);
-			})
+
+			$(window).resize(function(){
+    			chart.draw(data, options);
+			});
 	}
 
 	function drawExpensesChart()
-	{
-		var data = google.visualization.getDataTable(incomesDataObj);
-			data.addColumn('string','Category');
-			data.addColumn('number','Amount');
+	{		
+		let expensesJson = {{ jsonexpenses|json_encode|raw }};
+		let expenses = JSON.parse(expensesJson);
+		var data = google.visualization.arrayToDataTable($.parseJSON(expensesJson));
 			var options = {  
-				  title: 'Kwoty poszczególnych kategorii wydatków',  
-				   width: 'auto',
+				  title: 'Kwoty poszczególnych kategorii wydatków',
+				  width: 'auto',
 				  height: 'auto',
-				 };  
+			};
+		
 			var chart = new google.visualization.PieChart(document.getElementById('piechartExpenses'));  
 			chart.draw(data, options);
-			
-			$(window).smartresize(function () {
-					chart.draw(data, options);
+
+			$(window).resize(function(){
+    			chart.draw(data, options);
 			});
 	}
 </script>
