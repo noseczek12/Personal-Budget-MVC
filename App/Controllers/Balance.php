@@ -15,7 +15,7 @@ class Balance extends \Core\Controller
     public function showAction()
     {
         $incomesArray=Income::getPieChartIncomes();
-        $expensesArray=Expense::getAllExpenses();
+        $expensesArray=Expense::getPieChartExpenses();
         $chartArray = Income::convertDataToChartForm($incomesArray);
         $incomesSum= Income::calcSum($incomesArray);
         $expensesSum = Expense::calcSum($expensesArray);

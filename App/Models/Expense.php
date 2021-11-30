@@ -68,7 +68,7 @@ class Expense extends \Core\Model
 	{	
 		if (empty(Expense::$this->errors)) {
 
-            $sql = "SELECT expense_category_assigned_to_user_id as Category, SUM(amount) as Sum FROM expenses WHERE user_id = :userId  GROUP BY expense_category_assigned_to_user_id ORDER BY SUM(amount)  DESC ";
+            $sql = "SELECT expense_category_assigned_to_user_id as Category, SUM(amount) as Amount FROM expenses WHERE user_id = :userId  GROUP BY expense_category_assigned_to_user_id ORDER BY SUM(amount)  DESC ";
 
             $db = static::getDB();
             $stmt = $db->prepare($sql);
@@ -77,6 +77,29 @@ class Expense extends \Core\Model
 
            	$stmt->execute();
 			return $stmt->fetchAll();
+        }
+
+        return false;
+	}
+
+	public static function getPieChartExpenses()
+	{	
+		if (empty(Expense::$this->errors)) {
+
+            $sql = "SELECT expense_category_assigned_to_user_id as Category, SUM(amount) as Amount FROM expenses WHERE user_id = :userId  GROUP BY expense_category_assigned_to_user_id ORDER BY SUM(amount)  DESC ";
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
+
+           	$stmt->execute();
+			   $data=array();
+			   while (($row = $stmt->fetch(PDO::FETCH_ASSOC)))
+			   {
+				   $data[] = $row;
+			   }
+			return $data;
         }
 
         return false;

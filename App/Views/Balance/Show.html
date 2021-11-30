@@ -80,6 +80,12 @@
 				</tr>
 			</tfoot>
 			{% else %}
+			<tbody>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
 			<tfoot>
 				<tr>
 					<td class ="text-end" ><b> Razem: </b></td>
@@ -129,10 +135,20 @@
 			{% endif %}
 		</table>
     </div>
+	{% if (incomesSum-expensesSum)|number_format(2) > 0 %}
+	<div style="text-align: right; padding-right: 20px; color: greenyellow;">
+		<p>Twój balans wynosi {{(incomesSum-expensesSum)|number_format(2)}} zł</p>
+		<p>Brawo! Potrafisz zarządzać swoimi finansami !</p>
+	</div>
+	{% else %}
+	<div style="text-align: right; padding-right: 20px; color: red;">
+		<p>Twój balans wynosi {{(incomesSum-expensesSum)|number_format(2)}} zł</p>
+		<p>Musisz jeszcze popracować nad swoimi finansami !</p>
+	</div>
+	{% endif %}
 	<div class = "d-flex flex-fill" >
 				<div id="piechartIncomes" class="p-2" style ="width: 50%; height: 500px;"></div>
 				<div id="piechartExpenses" class="p-2" style ="width: 50%; height: 500px;"></div>
 	</div>
-	<div id="div_chart"></div>
 
 {% endblock %}
