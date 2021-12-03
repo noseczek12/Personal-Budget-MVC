@@ -93,42 +93,34 @@ class Income extends \Core\Model
 
             $stmt->bindValue(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
 
+			$i = 1;
            	$stmt->execute();
-			   $data=array();
+			$tablica = array();
+			
 			   while (($row = $stmt->fetch(PDO::FETCH_ASSOC)))
 			   {
-				   $data[] = $row;
+				$firstLine = true;
+				if ($firstLine)
+				{
+					$tablica[0] = array_keys($row);
+					$firstLine = false;
+				}
+				   $category = $row['Category'];
+				   $amount = $row['Amount'];
+				   $tablica[$i]=array(strval($category),floatval($amount));
+				   $i++;
 			   }
-			return $data;
+			return $tablica;
         }
 
         return false;
 	}
 
-	public static function convertDataToChartForm($data)
-	{
-    $newData = array();
-    $firstLine = true;
-
-    foreach ($data as $dataRow)
-    {
-        if ($firstLine)
-        {
-            $newData[] = array_keys($dataRow);
-            $firstLine = false;
-        }
-
-        $newData[] = array_values($dataRow);
-    }
-
-    return $newData;
-	}
-
 	public static function calcSum($sqlArray){
-		$sum = 0.0;
-		foreach ($sqlArray as $values){
-			$sum+= floatval($values['Amount']);
+			$sum = 0.0;
+			foreach ($sqlArray as $values){
+				$sum+= floatval($values['Amount']);
+			}
+			return $sum;
 		}
-		return $sum;
-	}
 }

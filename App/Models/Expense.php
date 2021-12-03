@@ -82,25 +82,6 @@ class Expense extends \Core\Model
         return false;
 	}
 
-	public static function convertDataToChartForm($data)
-	{
-    $newData = array();
-    $firstLine = true;
-
-    foreach ($data as $dataRow)
-    {
-        if ($firstLine)
-        {
-            $newData[] = array_keys($dataRow);
-            $firstLine = false;
-        }
-
-        $newData[] = array_values($dataRow);
-    }
-
-    return $newData;
-	}
-
 	public static function getPieChartExpenses()
 	{	
 		if (empty(Expense::$this->errors)) {
@@ -111,14 +92,23 @@ class Expense extends \Core\Model
             $stmt = $db->prepare($sql);
 
             $stmt->bindValue(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
-
-           	$stmt->execute();
-			   $data=array();
-			   while (($row = $stmt->fetch(PDO::FETCH_ASSOC)))
-			   {
-				   $data[] = $row;
-			   }
-			return $data;
+			$stmt->execute();
+			$tablica = array();
+			$i = 1;
+			while (($row = $stmt->fetch(PDO::FETCH_ASSOC)))
+			{
+			 $firstLine = true;
+			 if ($firstLine)
+			 {
+				 $tablica[0] = array_keys($row);
+				 $firstLine = false;
+			 }
+				$category = $row['Category'];
+				$amount = $row['Amount'];
+				$tablica[$i]=array(strval($category),floatval($amount));
+				$i++;
+			}
+		 return $tablica;
         }
 
         return false;
