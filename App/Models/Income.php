@@ -32,7 +32,7 @@ class Income extends \Core\Model
             $stmt = $db->prepare($sql);
 
             $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
-            $stmt->bindValue(':income_category', $this->category, PDO::PARAM_STR);
+            $stmt->bindValue(':income_category', $this->category, PDO::PARAM_INT);
             $stmt->bindValue(':income_amount', $this->amount, PDO::PARAM_INT);
             $stmt->bindValue(':income_date', $this->date, PDO::PARAM_STR);
 			$stmt->bindValue(':income_comment', $this->comment, PDO::PARAM_STR);
@@ -63,7 +63,7 @@ class Income extends \Core\Model
 	{	
 		if (empty(Income::$this->errors)) {
 
-            $sql = "SELECT income_category_assigned_to_user_id as Category, SUM(amount) as Amount FROM incomes WHERE user_id = :userId  GROUP BY income_category_assigned_to_user_id ORDER BY SUM(amount)  DESC ";
+            $sql = "SELECT incomes_category_default.name as Category, SUM(incomes.amount) as Amount FROM incomes INNER JOIN incomes_category_default ON incomes.income_category_assigned_to_user_id = incomes_category_default.id WHERE user_id = :userId  GROUP BY Category ORDER BY Amount  DESC";
 
             $db = static::getDB();
             $stmt = $db->prepare($sql);
@@ -81,7 +81,7 @@ class Income extends \Core\Model
 	{	
 		if (empty(Income::$this->errors)) {
 
-            $sql = "SELECT income_category_assigned_to_user_id as Category, SUM(amount) as Amount FROM incomes WHERE user_id = :userId  GROUP BY income_category_assigned_to_user_id ORDER BY SUM(amount)  DESC ";
+            $sql = "SELECT incomes_category_default.name as Category, SUM(incomes.amount) as Amount FROM incomes INNER JOIN incomes_category_default ON incomes.income_category_assigned_to_user_id = incomes_category_default.id WHERE user_id = :userId  GROUP BY Category ORDER BY Amount  DESC";
 
             $db = static::getDB();
             $stmt = $db->prepare($sql);
