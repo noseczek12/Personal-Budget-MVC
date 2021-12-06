@@ -19,11 +19,11 @@ class Balance extends \Core\Model
 	}
 
     //funkcja zwracająca wszystkie wydatki zalogowanego użytkownika
-	public static function getAllExpenses()
+	public static function getAllExpenses($period)
 	{	
 		if (empty(Expense::$this->errors)) {
 
-            $sql = "SELECT expenses_category_default.name as Category, SUM(expenses.amount) as Amount FROM expenses INNER JOIN expenses_category_default ON expenses.expense_category_assigned_to_user_id = expenses_category_default.id WHERE user_id = :userId  GROUP BY Category ORDER BY Amount  DESC";
+            $sql = "SELECT expenses_category_default.name as Category, SUM(expenses.amount) as Amount FROM expenses INNER JOIN expenses_category_default ON expenses.expense_category_assigned_to_user_id = expenses_category_default.id WHERE user_id = :userId AND expenses.date_of_expense ".$period." GROUP BY Category ORDER BY Amount  DESC";
 
             $db = static::getDB();
             $stmt = $db->prepare($sql);
@@ -38,11 +38,11 @@ class Balance extends \Core\Model
 	}
 
     //funkcja zwracająca dane z wydatkami pod wykres google charts
-	public static function getPieChartExpenses()
+	public static function getPieChartExpenses($period)
 	{	
 		if (empty(Expense::$this->errors)) {
 
-            $sql = "SELECT expenses_category_default.name as Category, SUM(expenses.amount) as Amount FROM expenses INNER JOIN expenses_category_default ON expenses.expense_category_assigned_to_user_id = expenses_category_default.id WHERE user_id = :userId  GROUP BY Category ORDER BY Amount  DESC";
+            $sql = "SELECT expenses_category_default.name as Category, SUM(expenses.amount) as Amount FROM expenses INNER JOIN expenses_category_default ON expenses.expense_category_assigned_to_user_id = expenses_category_default.id WHERE user_id = :userId AND expenses.date_of_expense ".$period." GROUP BY Category ORDER BY Amount  DESC";
 
             $db = static::getDB();
             $stmt = $db->prepare($sql);
@@ -71,11 +71,11 @@ class Balance extends \Core\Model
 	}
 
     //funkcja zwracająca wszystkie przychody zalogowanego użytkownika
-	public static function getAllIncomes()
+	public static function getAllIncomes($period)
 	{	
 		if (empty(Income::$this->errors)) {
 
-            $sql = "SELECT incomes_category_default.name as Category, SUM(incomes.amount) as Amount FROM incomes INNER JOIN incomes_category_default ON incomes.income_category_assigned_to_user_id = incomes_category_default.id WHERE user_id = :userId  GROUP BY Category ORDER BY Amount  DESC";
+            $sql = "SELECT incomes_category_default.name as Category, SUM(incomes.amount) as Amount FROM incomes INNER JOIN incomes_category_default ON incomes.income_category_assigned_to_user_id = incomes_category_default.id WHERE user_id = :userId AND incomes.date_of_income ".$period." GROUP BY Category ORDER BY Amount  DESC";
 
             $db = static::getDB();
             $stmt = $db->prepare($sql);
@@ -90,11 +90,11 @@ class Balance extends \Core\Model
 	}
 
     //funkcja zwracająca dane z przychodami pod wykres google charts
-	public static function getPieChartIncomes()
+	public static function getPieChartIncomes($period)
 	{	
 		if (empty(Income::$this->errors)) {
 
-            $sql = "SELECT incomes_category_default.name as Category, SUM(incomes.amount) as Amount FROM incomes INNER JOIN incomes_category_default ON incomes.income_category_assigned_to_user_id = incomes_category_default.id WHERE user_id = :userId  GROUP BY Category ORDER BY Amount  DESC";
+            $sql = "SELECT incomes_category_default.name as Category, SUM(incomes.amount) as Amount FROM incomes INNER JOIN incomes_category_default ON incomes.income_category_assigned_to_user_id = incomes_category_default.id WHERE user_id = :userId AND incomes.date_of_income ".$period." GROUP BY Category ORDER BY Amount  DESC";
 
             $db = static::getDB();
             $stmt = $db->prepare($sql);

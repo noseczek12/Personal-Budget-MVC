@@ -10,16 +10,20 @@ use \App\Models\Balance;
 class ShowBalance extends \Core\Controller
 {
 
-    //pokazuje bilans użytkownika
-    public function showAction()
+    //pokazuje bilans użytkownika z bieżącego miesiąca (opcja domyślna)
+    public function showCurrentAction()
     {
-        $incomesArray=Balance::getPieChartIncomes();
-        $expensesArray=Balance::getPieChartExpenses();
+        $first_day = date('Y-m-01');
+        $last_day = date('Y-m-t');
+        $period = "BETWEEN '".$first_day."' AND '".$last_day."'";
+        $incomesArray=Balance::getPieChartIncomes($period);
+        $expensesArray=Balance::getPieChartExpenses($period);
         
         View::renderTemplate('Balance/show.html',
-        array('incomes'=> Balance::getAllIncomes(), 'expenses'=> Balance::getAllExpenses(), 
+        array('incomes'=> Balance::getAllIncomes($period), 'expenses'=> Balance::getAllExpenses($period), 
         'jsonincomes'=>json_encode($incomesArray), 'jsonexpenses'=>json_encode($expensesArray),
-        'incomesSum' => Balance::calcSum(Balance::getAllIncomes()), 'expensesSum'=> Balance::calcSum(Balance::getAllExpenses())));
+        'incomesSum' => Balance::calcSum(Balance::getAllIncomes($period)), 'expensesSum'=> Balance::calcSum(Balance::getAllExpenses($period))));
     }
+
 
 }
