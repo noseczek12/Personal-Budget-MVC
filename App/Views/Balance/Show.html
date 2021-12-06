@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+
+{% block title %} Bilans {% endblock %}
+
+{% block head %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	
+	google.charts.load('current', {'packages' : ['corechart']});
+	google.charts.setOnLoadCallback(drawIncomesChart);
+	google.charts.setOnLoadCallback(drawExpensesChart);
+
+	function drawIncomesChart()
+	{		
+		let incomesJson = {{ jsonincomes|json_encode|raw }};
+		let incomes = JSON.parse(incomesJson);
+		var data = google.visualization.arrayToDataTable($.parseJSON(incomesJson));
+			var options = {  
+				  title: 'Kwoty poszczególnych kategorii przychodów',
+				  width: 'auto',
+				  height: 'auto',
+			};
+		
+			var chart = new google.visualization.PieChart(document.getElementById('piechartIncomes'));  
+			chart.draw(data, options);
+
+			$(window).resize(function(){
+    			chart.draw(data, options);
+			});
+	}
+
+	function drawExpensesChart()
+	{		
+		let expensesJson = {{ jsonexpenses|json_encode|raw }};
+		let expenses = JSON.parse(expensesJson);
+		var data = google.visualization.arrayToDataTable($.parseJSON(expensesJson));
+			var options = {  
+				  title: 'Kwoty poszczególnych kategorii wydatków',
+				  width: 'auto',
+				  height: 'auto',
+			};
+		
+			var chart = new google.visualization.PieChart(document.getElementById('piechartExpenses'));  
+			chart.draw(data, options);
+
+			$(window).resize(function(){
+    			chart.draw(data, options);
+			});
+	}
+</script>
+
+{% endblock %}
+
+{% block body %}
+
+    <h1> Twój bilans </h1>
+	<div class="col md-12 text-center">
+	<div class="dropdown">
+		<button class="btn btn-primary btn-lg dropdown-toggle text-center" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+					Wybierz okres
+		</button>
+		<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+			<li><a class="dropdown-item" href="#">bieżący miesiąc</a></li>
+			<li><a class="dropdown-item" href="#">poprzedni miesiąc</a></li>
+			<li><a class="dropdown-item" href="#">bieżący rok</a></li>
+			<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">niestandardowy</a></li>
+		</ul>
+	</div>
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		  <div class="modal-content">
+			<div class="modal-header modal-header-primary">
+			  <h5 class="modal-title" id="exampleModalLabel">Okres niestandardowy</h5>
+			</div>
+			<div class="modal-body" style="color: black;">
+			  Wybierz okres czasu : 
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+			  <button type="button" class="btn btn-primary">Wprowadź</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+
+    <div class="d-flex">
+        <table id="incomesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white;">
+			<caption style="color: white;"> 
+				<h3 class="bd-title text-center">Tabela przychodów</h3>
+			</caption>
+			<thead>
+				<tr>
+					<th style ="width: 50%">kategoria</th>
+					<th style ="width: 50%">Kwota</th>																				
+				</tr>
+			</thead>
+			{% if incomes %}
+			<tbody>	
+				{% for item in incomes %}
+	                <tr>
+		                <td>{{ item.Category }}</td>
+		                <td>{{ item.Amount }}</td>  	 		   				   				  		   				   				  
+                    </tr>
+                {% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td class ="text-end" ><b> Razem: </b></td>
+					<td> {{incomesSum|number_format(2)}} zł</td>
+				</tr>
+			</tfoot>
+			{% else %}
+			<tbody>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td class ="text-end" ><b> Razem: </b></td>
+					<td> {{incomesSum|number_format(2)}} zł</td>
+				</tr>
+			</tfoot>
+			{% endif %}
+		</table>
+		<table id="expensesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white;">
+			<caption style="color: white;"> 
+				<h3 class="bd-title text-center">Tabela wydatków</h3>
+			</caption>
+			<thead>
+				<tr>
+					<th style ="width: 50%">kategoria</th>
+					<th style ="width: 50%">Kwota</th>																				
+				</tr>
+			</thead>
+			{% if expenses %}
+			<tbody>	
+				{% for item in expenses %}
+	                <tr>
+		                <td>{{ item.Category }}</td>
+		                <td>{{ item.Amount }}</td>  	 		   				   				  		   				   				  
+                    </tr>
+                {% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td class ="text-end" ><b> Razem: </b></td>
+					<td> {{expensesSum|number_format(2)}} zł</td>
+				</tr>
+			</tfoot>
+			{% else %}
+			<tbody>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td class ="text-end" ><b> Razem: </b></td>
+					<td> {{expensesSum|number_format(2)}} zł</td>
+				</tr>
+			</tfoot>
+			{% endif %}
+		</table>
+    </div>
+	{% if (incomesSum-expensesSum)|number_format(2) > 0 %}
+	<div style="text-align: center; padding-right: 20px; color: greenyellow;">
+		<p>Twój balans wynosi {{(incomesSum-expensesSum)|number_format(2)}} zł</p>
+		<p>Brawo! Potrafisz zarządzać swoimi finansami !</p>
+	</div>
+	{% else %}
+	<div style="text-align: center; padding-right: 20px; color: red;">
+		<p>Twój balans wynosi {{(incomesSum-expensesSum)|number_format(2)}} zł</p>
+		<p>Musisz jeszcze popracować nad swoimi finansami !</p>
+	</div>
+	{% endif %}
+	<div class = "d-flex flex-fill" >
+				<div id="piechartIncomes" class="p-2" style ="width: 50%; height: 500px;"></div>
+				<div id="piechartExpenses" class="p-2" style ="width: 50%; height: 500px;"></div>
+	</div>
+
+{% endblock %}

@@ -32,8 +32,8 @@ class Expense extends \Core\Model
             $stmt = $db->prepare($sql);
 
             $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
-            $stmt->bindValue(':expense_category', $this->category, PDO::PARAM_STR);
-			$stmt->bindValue(':expense_payment', $this->payment, PDO::PARAM_STR);
+            $stmt->bindValue(':expense_category', $this->category, PDO::PARAM_INT);
+			$stmt->bindValue(':expense_payment', $this->payment, PDO::PARAM_INT);
             $stmt->bindValue(':expense_amount', $this->amount, PDO::PARAM_INT);
             $stmt->bindValue(':expense_date', $this->date, PDO::PARAM_STR);
 			$stmt->bindValue(':expense_comment', $this->comment, PDO::PARAM_STR);
@@ -61,6 +61,65 @@ class Expense extends \Core\Model
 		if ($this->date == '') {
 			$this->errors[] = 'Należy wskazać datę !';
 		}
+	}
+
+	//funkcja zwracająca wszystkie wydatki zalogowanego użytkownika
+	public static function getAllExpenses()
+	{	
+		if (empty(Expense::$this->errors)) {
+
+            $sql = "SELECT expenses_category_default.name as Category, SUM(expenses.amount) as Amount FROM expenses INNER JOIN expenses_category_default ON expenses.expense_category_assigned_to_user_id = expenses_category_default.id WHERE user_id = :userId  GROUP BY Category ORDER BY Amount  DESC";
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
+
+           	$stmt->execute();
+			return $stmt->fetchAll();
+        }
+
+        return false;
+	}
+
+	public static function getPieChartExpenses()
+	{	
+		if (empty(Expense::$this->errors)) {
+
+            $sql = "SELECT expenses_category_default.name as Category, SUM(expenses.amount) as Amount FROM expenses INNER JOIN expenses_category_default ON expenses.expense_category_assigned_to_user_id = expenses_category_default.id WHERE user_id = :userId  GROUP BY Category ORDER BY Amount  DESC";
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
+			$stmt->execute();
+			$tablica = array();
+			$i = 1;
+			while (($row = $stmt->fetch(PDO::FETCH_ASSOC)))
+			{
+			 $firstLine = true;
+			 if ($firstLine)
+			 {
+				 $tablica[0] = array_keys($row);
+				 $firstLine = false;
+			 }
+				$category = $row['Category'];
+				$amount = $row['Amount'];
+				$tablica[$i]=array(strval($category),floatval($amount));
+				$i++;
+			}
+		 return $tablica;
+        }
+
+        return false;
+	}
+
+	public static function calcSum($sqlArray){
+		$sum = 0.0;
+		foreach ($sqlArray as $values){
+			$sum+= floatval($values['Amount']);
+		}
+		return $sum;
 	}
     
 }
