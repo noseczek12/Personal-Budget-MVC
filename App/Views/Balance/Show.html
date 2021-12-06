@@ -75,23 +75,23 @@
 			</div>
 			<div class="modal-body" style="color: black;">
 			  Wybierz okres czasu : 
-			  <form method = "post" action="#" id="main" novalidate>
+			  <form method = "post" action="/showbalance/show-custom" id="main" novalidate>
 				<div class="form-group row"> 
 					<label for="date" class="col-sm-5 control-label mt-3" >Data początkowa: </label>
-					<div class="col-sm-5">
+					<div class="col-sm-7">
 						<input type="date"  class="form-control" id="startDate" name="startDate" value="startDate">
 					</div>
 					<div class="col-sm-12 messages"></div>
 				</div>
 				<div class="form-group row"> 
 					<label for="date" class="col-sm-5 control-label mt-3" >Data końcowa: </label>
-					<div class="col-sm-5">
+					<div class="col-sm-7">
 						<input type="date"  class="form-control" id="endDate" name="endDate" value="endDate">
 					</div>
 					<div class="col-sm-12 messages"></div>
 				</div>
 				
-			  </form>
+			  
 			</div>
 			<div class="modal-footer login-form-2">
 			  	<div class="col-sm-12 form-group">
@@ -101,6 +101,7 @@
 				<input type="button" class="btnAbort" data-bs-dismiss="modal" value="Anuluj" />
 				</div>
 			</div>
+		</form>
 		  </div>
 		</div>
 	</div>
@@ -203,4 +204,28 @@
 				<div id="piechartExpenses" class="p-2" style ="width: 50%; height: 500px;"></div>
 	</div>
 
+{% endblock %}
+
+{% block footer %}
+<script>
+jQuery.validator.addMethod("greaterThan", 
+function(value, element, params) {
+
+    if (!/Invalid|NaN/.test(new Date(value))) {
+        return new Date(value) > new Date($(params).val());
+    }
+
+    return isNaN(value) && isNaN($(params).val()) 
+        || (Number(value) > Number($(params).val())); 
+},'Data musi być większa niż {0}.');
+
+$("#main").validate({
+    rules: {
+        endDate: { greaterThan: "#startDate",
+					required: true, },
+		startDate: {required: true,}
+    }
+});
+</script>
+            
 {% endblock %}

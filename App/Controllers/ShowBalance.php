@@ -62,5 +62,13 @@ class ShowBalance extends \Core\Controller
         'period_info' => $period_info));
     }
 
+    //pokazuje bilans użytkownika z wybranego okresu czasu
+    public function showCustomAction()
+    {
+        $period_info = "Okres czasu od ".$_POST['startDate']." do ".$_POST['endDate'];
+        $period = "BETWEEN '".$_POST['startDate']."' AND '".$_POST['endDate']."'";
+        echo $period_info;
+    }
+
 
 }
