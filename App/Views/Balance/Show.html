@@ -55,18 +55,19 @@
 
     <h1> Twój bilans </h1>
 	<div class="col md-12 text-center">
+	<h5>{{period_info}}</h5>
 	<div class="dropdown">
 		<button class="btn btn-primary btn-lg dropdown-toggle text-center" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 					Wybierz okres
 		</button>
 		<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-			<li><a class="dropdown-item" href="/showbalance/show-current">bieżący miesiąc</a></li>
-			<li><a class="dropdown-item" href="/showbalance/show-previous">poprzedni miesiąc</a></li>
-			<li><a class="dropdown-item" href="#">bieżący rok</a></li>
+			<li><a class="dropdown-item" href="/showbalance/show-current-month">bieżący miesiąc</a></li>
+			<li><a class="dropdown-item" href="/showbalance/show-previous-month">poprzedni miesiąc</a></li>
+			<li><a class="dropdown-item" href="/showbalance/show-current-year">bieżący rok</a></li>
 			<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">niestandardowy</a></li>
 		</ul>
-	</div>
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		</div>
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 		  <div class="modal-content">
 			<div class="modal-header modal-header-primary">
@@ -81,7 +82,7 @@
 			</div>
 		  </div>
 		</div>
-	  </div>
+	</div>
 
     <div class="d-flex">
         <table id="incomesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white;">
