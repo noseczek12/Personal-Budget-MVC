@@ -49,13 +49,14 @@
 	}
 </script>
 
+
 {% endblock %}
 
 {% block body %}
 
     <h1> Twój bilans </h1>
-	<div class="col md-12 text-center">
 	<h5>{{period_info}}</h5>
+	<div class="col md-12 text-center">
 	<div class="dropdown">
 		<button class="btn btn-primary btn-lg dropdown-toggle text-center" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 					Wybierz okres
@@ -73,35 +74,29 @@
 			<div class="modal-header login-form-2">
 			  <h5 class="modal-title" id="exampleModalLabel">Okres niestandardowy</h5>
 			</div>
-			<div class="modal-body" style="color: black;">
-			  Wybierz okres czasu : 
-			  <form method = "post" action="/showbalance/show-custom" id="main" novalidate>
-				<div class="form-group row"> 
-					<label for="date" class="col-sm-5 control-label mt-3" >Data początkowa: </label>
+				<div class="modal-body" style="color: black;">
+				Wybierz okres czasu :
+				<form method="post" action="/showbalance/show-custom" id="main" novalidate>
+				  <div class="form-group row">
+					<label for="date" class="col-sm-5 control-label mt-3">Data początkowa:</label>
 					<div class="col-sm-7">
-						<input type="date"  class="form-control" id="startDate" name="startDate" value="startDate">
+					  <input type="date" class="form-control" id="startDate" name="startDate" value="startDate">
 					</div>
 					<div class="col-sm-12 messages"></div>
-				</div>
-				<div class="form-group row"> 
-					<label for="date" class="col-sm-5 control-label mt-3" >Data końcowa: </label>
+				  </div>
+				  <div class="form-group row">
+					<label for="date" class="col-sm-5 control-label mt-3">Data końcowa:</label>
 					<div class="col-sm-7">
-						<input type="date"  class="form-control" id="endDate" name="endDate" value="endDate">
+					  <input type="date" class="form-control" id="endDate" name="endDate" value="endDate">
 					</div>
 					<div class="col-sm-12 messages"></div>
-				</div>
-				
-			  
-			</div>
-			<div class="modal-footer login-form-2">
-			  	<div class="col-sm-12 form-group">
-				<input type="submit" class="btnSubmit" value="Wprowadź" />
-				</div>
-				<div class="col-sm-12 form-group">
+				  </div>
+			  </div>
+			  <div class="modal-footer login-form-2 justify-content-center">
+				<input type="submit" id="btnSubmit" class="btnSubmit" onclick="checkDate()" value="Wprowadź" disabled/>
 				<input type="button" class="btnAbort" data-bs-dismiss="modal" value="Anuluj" />
-				</div>
-			</div>
-		</form>
+			  </div>
+			  </form>
 		  </div>
 		</div>
 	</div>
@@ -207,25 +202,28 @@
 {% endblock %}
 
 {% block footer %}
-<script>
-jQuery.validator.addMethod("greaterThan", 
-function(value, element, params) {
+<script type="text/javascript">
+	let startDateInp = document.getElementById('startDate');
+	let endDateInp = document.getElementById('endDate');
 
-    if (!/Invalid|NaN/.test(new Date(value))) {
-        return new Date(value) > new Date($(params).val());
-    }
+	startDateInp.addEventListener('change', checkDate);
+	endDateInp.addEventListener('change', checkDate);
 
-    return isNaN(value) && isNaN($(params).val()) 
-        || (Number(value) > Number($(params).val())); 
-},'Data musi być większa niż {0}.');
+function checkDate() {
+let startDate = startDateInp.valueAsDate;
+let endDate = endDateInp.valueAsDate;
 
-$("#main").validate({
-    rules: {
-        endDate: { greaterThan: "#startDate",
-					required: true, },
-		startDate: {required: true,}
-    }
-});
+if (!endDate || !startDate) {
+	// do nothing
+	return;
+}
+
+if (startDate >= endDate) {
+	document.getElementById("btnSubmit").disabled = true;
+	alert("Data końcowa musi być większa niż początkowa!");
+} else {
+	document.getElementById("btnSubmit").disabled = false;
+}
+}
 </script>
-            
 {% endblock %}
