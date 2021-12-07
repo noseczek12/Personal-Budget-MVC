@@ -49,39 +49,57 @@
 	}
 </script>
 
+
 {% endblock %}
 
 {% block body %}
 
     <h1> Twój bilans </h1>
+	<h5>{{period_info}}</h5>
 	<div class="col md-12 text-center">
 	<div class="dropdown">
 		<button class="btn btn-primary btn-lg dropdown-toggle text-center" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 					Wybierz okres
 		</button>
 		<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-			<li><a class="dropdown-item" href="#">bieżący miesiąc</a></li>
-			<li><a class="dropdown-item" href="#">poprzedni miesiąc</a></li>
-			<li><a class="dropdown-item" href="#">bieżący rok</a></li>
+			<li><a class="dropdown-item" href="/showbalance/show-current-month">bieżący miesiąc</a></li>
+			<li><a class="dropdown-item" href="/showbalance/show-previous-month">poprzedni miesiąc</a></li>
+			<li><a class="dropdown-item" href="/showbalance/show-current-year">bieżący rok</a></li>
 			<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">niestandardowy</a></li>
 		</ul>
-	</div>
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		</div>
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 		  <div class="modal-content">
-			<div class="modal-header modal-header-primary">
+			<div class="modal-header login-form-2">
 			  <h5 class="modal-title" id="exampleModalLabel">Okres niestandardowy</h5>
 			</div>
-			<div class="modal-body" style="color: black;">
-			  Wybierz okres czasu : 
-			</div>
-			<div class="modal-footer">
-			  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-			  <button type="button" class="btn btn-primary">Wprowadź</button>
-			</div>
+				<div class="modal-body" style="color: black;">
+				Wybierz okres czasu :
+				<form method="post" action="/showbalance/show-custom" id="main" novalidate>
+				  <div class="form-group row">
+					<label for="date" class="col-sm-5 control-label mt-3">Data początkowa:</label>
+					<div class="col-sm-7">
+					  <input type="date" class="form-control" id="startDate" name="startDate" value="startDate">
+					</div>
+					<div class="col-sm-12 messages"></div>
+				  </div>
+				  <div class="form-group row">
+					<label for="date" class="col-sm-5 control-label mt-3">Data końcowa:</label>
+					<div class="col-sm-7">
+					  <input type="date" class="form-control" id="endDate" name="endDate" value="endDate">
+					</div>
+					<div class="col-sm-12 messages"></div>
+				  </div>
+			  </div>
+			  <div class="modal-footer login-form-2 justify-content-center">
+				<input type="submit" id="btnSubmit" class="btnSubmit" onclick="checkDate()" value="Wprowadź" disabled/>
+				<input type="button" class="btnAbort" data-bs-dismiss="modal" value="Anuluj" />
+			  </div>
+			  </form>
 		  </div>
 		</div>
-	  </div>
+	</div>
 
     <div class="d-flex">
         <table id="incomesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white;">
@@ -165,13 +183,13 @@
 			{% endif %}
 		</table>
     </div>
-	{% if (incomesSum-expensesSum)|number_format(2) > 0 %}
+	{% if (incomesSum-expensesSum)|number_format(2) >= 0 %}
 	<div style="text-align: center; padding-right: 20px; color: greenyellow;">
 		<p>Twój balans wynosi {{(incomesSum-expensesSum)|number_format(2)}} zł</p>
 		<p>Brawo! Potrafisz zarządzać swoimi finansami !</p>
 	</div>
 	{% else %}
-	<div style="text-align: center; padding-right: 20px; color: red;">
+	<div style="text-align: center; padding-right: 20px; color: rgb(128, 12, 12);">
 		<p>Twój balans wynosi {{(incomesSum-expensesSum)|number_format(2)}} zł</p>
 		<p>Musisz jeszcze popracować nad swoimi finansami !</p>
 	</div>
@@ -181,4 +199,31 @@
 				<div id="piechartExpenses" class="p-2" style ="width: 50%; height: 500px;"></div>
 	</div>
 
+{% endblock %}
+
+{% block footer %}
+<script type="text/javascript">
+	let startDateInp = document.getElementById('startDate');
+	let endDateInp = document.getElementById('endDate');
+
+	startDateInp.addEventListener('change', checkDate);
+	endDateInp.addEventListener('change', checkDate);
+
+function checkDate() {
+let startDate = startDateInp.valueAsDate;
+let endDate = endDateInp.valueAsDate;
+
+if (!endDate || !startDate) {
+	// do nothing
+	return;
+}
+
+if (startDate > endDate) {
+	document.getElementById("btnSubmit").disabled = true;
+	alert("Data końcowa musi być większa niż początkowa!");
+} else {
+	document.getElementById("btnSubmit").disabled = false;
+}
+}
+</script>
 {% endblock %}

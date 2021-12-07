@@ -98,6 +98,12 @@ ol > li
     cursor: pointer;
 }
 
+.login-form-2 .btnSubmit:disabled:hover{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
 .login-form-2 .btnSubmit
 {
     font-weight: 600;
@@ -188,6 +194,12 @@ h1{
 	padding-block: 20px;
 	text-align: center;
 }
+
+h5{
+	padding-block: 20px;
+	text-align: center;
+}
+
 
 .btn-primary{
 	margin-right: 20px;
