@@ -183,13 +183,13 @@
 			{% endif %}
 		</table>
     </div>
-	{% if (incomesSum-expensesSum)|number_format(2) > 0 %}
+	{% if (incomesSum-expensesSum)|number_format(2) >= 0 %}
 	<div style="text-align: center; padding-right: 20px; color: greenyellow;">
 		<p>Twój balans wynosi {{(incomesSum-expensesSum)|number_format(2)}} zł</p>
 		<p>Brawo! Potrafisz zarządzać swoimi finansami !</p>
 	</div>
 	{% else %}
-	<div style="text-align: center; padding-right: 20px; color: red;">
+	<div style="text-align: center; padding-right: 20px; color: rgb(128, 12, 12);">
 		<p>Twój balans wynosi {{(incomesSum-expensesSum)|number_format(2)}} zł</p>
 		<p>Musisz jeszcze popracować nad swoimi finansami !</p>
 	</div>
@@ -218,7 +218,7 @@ if (!endDate || !startDate) {
 	return;
 }
 
-if (startDate >= endDate) {
+if (startDate > endDate) {
 	document.getElementById("btnSubmit").disabled = true;
 	alert("Data końcowa musi być większa niż początkowa!");
 } else {

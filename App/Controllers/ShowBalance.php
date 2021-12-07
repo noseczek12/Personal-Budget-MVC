@@ -67,7 +67,14 @@ class ShowBalance extends \Core\Controller
     {
         $period_info = "Okres czasu od ".$_POST['startDate']." do ".$_POST['endDate'];
         $period = "BETWEEN '".$_POST['startDate']."' AND '".$_POST['endDate']."'";
-        echo $period_info;
+        $incomesArray=Balance::getPieChartIncomes($period);
+        $expensesArray=Balance::getPieChartExpenses($period);
+        
+        View::renderTemplate('Balance/show.html',
+        array('incomes'=> Balance::getAllIncomes($period), 'expenses'=> Balance::getAllExpenses($period), 
+        'jsonincomes'=>json_encode($incomesArray), 'jsonexpenses'=>json_encode($expensesArray),
+        'incomesSum' => Balance::calcSum(Balance::getAllIncomes($period)), 'expensesSum'=> Balance::calcSum(Balance::getAllExpenses($period)),
+        'period_info' => $period_info));
     }
 
 
