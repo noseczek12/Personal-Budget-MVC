@@ -10,11 +10,11 @@ class Config
     // nazwa hosta bazy danych
     const DB_HOST = 'localhost';
 	//nazwa bazy danych
-    const DB_NAME = 'mvclogin';
+    const DB_NAME = 'tomaszno_budzet_osobisty';
 	//nazwa użytkownika bazy danych
-    const DB_USER = 'mvcuser';
+    const DB_USER = 'tomaszno_budzet_osobisty_admin';
 	//hasło bazy danych
-    const DB_PASSWORD = 'secret';
+    const DB_PASSWORD = 'budzetosob1sty!';
 	// pokazywanie lub ukrywanie wiadomości o błędach
 	const SHOW_ERRORS = true;
 	//tajny klucz do hashowania
