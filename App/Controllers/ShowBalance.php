@@ -20,7 +20,7 @@ class ShowBalance extends \Core\Controller
         $incomesArray=Balance::getPieChartIncomes($period);
         $expensesArray=Balance::getPieChartExpenses($period);
         
-        View::renderTemplate('Balance/show.html',
+        View::renderTemplate('Balance/Show.html',
         array('incomes'=> Balance::getAllIncomes($period), 'expenses'=> Balance::getAllExpenses($period), 
         'jsonincomes'=>json_encode($incomesArray), 'jsonexpenses'=>json_encode($expensesArray),
         'incomesSum' => Balance::calcSum(Balance::getAllIncomes($period)), 'expensesSum'=> Balance::calcSum(Balance::getAllExpenses($period)),
@@ -37,7 +37,7 @@ class ShowBalance extends \Core\Controller
         $incomesArray=Balance::getPieChartIncomes($period);
         $expensesArray=Balance::getPieChartExpenses($period);
         
-        View::renderTemplate('Balance/show.html',
+        View::renderTemplate('Balance/Show.html',
         array('incomes'=> Balance::getAllIncomes($period), 'expenses'=> Balance::getAllExpenses($period), 
         'jsonincomes'=>json_encode($incomesArray), 'jsonexpenses'=>json_encode($expensesArray),
         'incomesSum' => Balance::calcSum(Balance::getAllIncomes($period)), 'expensesSum'=> Balance::calcSum(Balance::getAllExpenses($period)),
@@ -55,7 +55,7 @@ class ShowBalance extends \Core\Controller
         $incomesArray=Balance::getPieChartIncomes($period);
         $expensesArray=Balance::getPieChartExpenses($period);
         
-        View::renderTemplate('Balance/show.html',
+        View::renderTemplate('Balance/Show.html',
         array('incomes'=> Balance::getAllIncomes($period), 'expenses'=> Balance::getAllExpenses($period), 
         'jsonincomes'=>json_encode($incomesArray), 'jsonexpenses'=>json_encode($expensesArray),
         'incomesSum' => Balance::calcSum(Balance::getAllIncomes($period)), 'expensesSum'=> Balance::calcSum(Balance::getAllExpenses($period)),
@@ -70,7 +70,7 @@ class ShowBalance extends \Core\Controller
         $incomesArray=Balance::getPieChartIncomes($period);
         $expensesArray=Balance::getPieChartExpenses($period);
         
-        View::renderTemplate('Balance/show.html',
+        View::renderTemplate('Balance/Show.html',
         array('incomes'=> Balance::getAllIncomes($period), 'expenses'=> Balance::getAllExpenses($period), 
         'jsonincomes'=>json_encode($incomesArray), 'jsonexpenses'=>json_encode($expensesArray),
         'incomesSum' => Balance::calcSum(Balance::getAllIncomes($period)), 'expensesSum'=> Balance::calcSum(Balance::getAllExpenses($period)),
