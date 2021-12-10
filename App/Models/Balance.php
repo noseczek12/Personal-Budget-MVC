@@ -100,21 +100,18 @@ class Balance extends \Core\Model
         return false;
 	}
 
-	//funkcja zwracająca wszystkie wydatki w bardziej szczegółowej formie
+	//funkcja zwracająca wszystkie przychody w bardziej szczegółowej formie
 	public static function getDetailedIncomes($period)
 	{
 		if (empty(Expense::$this->errors)) {
 
-            $sql = "SELECT incomes.date_of_incomes as Date,
+            $sql = "SELECT incomes.date_of_income as Date,
 					incomes_category_default.name as Category, 
 					incomes.amount as Amount,
-					payment_methods_default.name as Payment,
 					incomes.income_comment as Comment
 					FROM incomes 
 					INNER JOIN incomes_category_default 
 					ON incomes.income_category_assigned_to_user_id = incomes_category_default.id 
-					INNER JOIN payment_methods_default
-					ON incomes.payment_method_assigned_to_user_id = payment_methods_default.id
 					WHERE user_id = :userId 
 					AND incomes.date_of_income ".$period." GROUP BY Date ASC";
 
