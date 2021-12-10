@@ -86,7 +86,7 @@ class Balance extends \Core\Model
 					INNER JOIN payment_methods_default
 					ON expenses.payment_method_assigned_to_user_id = payment_methods_default.id
 					WHERE user_id = :userId 
-					AND expenses.date_of_expense ".$period." GROUP BY Date ASC";
+					AND expenses.date_of_expense ".$period." ORDER BY Date ASC";
 
             $db = static::getDB();
             $stmt = $db->prepare($sql);
@@ -113,7 +113,7 @@ class Balance extends \Core\Model
 					INNER JOIN incomes_category_default 
 					ON incomes.income_category_assigned_to_user_id = incomes_category_default.id 
 					WHERE user_id = :userId 
-					AND incomes.date_of_income ".$period." GROUP BY Date ASC";
+					AND incomes.date_of_income ".$period." ORDER BY Date ASC";
 
             $db = static::getDB();
             $stmt = $db->prepare($sql);
