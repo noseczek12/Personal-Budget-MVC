@@ -78,7 +78,7 @@ class Balance extends \Core\Model
             $sql = "SELECT expenses.date_of_expense as Date,
 					expenses_category_default.name as Category, 
 					expenses.amount as Amount,
-					expenses.payment_method_assigned_to_user_id as Payment,
+					payment_methods_default.name as Payment,
 					expenses.expense_comment as Comment
 					FROM expenses 
 					INNER JOIN expenses_category_default 
@@ -86,7 +86,7 @@ class Balance extends \Core\Model
 					INNER JOIN payment_methods_default
 					ON expenses.payment_method_assigned_to_user_id = payment_methods_default.id
 					WHERE user_id = :userId 
-					AND expenses.date_of_expense ".$period." GROUP BY Category";
+					AND expenses.date_of_expense ".$period." GROUP BY Date ASC";
 
             $db = static::getDB();
             $stmt = $db->prepare($sql);

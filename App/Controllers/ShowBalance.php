@@ -24,7 +24,7 @@ class ShowBalance extends \Core\Controller
         array('incomes'=> Balance::getAllIncomes($period), 'expenses'=> Balance::getAllExpenses($period), 
         'jsonincomes'=>json_encode($incomesArray), 'jsonexpenses'=>json_encode($expensesArray),
         'incomesSum' => Balance::calcSum(Balance::getAllIncomes($period)), 'expensesSum'=> Balance::calcSum(Balance::getAllExpenses($period)),
-        'period_info' => $period_info));
+        'period_info' => $period_info, 'detailedExpenses'=>Balance::getDetailedExpenses($period)));
     }
 
     //pokazuje bilans użytkownika z poprzedniego miesiąca
@@ -41,7 +41,7 @@ class ShowBalance extends \Core\Controller
         array('incomes'=> Balance::getAllIncomes($period), 'expenses'=> Balance::getAllExpenses($period), 
         'jsonincomes'=>json_encode($incomesArray), 'jsonexpenses'=>json_encode($expensesArray),
         'incomesSum' => Balance::calcSum(Balance::getAllIncomes($period)), 'expensesSum'=> Balance::calcSum(Balance::getAllExpenses($period)),
-        'period_info' => $period_info));
+        'period_info' => $period_info, 'detailedExpenses'=>Balance::getDetailedExpenses($period)));
 
     }
 
@@ -59,7 +59,7 @@ class ShowBalance extends \Core\Controller
         array('incomes'=> Balance::getAllIncomes($period), 'expenses'=> Balance::getAllExpenses($period), 
         'jsonincomes'=>json_encode($incomesArray), 'jsonexpenses'=>json_encode($expensesArray),
         'incomesSum' => Balance::calcSum(Balance::getAllIncomes($period)), 'expensesSum'=> Balance::calcSum(Balance::getAllExpenses($period)),
-        'period_info' => $period_info));
+        'period_info' => $period_info, 'detailedExpenses'=>Balance::getDetailedExpenses($period)));
     }
 
     //pokazuje bilans użytkownika z wybranego okresu czasu
@@ -74,7 +74,7 @@ class ShowBalance extends \Core\Controller
         array('incomes'=> Balance::getAllIncomes($period), 'expenses'=> Balance::getAllExpenses($period), 
         'jsonincomes'=>json_encode($incomesArray), 'jsonexpenses'=>json_encode($expensesArray),
         'incomesSum' => Balance::calcSum(Balance::getAllIncomes($period)), 'expensesSum'=> Balance::calcSum(Balance::getAllExpenses($period)),
-        'period_info' => $period_info));
+        'period_info' => $period_info, 'detailedExpenses'=>Balance::getDetailedExpenses($period)));
     }
 
 
