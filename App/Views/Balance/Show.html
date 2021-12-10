@@ -19,6 +19,7 @@
 				  title: 'Kwoty poszczególnych kategorii przychodów',
 				  width: 'auto',
 				  height: 'auto',
+				  backgroundColor: { fill:'transparent' }
 			};
 		
 			var chart = new google.visualization.PieChart(document.getElementById('piechartIncomes'));  
@@ -38,6 +39,7 @@
 				  title: 'Kwoty poszczególnych kategorii wydatków',
 				  width: 'auto',
 				  height: 'auto',
+				  backgroundColor: { fill:'transparent' }
 			};
 		
 			var chart = new google.visualization.PieChart(document.getElementById('piechartExpenses'));  
@@ -102,7 +104,7 @@
 	</div>
 
     <div class="d-flex">
-        <table id="incomesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white;">
+        <table id="incomesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white; margin-right: 20px; margin-left:20px">
 			<caption style="color: white;"> 
 				<h3 class="bd-title text-center">Tabela przychodów</h3>
 			</caption>
@@ -142,7 +144,7 @@
 			</tfoot>
 			{% endif %}
 		</table>
-		<table id="expensesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white;">
+		<table id="expensesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white; margin-right: 20px; margin-left:20px">
 			<caption style="color: white;"> 
 				<h3 class="bd-title text-center">Tabela wydatków</h3>
 			</caption>
@@ -195,8 +197,8 @@
 	</div>
 	{% endif %}
 	<div class = "d-flex flex-fill" >
-				<div id="piechartIncomes" class="p-2" style ="width: 50%; height: 500px;"></div>
-				<div id="piechartExpenses" class="p-2" style ="width: 50%; height: 500px;"></div>
+				<div id="piechartIncomes" class="p-2" style ="width: 50%; height: 500px;margin-right: 20px; margin-left:20px"></div>
+				<div id="piechartExpenses" class="p-2" style ="width: 50%; height: 500px;margin-right: 20px; margin-left:20px"></div>
 	</div>
 	<div class="d-flex">
         <table id="detailedExpensesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white; margin-right: 20px; margin-left:20px">
