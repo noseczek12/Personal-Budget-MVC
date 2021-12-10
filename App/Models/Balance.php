@@ -70,6 +70,63 @@ class Balance extends \Core\Model
         return false;
 	}
 
+	//funkcja zwracająca wszystkie wydatki w bardziej szczegółowej formie
+	public static function getDetailedExpenses($period)
+	{
+		if (empty(Expense::$this->errors)) {
+
+            $sql = "SELECT expenses.date_of_expense as Date,
+					expenses_category_default.name as Category, 
+					expenses.amount as Amount,
+					payment_methods_default.name as Payment,
+					expenses.expense_comment as Comment
+					FROM expenses 
+					INNER JOIN expenses_category_default 
+					ON expenses.expense_category_assigned_to_user_id = expenses_category_default.id 
+					INNER JOIN payment_methods_default
+					ON expenses.payment_method_assigned_to_user_id = payment_methods_default.id
+					WHERE user_id = :userId 
+					AND expenses.date_of_expense ".$period." GROUP BY Date ASC";
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
+
+           	$stmt->execute();
+			return $stmt->fetchAll();
+        }
+
+        return false;
+	}
+
+	//funkcja zwracająca wszystkie przychody w bardziej szczegółowej formie
+	public static function getDetailedIncomes($period)
+	{
+		if (empty(Expense::$this->errors)) {
+
+            $sql = "SELECT incomes.date_of_income as Date,
+					incomes_category_default.name as Category, 
+					incomes.amount as Amount,
+					incomes.income_comment as Comment
+					FROM incomes 
+					INNER JOIN incomes_category_default 
+					ON incomes.income_category_assigned_to_user_id = incomes_category_default.id 
+					WHERE user_id = :userId 
+					AND incomes.date_of_income ".$period." GROUP BY Date ASC";
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
+
+           	$stmt->execute();
+			return $stmt->fetchAll();
+        }
+
+        return false;
+	}
+
     //funkcja zwracająca wszystkie przychody zalogowanego użytkownika
 	public static function getAllIncomes($period)
 	{	

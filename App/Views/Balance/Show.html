@@ -19,6 +19,7 @@
 				  title: 'Kwoty poszczególnych kategorii przychodów',
 				  width: 'auto',
 				  height: 'auto',
+				  backgroundColor: { fill:'transparent' }
 			};
 		
 			var chart = new google.visualization.PieChart(document.getElementById('piechartIncomes'));  
@@ -38,6 +39,7 @@
 				  title: 'Kwoty poszczególnych kategorii wydatków',
 				  width: 'auto',
 				  height: 'auto',
+				  backgroundColor: { fill:'transparent' }
 			};
 		
 			var chart = new google.visualization.PieChart(document.getElementById('piechartExpenses'));  
@@ -102,7 +104,7 @@
 	</div>
 
     <div class="d-flex">
-        <table id="incomesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white;">
+        <table id="incomesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white; margin-right: 20px; margin-left:20px">
 			<caption style="color: white;"> 
 				<h3 class="bd-title text-center">Tabela przychodów</h3>
 			</caption>
@@ -142,7 +144,7 @@
 			</tfoot>
 			{% endif %}
 		</table>
-		<table id="expensesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white;">
+		<table id="expensesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white; margin-right: 20px; margin-left:20px">
 			<caption style="color: white;"> 
 				<h3 class="bd-title text-center">Tabela wydatków</h3>
 			</caption>
@@ -195,8 +197,113 @@
 	</div>
 	{% endif %}
 	<div class = "d-flex flex-fill" >
-				<div id="piechartIncomes" class="p-2" style ="width: 50%; height: 500px;"></div>
-				<div id="piechartExpenses" class="p-2" style ="width: 50%; height: 500px;"></div>
+				<div id="piechartIncomes" class="p-2" style ="width: 50%; height: 500px;margin-right: 20px; margin-left:20px"></div>
+				<div id="piechartExpenses" class="p-2" style ="width: 50%; height: 500px;margin-right: 20px; margin-left:20px"></div>
+	</div>
+	<div class="d-flex">
+        <table id="detailedIncomesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white; margin-right: 20px; margin-left:20px">
+			<caption style="color: white;"> 
+				<h3 class="bd-title text-center">Szczegółowa tabela przychodów</h3>
+			</caption>
+			<thead>
+				<tr>
+					<th style ="width: 20%">Data</th>
+					<th style ="width: 20%">Kategoria</th>	
+					<th style ="width: 20%">Kwota</th>
+					<th style ="width: 40%">Komentarz</th>																			
+				</tr>
+			</thead>
+			{% if detailedIncomes %}
+			<tbody>	
+				{% for item in detailedIncomes %}
+	                <tr>
+		                <td>{{ item.Date }}</td>
+		                <td>{{ item.Category }}</td> 
+						<td>{{ item.Amount }}</td>   
+						<td>{{ item.Comment }}</td>  	 		   				   				  		   				   				  
+                    </tr>
+                {% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td></td>
+					<td class ="text-end" ><b> Razem: </b></td>
+					<td> {{incomesSum|number_format(2)}} zł</td>
+					<td></td>
+				</tr>
+			</tfoot>
+			{% else %}
+			<tbody>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>	
+				</tr>
+			</tbody>
+			<tfoot>
+					<td></td>
+					<td class ="text-end" ><b> Razem: </b></td>
+					<td> {{incomesSum|number_format(2)}} zł</td>
+					<td></td>
+			</tfoot>
+			{% endif %}
+		</table>
+	</div>
+	<div class="d-flex">
+        <table id="detailedExpensesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white; margin-right: 20px; margin-left:20px">
+			<caption style="color: white;"> 
+				<h3 class="bd-title text-center">Szczegółowa tabela wydatków</h3>
+			</caption>
+			<thead>
+				<tr>
+					<th style ="width: 20%">Data</th>
+					<th style ="width: 20%">Kategoria</th>	
+					<th style ="width: 20%">Kwota</th>
+					<th style ="width: 20%">Płatność</th>
+					<th style ="width: 20%">Komentarz</th>																			
+				</tr>
+			</thead>
+			{% if detailedExpenses %}
+			<tbody>	
+				{% for item in detailedExpenses %}
+	                <tr>
+		                <td>{{ item.Date }}</td>
+		                <td>{{ item.Category }}</td> 
+						<td>{{ item.Amount }}</td>  
+						<td>{{ item.Payment }}</td>  
+						<td>{{ item.Comment }}</td>  	 		   				   				  		   				   				  
+                    </tr>
+                {% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td></td>
+					<td class ="text-end" ><b> Razem: </b></td>
+					<td> {{expensesSum|number_format(2)}} zł</td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tfoot>
+			{% else %}
+			<tbody>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>	
+				</tr>
+			</tbody>
+			<tfoot>
+				<td></td>
+					<td class ="text-end" ><b> Razem: </b></td>
+					<td> {{expensesSum|number_format(2)}} zł</td>
+					<td></td>
+					<td></td>
+			</tfoot>
+			{% endif %}
+		</table>
 	</div>
 
 {% endblock %}
