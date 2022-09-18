@@ -11,7 +11,7 @@ use Core\View;
 class AddExpense extends \Core\Controller
 {
     /**
-     * Funkcja wyśwetlająca stronę dodającą nowy wydatek.
+     * Function showing adding expense page.
      */
     public function newAction()
     {
@@ -19,7 +19,7 @@ class AddExpense extends \Core\Controller
     }// end newAction()
 
     /**
-     * Funkcja tworząca wpis w bazie danych.
+     * Function creating database entry.
      */
     public function createAction()
     {
@@ -35,7 +35,7 @@ class AddExpense extends \Core\Controller
     }// end createAction()
 
     /**
-     * Wyświetlenie strony przy sukcesie dodania wydatku.
+     * Show success page after properly added expense.
      */
     public function successAction()
     {
