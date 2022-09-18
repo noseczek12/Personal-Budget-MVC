@@ -2,34 +2,43 @@
 
 namespace App\Controllers;
 
-use \Core\View;
-use \App\Models\Income;
+use App\Models\Income;
+use Core\View;
 
-/* Income controller */
+/**
+ * Income controller.
+ */
 class AddIncome extends \Core\Controller
 {
-    //funkcja wyśwetlająca stronę dodającą nowy przychód
+    /**
+     * Funkcja wyśwetlająca stronę dodającą nowy przychód.
+     */
     public function newAction()
     {
         View::renderTemplate('Income/new.html');
-    }
+    }// end newAction()
 
-    //funkcja tworząca wpis w bazie danych
+    /**
+     * Funkcja tworząca wpis w bazie danych.
+     */
     public function createAction()
-	{
-		$income = new Income($_POST);
-        if ($income->save()) {
-			$this->redirect('/addincome/success');
-       } else {
-            View::renderTemplate('Income/new.html', [
-                'income' => $income
-            ]);
-       }
-	}
+    {
+        $income = new Income($_POST);
+        if (true === $income->save()) {
+            $this->redirect('/addincome/success');
+        } else {
+            View::renderTemplate(
+                'Income/new.html',
+                ['income' => $income]
+            );
+        }
+    }// end createAction()
 
-    //wyświetlenie strony przy sukcesie dodania przychodu
+    /**
+     * Wyświetlenie strony przy sukcesie dodania przychodu.
+     */
     public function successAction()
-	{
-		View::renderTemplate('Income/success.html');
-	}
-}
+    {
+        View::renderTemplate('Income/success.html');
+    }// end successAction()
+}// end class
