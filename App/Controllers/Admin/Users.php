@@ -2,21 +2,26 @@
 
 namespace App\Controllers\Admin;
 
-/* User admin controller */
-
+/**
+ * User admin controller.
+ */
 class Users extends \Core\Controller
 {
-
-    // Filtr przed
-    protected function before()
-    {
-        // Make sure an admin user is logged in for example
-        // return false;
-    }
-
-    //funkcja pokauzująca stronę index
+    /**
+     * Function showing index page.
+     */
     public function indexAction()
     {
         echo 'User admin index';
     }
-}
+
+// end indexAction()
+    /**
+     * Filter before show.
+     */
+    protected function before()
+    {
+        // Make sure an admin user is logged in for example.
+        // return false.
+    }// end before()
+}// end class
