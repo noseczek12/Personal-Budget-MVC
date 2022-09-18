@@ -2,19 +2,21 @@
 
 namespace App\Controllers;
 
-use \App\Models\User;
+use App\Models\User;
 
-//Account controller
-
+/**
+ * Account controller.
+ */
 class Account extends \Core\Controller
 {
+    /**
+     * Function checking if email exists.
+     */
+    public function validateEmailAction()
+    {
+        $isValid = !User::emailExists($_GET['email'], $_GET['ignore_id'] ?? null);
 
-  //funkcja sprawdzająca czy email już istnieje
-  public function validateEmailAction()
-  {
-    $is_valid = ! User::emailExists($_GET['email'], $_GET['ignore_id']??null);
-
-    header('Content-Type: application/json');
-    echo json_encode($is_valid);
-  }
-}
+        header('Content-Type: application/json');
+        echo json_encode($isValid);
+    }// end validateEmailAction()
+}// end class
