@@ -2,26 +2,29 @@
 
 namespace App\Controllers;
 
-use \Core\View;
-use \App\Auth;
-use \App\Mail;
+use Core\View;
 
-/* Home controller */
+/**
+ * *Home controller.
+ */
 class Home extends \Core\Controller
 {
-	 protected function before()
-    {
-        //echo "(before) ";
-    }
-
-//funkcja wyświetlająca stronę index
+    /**
+     * *Function showing index page.
+     */
     public function indexAction()
     {
-		View::renderTemplate('Home/index.html' );
+        View::renderTemplate('Home/index.html');
     }
-	
-	protected function after()
+
+// end indexAction()
+    protected function before()
     {
-        //echo " (after)";
-    }
-}
+        // echo "(before)";
+    }// end before()
+
+    protected function after()
+    {
+        // echo "(after)";
+    }// end after()
+}// end class
