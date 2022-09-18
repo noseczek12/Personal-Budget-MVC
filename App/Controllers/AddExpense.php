@@ -2,34 +2,43 @@
 
 namespace App\Controllers;
 
-use \Core\View;
-use \App\Models\Expense;
+use App\Models\Expense;
+use Core\View;
 
-/* Expense controller */
+/**
+ * Expense controller.
+ */
 class AddExpense extends \Core\Controller
 {
-    //funkcja wyśwetlająca stronę dodającą nowy wydatek
+    /**
+     * Funkcja wyśwetlająca stronę dodającą nowy wydatek.
+     */
     public function newAction()
     {
         View::renderTemplate('Expense/new.html');
-    }
+    }// end newAction()
 
-    //funkcja tworząca wpis w bazie danych
+    /**
+     * Funkcja tworząca wpis w bazie danych.
+     */
     public function createAction()
-	{
-		$expense = new Expense($_POST);
-        if ($expense->save()) {
-			$this->redirect('/addexpense/success');
-       } else {
-            View::renderTemplate('Expense/new.html', [
-                'expense' => $expense
-            ]);
-       }
-	}
+    {
+        $expense = new Expense($_POST);
+        if (true === $expense->save()) {
+            $this->redirect('/addexpense/success');
+        } else {
+            View::renderTemplate(
+                'Expense/new.html',
+                ['expense' => $expense]
+            );
+        }
+    }// end createAction()
 
-    //wyświetlenie strony przy sukcesie dodania wydatku
+    /**
+     * Wyświetlenie strony przy sukcesie dodania wydatku.
+     */
     public function successAction()
-	{
-		View::renderTemplate('Expense/success.html');
-	}
-}
+    {
+        View::renderTemplate('Expense/success.html');
+    }// end successAction()
+}// end class
