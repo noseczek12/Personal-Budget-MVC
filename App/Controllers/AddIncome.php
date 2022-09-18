@@ -11,7 +11,7 @@ use Core\View;
 class AddIncome extends \Core\Controller
 {
     /**
-     * Funkcja wyśwetlająca stronę dodającą nowy przychód.
+     * Function showing adding income page.
      */
     public function newAction()
     {
@@ -19,7 +19,7 @@ class AddIncome extends \Core\Controller
     }// end newAction()
 
     /**
-     * Funkcja tworząca wpis w bazie danych.
+     * Function creating database entry.
      */
     public function createAction()
     {
@@ -35,7 +35,7 @@ class AddIncome extends \Core\Controller
     }// end createAction()
 
     /**
-     * Wyświetlenie strony przy sukcesie dodania przychodu.
+     * Show success page after properly added income.
      */
     public function successAction()
     {
