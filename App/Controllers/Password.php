@@ -17,7 +17,7 @@ class Password extends Controller
     public function forgotAction()
     {
         View::renderTemplate('Password/forgot.html');
-    }
+    }//end forgotAction()
 
     /**
      * Sends link with password reset action.
@@ -26,7 +26,7 @@ class Password extends Controller
     {
         User::sendPasswordReset($_POST['email']);
         View::renderTemplate('Password/reset_requested.html');
-    }
+    }//end requestResetAction()
 
     /**
      * Executes password reset and sends unique reset token.
@@ -40,7 +40,7 @@ class Password extends Controller
             'Password/reset.html',
             ['token' => $token]
         );
-    }
+    }//end resetAction()
 
     /**
      * Function that makes password reset
@@ -55,7 +55,7 @@ class Password extends Controller
             View::renderTemplate('Password/token_expired.html');
             exit;
         }
-    }
+    }//end getUserOrExit()
 
     /**
      * Function that finds User connected with token.
@@ -74,5 +74,5 @@ class Password extends Controller
                     'user' => $user]
             );
         }
-    }
-}
+    }//end resetPasswordAction()
+}//end class
