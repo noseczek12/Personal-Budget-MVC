@@ -7,7 +7,7 @@ use Core\Controller;
 use Core\View;
 
 /**
- * Password controller
+ * Password controller.
  **/
 class Password extends Controller
 {
@@ -43,7 +43,7 @@ class Password extends Controller
     }//end resetAction()
 
     /**
-     * Function that makes password reset
+     * Function that makes password reset.
      **/
     protected function getUserOrExit($token)
     {
