@@ -2,62 +2,77 @@
 
 namespace App\Controllers;
 
-use \Core\View;
-use \App\Models\User;
+use App\Models\User;
+use Core\Controller;
+use Core\View;
 
-//Password controller
-
-class Password extends \Core\Controller
+/**
+ * Password controller
+ **/
+class Password extends Controller
 {
-		//pokaż stronę zapomniałem hasła
-		public function forgotAction()
-		{
-				View::renderTemplate('Password/forgot.html');
-		}
-		//wyślij link z resetem hasła na podany mail
-		public function requestResetAction()
-		{
-				User::sendPasswordReset($_POST['email']);
-				View::renderTemplate('Password/reset_requested.html');
-		}
-		
-		//wykonaj reset hasła
-		public function resetAction()
-		{
-				$token = $this->route_params['token'];
-				$user = $this->getUserOrExit($token);
+    /**
+     * Shows page forgot password.
+     **/
+    public function forgotAction()
+    {
+        View::renderTemplate('Password/forgot.html');
+    }
 
-				View::renderTemplate('Password/reset.html', [
-								'token' => $token
-								]);
-		}
-		
-		//funkcja resetująca hasło użytkownika
-		public function resetPasswordAction()
-		{
-					$token = $_POST['token'];
-					$user = $this->getUserOrExit($token);
-					
-					if ($user->resetPassword($_POST['password'])){
-							View::renderTemplate('Password/reset_success.html');
-					}else{
-							View::renderTemplate('Password/reset.html', [
-								'token' => $token,
-								'user' => $user
-								]);
-					}
-		}
-		
-		//funkcja znajdująca użytkownika powiązanego z tokenem
-		protected function getUserOrExit($token)
-		{
-				$user = User::findByPasswordReset($token);
+    /**
+     * Sends link with password reset action.
+     **/
+    public function requestResetAction()
+    {
+        User::sendPasswordReset($_POST['email']);
+        View::renderTemplate('Password/reset_requested.html');
+    }
 
-				if($user){
-						return $user;
-				} else {
-						View::renderTemplate('Password/token_expired.html');
-						exit;
-				}
-		}
+    /**
+     * Executes password reset and sends unique reset token.
+     **/
+    public function resetAction()
+    {
+        $token = $this->route_params['token'];
+        $user = $this->getUserOrExit($token);
+
+        View::renderTemplate(
+            'Password/reset.html',
+            ['token' => $token]
+        );
+    }
+
+    /**
+     * Function that makes password reset
+     **/
+    protected function getUserOrExit($token)
+    {
+        $user = User::findByPasswordReset($token);
+
+        if ($user === true) {
+            return $user;
+        } else {
+            View::renderTemplate('Password/token_expired.html');
+            exit;
+        }
+    }
+
+    /**
+     * Function that finds User connected with token.
+     **/
+    public function resetPasswordAction()
+    {
+        $token = $_POST['token'];
+        $user = $this->getUserOrExit($token);
+
+        if ($user->resetPassword($_POST['password'])) {
+            View::renderTemplate('Password/reset_success.html');
+        } else {
+            View::renderTemplate(
+                'Password/reset.html',
+                ['token' => $token,
+                    'user' => $user]
+            );
+        }
+    }
 }
