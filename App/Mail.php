@@ -62,5 +62,5 @@ class Mail
         } catch (Exception $e) {
             Flash::addMessage("Mailer Error: {$mail->ErrorInfo}", Flash::WARNING);
         }
-    }
-}
+    }//end send()
+}//end class
