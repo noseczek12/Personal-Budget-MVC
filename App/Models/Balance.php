@@ -30,15 +30,15 @@ class Balance extends Model
     {
         if (empty(Expense::$this->errors)) {
 
-            $sql = "SELECT expenses_category_default.name as Category,
-                    SUM(expenses.amount) as Amount 
-                    FROM expenses 
-                    INNER JOIN expenses_category_default 
-                    ON expenses.expense_category_assigned_to_user_id = expenses_category_default.id 
-                    WHERE user_id = :userId 
-                    AND expenses.date_of_expense " . $period . " 
-                    GROUP BY Category 
-                    ORDER BY Amount  
+            $sql = "SELECT `expenses_category_default`.`name` as `Category`,
+                    SUM(`expenses`.`amount`) as Amount 
+                    FROM `expenses` 
+                    INNER JOIN `expenses_category_default` 
+                    ON `expenses`.`expense_category_assigned_to_user_id` = `expenses_category_default`.`id`
+                    WHERE `user_id` = :userId 
+                    AND `expenses`.`date_of_expense` " . $period . " 
+                    GROUP BY `Category` 
+                    ORDER BY `Amount`  
                     DESC";
 
             $db = static::getDB();
@@ -60,15 +60,15 @@ class Balance extends Model
     {
         if (empty(Expense::$this->errors)) {
 
-            $sql = "SELECT expenses_category_default.name as Category,
-                    SUM(expenses.amount) as Amount 
-                    FROM expenses 
-                    INNER JOIN expenses_category_default 
-                    ON expenses.expense_category_assigned_to_user_id = expenses_category_default.id 
-                    WHERE user_id = :userId 
-                    AND expenses.date_of_expense " . $period . " 
-                    GROUP BY Category 
-                    ORDER BY Amount  
+            $sql = "SELECT `expenses_category_default`.`name` as `Category`,
+                    SUM(`expenses`.`amount`) as `Amount` 
+                    FROM `expenses` 
+                    INNER JOIN `expenses_category_default` 
+                    ON `expenses`.`expense_category_assigned_to_user_id` = `expenses_category_default`.`id` 
+                    WHERE `user_id` = :userId 
+                    AND `expenses`.`date_of_expense` " . $period . " 
+                    GROUP BY `Category` 
+                    ORDER BY `Amount`  
                     DESC";
 
             $db = static::getDB();
@@ -102,19 +102,19 @@ class Balance extends Model
     {
         if (empty(Expense::$this->errors)) {
 
-            $sql = "SELECT expenses.date_of_expense as Date,
-					expenses_category_default.name as Category, 
-					expenses.amount as Amount,
-					payment_methods_default.name as Payment,
-					expenses.expense_comment as Comment
-					FROM expenses 
-					INNER JOIN expenses_category_default 
-					ON expenses.expense_category_assigned_to_user_id = expenses_category_default.id 
-					INNER JOIN payment_methods_default
-					ON expenses.payment_method_assigned_to_user_id = payment_methods_default.id
-					WHERE user_id = :userId 
-					AND expenses.date_of_expense " . $period . " 
-					ORDER BY Date 
+            $sql = "SELECT `expenses`.`date_of_expense` as `Date`,
+					`expenses_category_default`.`name` as `Category`, 
+					`expenses`.`amount` as `Amount`,
+					`payment_methods_default`.`name` as `Payment`,
+					`expenses`.`expense_comment` as `Comment`
+					FROM `expenses` 
+					INNER JOIN `expenses_category_default` 
+					ON `expenses`.`expense_category_assigned_to_user_id` = `expenses_category_default`.`id` 
+					INNER JOIN `payment_methods_default`
+					ON `expenses`.`payment_method_assigned_to_user_id` = `payment_methods_default`.`id`
+					WHERE `user_id` = :userId 
+					AND `expenses`.`date_of_expense` " . $period . " 
+					ORDER BY `Date` 
 					ASC";
 
             $db = static::getDB();
@@ -136,16 +136,16 @@ class Balance extends Model
     {
         if (empty(Expense::$this->errors)) {
 
-            $sql = "SELECT incomes.date_of_income as Date,
-					incomes_category_default.name as Category, 
-					incomes.amount as Amount,
-					incomes.income_comment as Comment
-					FROM incomes 
-					INNER JOIN incomes_category_default 
-					ON incomes.income_category_assigned_to_user_id = incomes_category_default.id 
-					WHERE user_id = :userId 
-					AND incomes.date_of_income " . $period . " 
-					ORDER BY Date 
+            $sql = "SELECT `incomes`.`date_of_income` as `Date`,
+					`incomes_category_default`.`name` as `Category`, 
+					`incomes`.`amount` as `Amount`,
+					`incomes`.`income_comment` as `Comment`
+					FROM `incomes` 
+					INNER JOIN `incomes_category_default` 
+					ON `incomes`.`income_category_assigned_to_user_id` = `incomes_category_default`.`id` 
+					WHERE `user_id` = :userId 
+					AND `incomes`.`date_of_income` " . $period . " 
+					ORDER BY `Date` 
 					ASC";
 
             $db = static::getDB();
@@ -167,15 +167,15 @@ class Balance extends Model
     {
         if (empty(Income::$this->errors)) {
 
-            $sql = "SELECT incomes_category_default.name as Category,
-                    SUM(incomes.amount) as Amount 
-                    FROM incomes 
-                    INNER JOIN incomes_category_default 
-                    ON incomes.income_category_assigned_to_user_id = incomes_category_default.id 
-                    WHERE user_id = :userId 
-                    AND incomes.date_of_income " . $period . " 
-                    GROUP BY Category 
-                    ORDER BY Amount  
+            $sql = "SELECT `incomes_category_default`.`name` as `Category`,
+                    SUM(`incomes`.`amount`) as `Amount` 
+                    FROM `incomes` 
+                    INNER JOIN `incomes_category_default` 
+                    ON `incomes`.`income_category_assigned_to_user_id` = `incomes_category_default`.`id` 
+                    WHERE `user_id` = :userId 
+                    AND `incomes`.`date_of_income` " . $period . " 
+                    GROUP BY `Category` 
+                    ORDER BY `Amount`  
                     DESC";
 
             $db = static::getDB();
@@ -197,15 +197,15 @@ class Balance extends Model
     {
         if (empty(Income::$this->errors)) {
 
-            $sql = "SELECT incomes_category_default.name as Category,
-                    SUM(incomes.amount) as Amount 
-                    FROM incomes 
-                    INNER JOIN incomes_category_default 
-                    ON incomes.income_category_assigned_to_user_id = incomes_category_default.id 
-                    WHERE user_id = :userId 
-                    AND incomes.date_of_income " . $period . " 
-                    GROUP BY Category 
-                    ORDER BY Amount  
+            $sql = "SELECT `incomes_category_default`.`name` as `Category`,
+                    SUM(`incomes`.`amount`) as `Amount` 
+                    FROM `incomes` 
+                    INNER JOIN `incomes_category_default` 
+                    ON `incomes`.`income_category_assigned_to_user_id` = `incomes_category_default`.`id` 
+                    WHERE `user_id` = :userId 
+                    AND `incomes`.`date_of_income` " . $period . " 
+                    GROUP BY `Category` 
+                    ORDER BY `Amount`  
                     DESC";
 
             $db = static::getDB();
