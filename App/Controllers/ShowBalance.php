@@ -9,7 +9,6 @@ use App\Models\Balance;
 /**
  * * ShowBalance Controller.
  */
-
 class ShowBalance extends Controller
 {
     /**
@@ -38,7 +37,7 @@ class ShowBalance extends Controller
                 'detailedIncomes' => Balance::getDetailedIncomes($period)
             )
         );
-    }
+    }//end showCurrentMonthAction()
 
     /**
      * * Show user previous month balance.
@@ -66,8 +65,7 @@ class ShowBalance extends Controller
                 'detailedIncomes' => Balance::getDetailedIncomes($period)
             )
         );
-
-    }
+    }//end showPreviousMonthAction()
 
     /**
      * * Show user current year balance.
@@ -95,7 +93,8 @@ class ShowBalance extends Controller
                 'detailedIncomes' => Balance::getDetailedIncomes($period)
             )
         );
-    }
+    }//end showCurrentYearAction()
+
     /**
      * * Show user custom period balance.
      */
@@ -120,5 +119,5 @@ class ShowBalance extends Controller
                 'detailedIncomes' => Balance::getDetailedIncomes($period)
             )
         );
-    }
-}
+    }//end showCustomAction()
+}//end class
