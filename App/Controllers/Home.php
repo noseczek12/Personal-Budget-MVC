@@ -15,9 +15,8 @@ class Home extends \Core\Controller
     public function indexAction()
     {
         View::renderTemplate('Home/index.html');
-    }
+    }// end indexAction()
 
-// end indexAction()
     protected function before()
     {
         // echo "(before)";

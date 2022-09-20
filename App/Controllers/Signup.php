@@ -16,7 +16,7 @@ class Signup extends \Core\Controller
     public function newAction()
     {
         View::renderTemplate('Signup/new.html');
-    }
+    }//end newAction()
 
     /** 
      * Function creating new user.
@@ -33,7 +33,7 @@ class Signup extends \Core\Controller
                 ['user' => $user]
             );
         }
-    }
+    }//end createAction()
 
     /** 
      * Shows signup success action.
@@ -41,7 +41,7 @@ class Signup extends \Core\Controller
     public function successAction()
     {
         View::renderTemplate('Signup/success.html');
-    }
+    }//end successAction()
 
     /** 
      * New account activation.
@@ -50,7 +50,7 @@ class Signup extends \Core\Controller
     {
         User::activate($this->route_params['token']);
         $this->redirect('/signup/activated');
-    }
+    }//end activateAction()
 
     /** 
      * Shows page during signup success.
@@ -58,5 +58,5 @@ class Signup extends \Core\Controller
     public function activatedAction()
     {
         View::renderTemplate('Signup/activated.html');
-    }
-}
+    }//end activatedAction()
+}//end class
