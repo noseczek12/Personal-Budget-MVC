@@ -26,7 +26,7 @@ class Balance extends Model
     /**
      * * Get user's all expenses (at given period).
      */
-    public static function getAllExpenses($period)
+    public static function getAllExpenses($firstDay,$lastDay)
     {
         if (empty(Expense::$this->errors)) {
 
@@ -36,7 +36,8 @@ class Balance extends Model
                     INNER JOIN `expenses_category_default` 
                     ON `expenses`.`expense_category_assigned_to_user_id` = `expenses_category_default`.`id`
                     WHERE `user_id` = :userId 
-                    AND `expenses`.`date_of_expense` " . $period . " 
+                    AND `expenses`.`date_of_expense` 
+                    BETWEEN :firstDay AND :lastDay 
                     GROUP BY `Category` 
                     ORDER BY `Amount`  
                     DESC";
@@ -45,7 +46,8 @@ class Balance extends Model
             $stmt = $db->prepare($sql);
 
             $stmt->bindValue(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
-
+            $stmt->bindValue(':firstDay', $firstDay, PDO::PARAM_STR);
+            $stmt->bindValue(':lastDay', $lastDay, PDO::PARAM_STR);
             $stmt->execute();
             return $stmt->fetchAll();
         }
@@ -56,7 +58,7 @@ class Balance extends Model
     /**
      * * Get all expenses data for google charts.
      */
-    public static function getPieChartExpenses($period)
+    public static function getPieChartExpenses($firstDay,$lastDay)
     {
         if (empty(Expense::$this->errors)) {
 
@@ -66,7 +68,8 @@ class Balance extends Model
                     INNER JOIN `expenses_category_default` 
                     ON `expenses`.`expense_category_assigned_to_user_id` = `expenses_category_default`.`id` 
                     WHERE `user_id` = :userId 
-                    AND `expenses`.`date_of_expense` " . $period . " 
+                    AND `expenses`.`date_of_expense`
+                    BETWEEN :firstDay AND :lastDay
                     GROUP BY `Category` 
                     ORDER BY `Amount`  
                     DESC";
@@ -75,6 +78,8 @@ class Balance extends Model
             $stmt = $db->prepare($sql);
 
             $stmt->bindValue(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
+            $stmt->bindValue(':firstDay', $firstDay, PDO::PARAM_STR);
+            $stmt->bindValue(':lastDay', $lastDay, PDO::PARAM_STR);
             $stmt->execute();
             $tablica = array();
             $i = 1;
@@ -98,7 +103,7 @@ class Balance extends Model
     /**
      * * Get user's all detailed expenses (at given period).
      */
-    public static function getDetailedExpenses($period)
+    public static function getDetailedExpenses($firstDay,$lastDay)
     {
         if (empty(Expense::$this->errors)) {
 
@@ -113,7 +118,8 @@ class Balance extends Model
 					INNER JOIN `payment_methods_default`
 					ON `expenses`.`payment_method_assigned_to_user_id` = `payment_methods_default`.`id`
 					WHERE `user_id` = :userId 
-					AND `expenses`.`date_of_expense` " . $period . " 
+					AND `expenses`.`date_of_expense`
+                    BETWEEN :firstDay AND :lastDay
 					ORDER BY `Date` 
 					ASC";
 
@@ -121,6 +127,8 @@ class Balance extends Model
             $stmt = $db->prepare($sql);
 
             $stmt->bindValue(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
+            $stmt->bindValue(':firstDay', $firstDay, PDO::PARAM_STR);
+            $stmt->bindValue(':lastDay', $lastDay, PDO::PARAM_STR);
 
             $stmt->execute();
             return $stmt->fetchAll();
@@ -132,7 +140,7 @@ class Balance extends Model
     /**
      * * Get user's all detailed incomes (at given period).
      */
-    public static function getDetailedIncomes($period)
+    public static function getDetailedIncomes($firstDay,$lastDay)
     {
         if (empty(Expense::$this->errors)) {
 
@@ -144,7 +152,8 @@ class Balance extends Model
 					INNER JOIN `incomes_category_default` 
 					ON `incomes`.`income_category_assigned_to_user_id` = `incomes_category_default`.`id` 
 					WHERE `user_id` = :userId 
-					AND `incomes`.`date_of_income` " . $period . " 
+					AND `incomes`.`date_of_income`
+                    BETWEEN :firstDay AND :lastDay
 					ORDER BY `Date` 
 					ASC";
 
@@ -152,6 +161,8 @@ class Balance extends Model
             $stmt = $db->prepare($sql);
 
             $stmt->bindValue(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
+            $stmt->bindValue(':firstDay', $firstDay, PDO::PARAM_STR);
+            $stmt->bindValue(':lastDay', $lastDay, PDO::PARAM_STR);
 
             $stmt->execute();
             return $stmt->fetchAll();
@@ -163,7 +174,7 @@ class Balance extends Model
     /**
      * * Get user's all incomes (at given period).
      */
-    public static function getAllIncomes($period)
+    public static function getAllIncomes($firstDay,$lastDay)
     {
         if (empty(Income::$this->errors)) {
 
@@ -173,7 +184,8 @@ class Balance extends Model
                     INNER JOIN `incomes_category_default` 
                     ON `incomes`.`income_category_assigned_to_user_id` = `incomes_category_default`.`id` 
                     WHERE `user_id` = :userId 
-                    AND `incomes`.`date_of_income` " . $period . " 
+                    AND `incomes`.`date_of_income`
+                    BETWEEN :firstDay AND :lastDay
                     GROUP BY `Category` 
                     ORDER BY `Amount`  
                     DESC";
@@ -182,6 +194,8 @@ class Balance extends Model
             $stmt = $db->prepare($sql);
 
             $stmt->bindValue(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
+            $stmt->bindValue(':firstDay', $firstDay, PDO::PARAM_STR);
+            $stmt->bindValue(':lastDay', $lastDay, PDO::PARAM_STR);
 
             $stmt->execute();
             return $stmt->fetchAll();
@@ -193,7 +207,7 @@ class Balance extends Model
     /**
      * * Get all incomes data for google charts.
      */
-    public static function getPieChartIncomes($period)
+    public static function getPieChartIncomes($firstDay,$lastDay)
     {
         if (empty(Income::$this->errors)) {
 
@@ -203,7 +217,8 @@ class Balance extends Model
                     INNER JOIN `incomes_category_default` 
                     ON `incomes`.`income_category_assigned_to_user_id` = `incomes_category_default`.`id` 
                     WHERE `user_id` = :userId 
-                    AND `incomes`.`date_of_income` " . $period . " 
+                    AND `incomes`.`date_of_income`
+                    BETWEEN :firstDay AND :lastDay
                     GROUP BY `Category` 
                     ORDER BY `Amount`  
                     DESC";
@@ -212,6 +227,8 @@ class Balance extends Model
             $stmt = $db->prepare($sql);
 
             $stmt->bindValue(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
+            $stmt->bindValue(':firstDay', $firstDay, PDO::PARAM_STR);
+            $stmt->bindValue(':lastDay', $lastDay, PDO::PARAM_STR);
 
             $i = 1;
             $stmt->execute();
