@@ -17,7 +17,7 @@ class Token
         } else {
             $this->token = bin2hex(random_bytes(16));
         }
-    }
+    }//end __construct()
 
     /**
      * * Get token value.
@@ -25,7 +25,7 @@ class Token
     public function getValue()
     {
         return $this->token;
-    }
+    }//end getValue()
 
     /**
      * * Get hashed token with HMAC.
@@ -33,5 +33,5 @@ class Token
     public function getHash()
     {
         return hash_hmac('sha256', $this->token, Config_new::SECRET_KEY);
-    }
-}
+    }//end getHash()
+}//end class
