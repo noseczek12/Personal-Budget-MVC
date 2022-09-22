@@ -16,25 +16,24 @@ class ShowBalance extends Controller
      */
     public function showCurrentMonthAction()
     {
-        $first_day = date('Y-m-01');
-        $last_day = date('Y-m-t');
-        $period_info = "Okres czasu od " . $first_day . " do " . $last_day;
-        $period = "BETWEEN '" . $first_day . "' AND '" . $last_day . "'";
-        $incomesArray = Balance::getPieChartIncomes($period);
-        $expensesArray = Balance::getPieChartExpenses($period);
+        $firstDay = date('Y-m-01');
+        $lastDay = date('Y-m-t');
+        $period_info = 'Okres czasu od ' . $firstDay . ' do ' . $lastDay;
+        $incomesArray = Balance::getPieChartIncomes($firstDay, $lastDay);
+        $expensesArray = Balance::getPieChartExpenses($firstDay, $lastDay);
 
         View::renderTemplate(
             'Balance/Show.html',
             array(
-                'incomes' => Balance::getAllIncomes($period),
-                'expenses' => Balance::getAllExpenses($period),
+                'incomes' => Balance::getAllIncomes($firstDay, $lastDay),
+                'expenses' => Balance::getAllExpenses($firstDay, $lastDay),
                 'jsonincomes' => json_encode($incomesArray),
                 'jsonexpenses' => json_encode($expensesArray),
-                'incomesSum' => Balance::calcSum(Balance::getAllIncomes($period)),
-                'expensesSum' => Balance::calcSum(Balance::getAllExpenses($period)),
+                'incomesSum' => Balance::calcSum(Balance::getAllIncomes($firstDay, $lastDay)),
+                'expensesSum' => Balance::calcSum(Balance::getAllExpenses($firstDay, $lastDay)),
                 'period_info' => $period_info,
-                'detailedExpenses' => Balance::getDetailedExpenses($period),
-                'detailedIncomes' => Balance::getDetailedIncomes($period)
+                'detailedExpenses' => Balance::getDetailedExpenses($firstDay, $lastDay),
+                'detailedIncomes' => Balance::getDetailedIncomes($firstDay, $lastDay)
             )
         );
     }//end showCurrentMonthAction()
@@ -44,25 +43,24 @@ class ShowBalance extends Controller
      */
     public function showPreviousMonthAction()
     {
-        $first_day = date('Y-m-d', strtotime('first day of last month'));
-        $last_day = date('Y-m-d', strtotime('last day of last month'));
-        $period_info = "Okres czasu od " . $first_day . " do " . $last_day;
-        $period = "BETWEEN '" . $first_day . "' AND '" . $last_day . "'";
-        $incomesArray = Balance::getPieChartIncomes($period);
-        $expensesArray = Balance::getPieChartExpenses($period);
+        $firstDay = date('Y-m-d', strtotime('first day of last month'));
+        $lastDay = date('Y-m-d', strtotime('last day of last month'));
+        $period_info = 'Okres czasu od ' . $firstDay . ' do ' . $lastDay;
+        $incomesArray = Balance::getPieChartIncomes($firstDay, $lastDay);
+        $expensesArray = Balance::getPieChartExpenses($firstDay, $lastDay);
 
         View::renderTemplate(
             'Balance/Show.html',
             array(
-                'incomes' => Balance::getAllIncomes($period),
-                'expenses' => Balance::getAllExpenses($period),
+                'incomes' => Balance::getAllIncomes($firstDay, $lastDay),
+                'expenses' => Balance::getAllExpenses($firstDay, $lastDay),
                 'jsonincomes' => json_encode($incomesArray),
                 'jsonexpenses' => json_encode($expensesArray),
-                'incomesSum' => Balance::calcSum(Balance::getAllIncomes($period)),
-                'expensesSum' => Balance::calcSum(Balance::getAllExpenses($period)),
+                'incomesSum' => Balance::calcSum(Balance::getAllIncomes($firstDay, $lastDay)),
+                'expensesSum' => Balance::calcSum(Balance::getAllExpenses($firstDay, $lastDay)),
                 'period_info' => $period_info,
-                'detailedExpenses' => Balance::getDetailedExpenses($period),
-                'detailedIncomes' => Balance::getDetailedIncomes($period)
+                'detailedExpenses' => Balance::getDetailedExpenses($firstDay, $lastDay),
+                'detailedIncomes' => Balance::getDetailedIncomes($firstDay, $lastDay)
             )
         );
     }//end showPreviousMonthAction()
@@ -72,25 +70,24 @@ class ShowBalance extends Controller
      */
     public function showCurrentYearAction()
     {
-        $first_day = date('Y-m-d', strtotime('first day of January'));
-        $last_day = date('Y-m-d', strtotime('last day of December'));
-        $period_info = "Okres czasu od " . $first_day . " do " . $last_day;
-        $period = "BETWEEN '" . $first_day . "' AND '" . $last_day . "'";
-        $incomesArray = Balance::getPieChartIncomes($period);
-        $expensesArray = Balance::getPieChartExpenses($period);
+        $firstDay = date('Y-m-d', strtotime('first day of January'));
+        $lastDay = date('Y-m-d', strtotime('last day of December'));
+        $period_info = "Okres czasu od " . $firstDay . " do " . $lastDay;
+        $incomesArray = Balance::getPieChartIncomes($firstDay, $lastDay);
+        $expensesArray = Balance::getPieChartExpenses($firstDay, $lastDay);
 
         View::renderTemplate(
             'Balance/Show.html',
             array(
-                'incomes' => Balance::getAllIncomes($period),
-                'expenses' => Balance::getAllExpenses($period),
+                'incomes' => Balance::getAllIncomes($firstDay, $lastDay),
+                'expenses' => Balance::getAllExpenses($firstDay, $lastDay),
                 'jsonincomes' => json_encode($incomesArray),
                 'jsonexpenses' => json_encode($expensesArray),
-                'incomesSum' => Balance::calcSum(Balance::getAllIncomes($period)),
-                'expensesSum' => Balance::calcSum(Balance::getAllExpenses($period)),
+                'incomesSum' => Balance::calcSum(Balance::getAllIncomes($firstDay, $lastDay)),
+                'expensesSum' => Balance::calcSum(Balance::getAllExpenses($firstDay, $lastDay)),
                 'period_info' => $period_info,
-                'detailedExpenses' => Balance::getDetailedExpenses($period),
-                'detailedIncomes' => Balance::getDetailedIncomes($period)
+                'detailedExpenses' => Balance::getDetailedExpenses($firstDay, $lastDay),
+                'detailedIncomes' => Balance::getDetailedIncomes($firstDay, $lastDay)
             )
         );
     }//end showCurrentYearAction()
@@ -101,22 +98,21 @@ class ShowBalance extends Controller
     public function showCustomAction()
     {
         $period_info = "Okres czasu od " . $_POST['startDate'] . " do " . $_POST['endDate'];
-        $period = "BETWEEN '" . $_POST['startDate'] . "' AND '" . $_POST['endDate'] . "'";
-        $incomesArray = Balance::getPieChartIncomes($period);
-        $expensesArray = Balance::getPieChartExpenses($period);
+        $incomesArray = Balance::getPieChartIncomes($_POST['startDate'], $_POST['endDate']);
+        $expensesArray = Balance::getPieChartExpenses($_POST['startDate'], $_POST['endDate']);
 
         View::renderTemplate(
             'Balance/Show.html',
             array(
-                'incomes' => Balance::getAllIncomes($period),
-                'expenses' => Balance::getAllExpenses($period),
+                'incomes' => Balance::getAllIncomes($_POST['startDate'], $_POST['endDate']),
+                'expenses' => Balance::getAllExpenses($_POST['startDate'], $_POST['endDate']),
                 'jsonincomes' => json_encode($incomesArray),
                 'jsonexpenses' => json_encode($expensesArray),
-                'incomesSum' => Balance::calcSum(Balance::getAllIncomes($period)),
-                'expensesSum' => Balance::calcSum(Balance::getAllExpenses($period)),
+                'incomesSum' => Balance::calcSum(Balance::getAllIncomes($_POST['startDate'], $_POST['endDate'])),
+                'expensesSum' => Balance::calcSum(Balance::getAllExpenses($_POST['startDate'], $_POST['endDate'])),
                 'period_info' => $period_info,
-                'detailedExpenses' => Balance::getDetailedExpenses($period),
-                'detailedIncomes' => Balance::getDetailedIncomes($period)
+                'detailedExpenses' => Balance::getDetailedExpenses($_POST['startDate'], $_POST['endDate']),
+                'detailedIncomes' => Balance::getDetailedIncomes($_POST['startDate'], $_POST['endDate'])
             )
         );
     }//end showCustomAction()

@@ -104,7 +104,7 @@
 	</div>
 
     <div class="d-flex">
-        <table id="incomesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white; margin-right: 20px; margin-left:20px">
+        <table id="incomesTable" class="table p-2 caption-top" style="background-color: rgba(0, 149, 255, 0.795); border: 1px solid white; color:white; margin-right: 20px; margin-left:20px">
 			<caption style="color: white;"> 
 				<h3 class="bd-title text-center">Tabela przychodów</h3>
 			</caption>
@@ -144,7 +144,7 @@
 			</tfoot>
 			{% endif %}
 		</table>
-		<table id="expensesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white; margin-right: 20px; margin-left:20px">
+		<table id="expensesTable" class="table p-2 caption-top" style="background-color: rgba(0, 149, 255, 0.795); border: 1px solid white; color:white; margin-right: 20px; margin-left:20px">
 			<caption style="color: white;"> 
 				<h3 class="bd-title text-center">Tabela wydatków</h3>
 			</caption>
@@ -191,7 +191,7 @@
 		<p>Brawo! Potrafisz zarządzać swoimi finansami !</p>
 	</div>
 	{% else %}
-	<div style="text-align: center; padding-right: 20px; color: rgb(128, 12, 12);">
+	<div style="text-align: center; padding-right: 20px; color: rgb(231, 10, 10);">
 		<p>Twój balans wynosi {{(incomesSum-expensesSum)|number_format(2)}} zł</p>
 		<p>Musisz jeszcze popracować nad swoimi finansami !</p>
 	</div>
@@ -201,7 +201,7 @@
 				<div id="piechartExpenses" class="p-2" style ="width: 50%; height: 500px;margin-right: 20px; margin-left:20px"></div>
 	</div>
 	<div class="d-flex">
-        <table id="detailedIncomesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white; margin-right: 20px; margin-left:20px">
+        <table id="detailedIncomesTable" class="table p-2 caption-top" style="background-color: rgba(0, 149, 255, 0.795); border: 1px solid white; color:white; margin-right: 20px; margin-left:20px">
 			<caption style="color: white;"> 
 				<h3 class="bd-title text-center">Szczegółowa tabela przychodów</h3>
 			</caption>
@@ -251,7 +251,7 @@
 		</table>
 	</div>
 	<div class="d-flex">
-        <table id="detailedExpensesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white; margin-right: 20px; margin-left:20px">
+        <table id="detailedExpensesTable" class="table p-2 caption-top" style="background-color: rgba(0, 149, 255, 0.795); border: 1px solid white; color:white; margin-right: 20px; margin-left:20px">
 			<caption style="color: white;"> 
 				<h3 class="bd-title text-center">Szczegółowa tabela wydatków</h3>
 			</caption>

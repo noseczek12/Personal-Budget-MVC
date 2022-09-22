@@ -14,7 +14,7 @@
 <body>
 			<header>
 				<img src="/img/tlo.png" alt="tło" class="rounded mx-auto d-block img-fluid">
-				<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #204ac8;">
+				<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgba(0, 149, 255, 0.795);">
 				<div class="container-fluid">	
 						<a class="navbar-brand" href="/">Strona główna</a>
 							
@@ -37,7 +37,7 @@
 
 			
 			{% for message in flash_messages %}
-				<div class="alert alert-{{ message.type }}">
+				<div class="alert alert-{{ message.type }}" style="border: 2px solid rgba(0, 149, 255, 0.795); border-radius: 5px;">
 					{{message.body}}
 				</div>
 			{% endfor %}
@@ -52,7 +52,7 @@
 	
 	<footer>
 		<div class="col-sm-12 info">
-			Wszelkie prawa zastrzeżone &copy; 2021 Dziękuję za wizytę !
+			Wszelkie prawa zastrzeżone &copy; {{ 'now' | date('Y') }} Dziękuję za wizytę !
 		</div>
 	</footer>	
 

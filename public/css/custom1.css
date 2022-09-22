@@ -1,7 +1,7 @@
 body
 {
 	margin: 0;
-	background-color: #228B22;
+	background-color: rgb(48 177 37 / 96%);
 	color: #efefef;
     font-family: 'Open Sans', sans-serif;
     font-size: 17px;
@@ -65,7 +65,7 @@ ol > li
 
 #dropdownMenuButton1
 {
-	background-color:#204ac8;
+	background-color:rgba(0, 149, 255, 0.795);
 	border:none;
 }
 
@@ -76,7 +76,7 @@ ol > li
 
 .login-form-2{
     padding: 3%;
-    background: #204ac8;
+    background: rgba(0, 149, 255, 0.795);
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -221,11 +221,23 @@ h5{
 	color:#fff;
     padding:9px 15px;
     border-bottom:1px solid #eee;
-    background-color: #428bca;
+    background-color: rgba(0, 149, 255, 0.795);
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
     -moz-border-radius-topleft: 5px;
     -moz-border-radius-topright: 5px;
      border-top-left-radius: 5px;
      border-top-right-radius: 5px;
+}
+
+.alert-success{
+	background-color: rgb(63 255 45 / 82%);
+}
+
+.alert-warning{
+	background-color: #ffeb00f2;
+}
+
+.alert-danger{
+	background-color: #ed3648;
 }
