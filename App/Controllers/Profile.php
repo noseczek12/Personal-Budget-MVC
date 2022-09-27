@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Auth;
 use App\Flash;
+use App\Models\Balance;
 use Core\View;
 
 /**
@@ -19,20 +20,12 @@ class Profile extends Authenticated
     {
         View::renderTemplate(
             'Profile/show.html',
-            ['user' => $this->user]
+            ['user' => $this->user,
+            'expenseCategories' => Balance::getExpensesCategories(),
+            'incomeCategories' => Balance::getIncomesCategories(),
+            'paymentMethods' => Balance::getPaymentMethods()]
         );
     }//end showAction()
-
-    /**
-     * Shows user profile.
-     **/
-    public function editAction()
-    {
-        View::renderTemplate(
-            'Profile/edit.html',
-            ['user' => $this->user]
-        );
-    }//end editAction()
 
     /**
      * Shows update user profile.
@@ -40,7 +33,7 @@ class Profile extends Authenticated
     public function updateAction()
     {
         if ($this->user->updateProfile($_POST)) {
-            Flash::addMessage('Changes saved');
+            Flash::addMessage('Zapisano zmiany.');
             $this->redirect('/profile/show');
         } else {
             View::renderTemplate(

@@ -22,7 +22,73 @@ class Balance extends Model
             $this->$key = $value;
         }
     }//end __construct()
+    
+    /**
+     * * Get all default expense categories
+     */
+    public static function getExpensesCategories()
+    {
+        if (empty(Expense::$this->errors)) {
 
+            $sql = "SELECT 
+                    `expenses_category_default`.`id`,
+                    `expenses_category_default`.`name` as `Category`
+                    FROM `expenses_category_default`";
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->execute();
+            return $stmt->fetchAll();
+        }
+
+        return false;
+    }//end getExpensesCategories()
+
+    /**
+     * * Get all default income categories
+     */
+    public static function getIncomesCategories()
+    {
+        if (empty(Income::$this->errors)) {
+
+            $sql = "SELECT 
+                    `incomes_category_default`.`id`,
+                    `incomes_category_default`.`name` as `Category`
+                    FROM `incomes_category_default`";
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->execute();
+            return $stmt->fetchAll();
+        }
+
+        return false;
+    }//end getIncomesCategories()
+    
+    /**
+     * * Get all default payment methods
+     */
+    public static function getPaymentMethods()
+    {
+        if (empty(Balance::$this->errors)) {
+
+            $sql = "SELECT
+                    `payment_methods_default`.`id`,
+                    `payment_methods_default`.`name` as `Category`
+                    FROM `payment_methods_default`";
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->execute();
+            return $stmt->fetchAll();
+        }
+
+        return false;
+    }//end getPaymentMethods()
+    
     /**
      * * Get user's all expenses (at given period).
      */

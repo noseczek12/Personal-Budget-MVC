@@ -241,3 +241,17 @@ h5{
 .alert-danger{
 	background-color: #ed3648;
 }
+
+.accordion-body{
+	color:black;
+}
+
+.accordion-button{
+	background-color:rgba(0, 149, 255, 0.795);
+	color: white;
+}
+
+.accordion-button:not(.collapsed) {
+	background-color:rgba(0, 149, 255, 0.795);
+	color: white;
+}
