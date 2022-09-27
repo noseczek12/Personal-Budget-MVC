@@ -3,7 +3,8 @@
         "twig/twig": "^3.0",
         "phpmailer/phpmailer": "^6.5",
         "league/oauth2-google": "^4.0",
-        "cmen/google-charts-bundle": "^4.0"
+        "cmen/google-charts-bundle": "^4.0",
+        "twbs/bootstrap-icons": "^1.9"
     },
     "autoload": {
         "psr-4": {
