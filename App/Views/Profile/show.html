@@ -6,17 +6,17 @@
 <br>
 <br>
 <div class="accordion col-10 col-offset-1 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 mx-auto"
-     id="accordionExample">
+    id="accordionExample">
     <div class="accordion-item">
         <h2 class="accordion-header" id="panelsStayOpen-headingOne">
             <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                    aria-controls="panelsStayOpen-collapseOne">
+                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                aria-controls="panelsStayOpen-collapseOne">
                 Profil Użytkownika
             </button>
         </h2>
         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
-             aria-labelledby="panelsStayOpen-headingOne">
+            aria-labelledby="panelsStayOpen-headingOne">
             <div class="accordion-body">
                 <ul class="list-group">
                     <li class="list-group-item">
@@ -25,10 +25,8 @@
                                 <b>Nazwa Użytkownika : &nbsp;</b> {{user.name}}
                             </div>
                             <div class="d-flex align-items-end">
-                                <a class="btn btn-primary mx-0"
-                                   href="#"
-                                   data-bs-toggle="modal"
-                                   data-bs-target="#exampleModal">
+                                <a class="btn btn-primary mx-0" href="#" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
                                     <i class="bi bi-pencil"></i>
                                 </a>
                             </div>
@@ -40,10 +38,8 @@
                                 <b>Adres e-mail : &nbsp;</b> {{user.email}}
                             </div>
                             <div class="d-flex align-items-end">
-                                <a class="btn btn-primary mx-0"
-                                   href="#"
-                                   data-bs-toggle="modal"
-                                   data-bs-target="#exampleModal">
+                                <a class="btn btn-primary mx-0" href="#" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
                                     <i class="bi bi-pencil"></i>
                                 </a>
                             </div>
@@ -56,13 +52,13 @@
     <div class="accordion-item">
         <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
-                    aria-controls="panelsStayOpen-collapseTwo">
+                data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                aria-controls="panelsStayOpen-collapseTwo">
                 Kategorie Przychodów
             </button>
         </h2>
         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
-             aria-labelledby="panelsStayOpen-headingTwo">
+            aria-labelledby="panelsStayOpen-headingTwo">
             <div class="accordion-body">
                 <ul class="list-group">
                     {% for item in incomeCategories %}
@@ -89,15 +85,16 @@
     <div class="accordion-item">
         <h2 class="accordion-header" id="panelsStayOpen-headingThree">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
-                    aria-controls="panelsStayOpen-collapseThree">
+                data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                aria-controls="panelsStayOpen-collapseThree">
                 Kategorie Wydatków
             </button>
         </h2>
         <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
-             aria-labelledby="panelsStayOpen-headingThree">
+            aria-labelledby="panelsStayOpen-headingThree">
             <div class="accordion-body">
                 <ul class="list-group">
+                    {% set i = 1 %}
                     {% for item in expenseCategories %}
                     <li class="list-group-item">
                         <div class="d-flex justify-content-between">
@@ -105,30 +102,56 @@
                                 {{ item.Category }}
                             </div>
                             <div class="d-flex align-items-end">
-                                <button class="btn btn-primary">
+                                <a class="btn btn-primary" href="#" data-bs-toggle="modal"
+                                    data-bs-target="#ExpenseCategoryModal{{ i }}">
                                     <i class="bi bi-pencil"></i>
-                                </button>
+                                </a>
                                 <button class="btn btn-danger">
                                     <i class="bi bi-trash3"></i>
                                 </button>
                             </div>
                         </div>
                     </li>
+                    <div class="modal fade" id="ExpenseCategoryModal{{ i }}" tabindex="-1" role="dialog"
+                        aria-labelledby="ExpenseCategoryModalLabel{{ i }}" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header login-form-2">
+                                    <h5 class="modal-title" id="ExpenseCategoryModalLabel{{ i }}" style="color: white;">Edycja kategorii
+                                    </h5>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" id="CategoryForm" action="">
+                                        <div class="form-group mb-2">
+                                            <label for="categoryName" class="form-label">Nazwa kategorii: </label>
+                                            <input id="categoryName" name="category" placeholder="Category"
+                                                value="{{ item.Category }}" required class="form-control" />
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">Zapisz</button>
+                                        <a class="btn btn-danger" data-bs-dismiss="modal">Anuluj</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% set i = i + 1 %}
                     {% endfor %}
                 </ul>
             </div>
         </div>
     </div>
+
     <div class="accordion-item">
         <h2 class="accordion-header" id="panelsStayOpen-headingFour">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
-                    aria-controls="panelsStayOpen-collapseFour">
+                data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
+                aria-controls="panelsStayOpen-collapseFour">
                 Sposoby Płatności
             </button>
         </h2>
         <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse"
-             aria-labelledby="panelsStayOpen-headingFour">
+            aria-labelledby="panelsStayOpen-headingFour">
             <div class="accordion-body">
                 <ul class="list-group">
                     {% for item in paymentMethods %}
@@ -154,7 +177,7 @@
     </div>
 </div>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header login-form-2">
@@ -165,18 +188,17 @@
                     <div class="form-group mb-2">
                         <label for="inputName" class="form-label">Nazwa Użytkownika: </label>
                         <input id="inputName" name="name" placeholder="Name" value="{{ user.name }}" required
-                               class="form-control"/>
+                            class="form-control" />
                     </div>
                     <div class="form-group mb-2">
                         <label for="inputEmail" class="form-label">Adres e-mail: </label>
                         <input id="inputEmail" name="email" placeholder="Adres e-mail" value="{{ user.email }}" required
-                               type="email" class="form-control"/>
+                            type="email" class="form-control" />
                     </div>
                     <div class="form-group mb-2">
                         <label for="inputPassword" class="form-label">Hasło: </label>
                         <input type="password" id="inputPassword" name="password" placeholder="Hasło"
-                               aria-describedby="helpBlock"
-                               class="form-control"/>
+                            aria-describedby="helpBlock" class="form-control" />
                         <span id="helpBlock" class="text-muted">Pozostaw puste aby nie zmieniać hasła</span>
                     </div>
 
