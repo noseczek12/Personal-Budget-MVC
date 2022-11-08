@@ -11,5 +11,9 @@
              "Core\\": "Core/",
              "App\\": "App/"
         }
+    },
+    "config": {
+        "platform-check": false
     }
+
 }
