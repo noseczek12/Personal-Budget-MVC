@@ -117,17 +117,32 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header login-form-2">
-                                    <h5 class="modal-title" id="ExpenseCategoryModalLabel{{ i }}" style="color: white;">Edycja kategorii
+                                    <h5 class="modal-title" id="ExpenseCategoryModalLabel{{ i }}" style="color: white;">
+                                        Edycja kategorii
                                     </h5>
                                 </div>
                                 <div class="modal-body">
                                     <form method="post" id="CategoryForm" action="">
-                                        <div class="form-group mb-2">
+                                        <div class="form-group">
                                             <label for="categoryName" class="form-label">Nazwa kategorii: </label>
-                                            <input id="categoryName" name="category" placeholder="Category"
+                                            <input id="categoryName" name="category" placeholder="Kategoria"
                                                 value="{{ item.Category }}" required class="form-control" />
                                         </div>
-
+                                        <div class="form-group">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="createLimit{{ i }}">
+                                            <label class="form-check-label" for="createLimit{{ i }}">
+                                                Włącz limit
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="limitAmount{{ i }}" class="form-label">Ustaw miesięczny limit
+                                                wydatków
+                                                dla kategorii: </label>
+                                            <input id="limitAmount{{ i }}" name="limitAmount" type="number" min="0"
+                                                step="0.01" placeholder="Kwota" value="" class="form-control"
+                                                disabled />
+                                        </div>
                                         <button type="submit" class="btn btn-primary">Zapisz</button>
                                         <a class="btn btn-danger" data-bs-dismiss="modal">Anuluj</a>
                                     </form>
@@ -252,5 +267,21 @@
             innerToggle: 'focus'
         });
     });
+</script>
+<script type="text/javascript">
+    const checkbox = document.querySelectorAll('[id^="createLimit"]');
+    const limitField = document.querySelectorAll('[id^="limitAmount"]');
+
+    Array.prototype.forEach.call(checkbox, check);
+
+    function check(element, iterator) {
+        element.onclick = function () {
+            if (element.checked) {
+                limitField[iterator].disabled = false;
+            } else {
+                limitField[iterator].disabled = true;
+            }
+        };
+    }
 </script>
 {% endblock %}
