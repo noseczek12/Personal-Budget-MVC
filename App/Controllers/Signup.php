@@ -25,6 +25,8 @@ class Signup extends \Core\Controller
     {
         $user = new User($_POST);
         if ($user->save()) {
+            $user->addExpenseCategories();
+            $user->addIncomeCategories();
             $user->sendActivationEmail();
             $this->redirect('/signup/success');
         } else {

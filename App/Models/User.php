@@ -43,13 +43,72 @@ class User extends \Core\Model
             $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
             $stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
             $stmt->bindValue(':activation_hash', $hashed_token, PDO::PARAM_STR);
-
-            return $stmt->execute();
+			
+			return $stmt->execute();
         }
 
         return false;
 	}
 	
+	//metoda dodająca indywidualnie zestaw kategorii wydatków
+	public function addExpenseCategories()
+	{
+		$getlastIdSql = 'SELECT id FROM users ORDER BY id DESC LIMIT 1';
+		$db = static::getDB();
+        $stmt = $db->prepare($getlastIdSql);
+		$stmt->execute();
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+		$sql = "INSERT INTO expenses_category_assigned_to_users (user_id, name)
+				VALUES
+				(:user_id, 'Jedzenie'),
+				(:user_id, 'Czynsz'),
+				(:user_id, 'Rachunki'),
+				(:user_id, 'Transport'),
+				(:user_id, 'Telekomunikacja'),
+				(:user_id, 'Apteka'),
+				(:user_id, 'Opieka zdrowotna'),
+				(:user_id, 'Ubrania'),
+				(:user_id, 'Higiena'),
+				(:user_id, 'Dzieci'),
+				(:user_id, 'Rozrywka'),
+				(:user_id, 'Wycieczka'),
+				(:user_id, 'Szkolenia'),
+				(:user_id, 'Książki'),
+				(:user_id, 'Oszczędności'),
+				(:user_id, 'Na Emeryturę'),
+				(:user_id, 'Spłata długów'),
+				(:user_id, 'Darowizna'),
+				(:user_id, 'Inne wydatki')";
+						
+		$db = static::getDB();
+        $stmt = $db->prepare($sql);
+		$stmt->bindValue(':user_id', intval($result['id']), PDO::PARAM_INT);
+		return $stmt->execute();
+	}
+	
+	//metoda dodająca indywidualnie zestaw kategorii przychodów
+	public function addIncomeCategories()
+	{
+		$getlastIdSql = 'SELECT id FROM users ORDER BY id DESC LIMIT 1';
+		$db = static::getDB();
+        $stmt = $db->prepare($getlastIdSql);
+		$stmt->execute();
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+		$sql = "INSERT INTO incomes_category_assigned_to_users (user_id, name)
+				VALUES
+				(:user_id, 'Wynagrodzenie'),
+				(:user_id, 'Pieniądze od Rodziców'),
+				(:user_id, 'Odsetki bankowe'),
+				(:user_id, 'Inne przychody')";
+						
+		$db = static::getDB();
+        $stmt = $db->prepare($sql);
+		$stmt->bindValue(':user_id', intval($result['id']), PDO::PARAM_INT);
+		return $stmt->execute();
+	}
+
 	//funkcja sprawdzająca dane przed dodaniem do bazy
 	public function validate()
 	{
