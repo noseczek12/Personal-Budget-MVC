@@ -51,7 +51,7 @@ class User extends \Core\Model
 	}
 	
 	//metoda dodająca indywidualnie zestaw kategorii wydatków
-	public function addExpenseCategories()
+	public function addExpenseCategories($user_id)
 	{
 		$getlastIdSql = 'SELECT id FROM users ORDER BY id DESC LIMIT 1';
 		$db = static::getDB();
@@ -83,12 +83,12 @@ class User extends \Core\Model
 						
 		$db = static::getDB();
         $stmt = $db->prepare($sql);
-		$stmt->bindValue(':user_id', intval($result['id']), PDO::PARAM_INT);
+		$stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 		return $stmt->execute();
 	}
 	
 	//metoda dodająca indywidualnie zestaw kategorii przychodów
-	public function addIncomeCategories()
+	public function addIncomeCategories($user_id)
 	{
 		$getlastIdSql = 'SELECT id FROM users ORDER BY id DESC LIMIT 1';
 		$db = static::getDB();
@@ -105,7 +105,7 @@ class User extends \Core\Model
 						
 		$db = static::getDB();
         $stmt = $db->prepare($sql);
-		$stmt->bindValue(':user_id', intval($result['id']), PDO::PARAM_INT);
+		$stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 		return $stmt->execute();
 	}
 
